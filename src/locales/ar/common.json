@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "about": "عن الشركة",
+    "landscaping": "اللاندسكيب",
+    "fencing": "السياجات",
+    "fencingMobile": "السياجات الحديدية",
+    "infrastructure": "البنية التحتية",
+    "contact": "تواصل معنا"
+  },
+  "aria": {
+    "homePage": "الصفحة الرئيسية",
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "menuToggle": "قائمة التنقل",
+    "logoAlt": "TAM Alarabiya logo",
+    "switchToEnglish": "Switch to English",
+    "switchToArabic": "Switch to Arabic"
+  },
+  "tagline": "TAM Alarabiya Co.",
+  "companyName": {
+    "prefix": "شركة ",
+    "highlight": "تام",
+    "suffix": " العربية للمقاولات",
+    "heroEn": "TAM Al Arabia",
+    "heroAr": "شركة تام العربية للمقاولات"
+  },
+  "footer": {
+    "description": "شريككم الاستراتيجي في بناء المستقبل، نجمع بين الخبرة العميقة والحلول المبتكرة في كافة مجالات المقاولات الحديثة.",
+    "quickLinks": "روابط سريعة",
+    "services": "خدماتنا",
+    "contactInfo": "بيانات التواصل",
+    "callUs": "اتصل بنا",
+    "email": "البريد الإلكتروني",
+    "location": "الموقع الجغرافي",
+    "locationValue": "الرياض، المملكة العربية السعودية",
+    "copyright": "© {{year}} – {{hijriYear}}H شركة تام العربية للمقاولات. جميع الحقوق محفوظة.",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام",
+    "links": {
+      "home": "الرئيسية",
+      "about": "عن الشركة",
+      "contact": "تواصل معنا",
+      "infrastructure": "البنية التحتية",
+      "landscaping": "تنسيق الحدائق",
+      "fencing": "السياجات الحديدية",
+      "contracting": "أعمال المقاولات"
+    }
+  },
+  "floating": {
+    "downloadProfile": "بروفايل الشركة",
+    "downloadProfileEn": "Company Profile",
+    "downloading": "جاري التنزيل...",
+    "home": "الرئيسية",
+    "whatsapp": "تواصل عبر واتساب",
+    "call": "اتصل بنا"
+  },
+  "videoModal": {
+    "close": "إغلاق",
+    "title": "Project Video"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "الصفحة غير موجودة",
+    "backHome": "العودة للصفحة الرئيسية"
+  },
+  "languageSwitcher": "EN"
+}

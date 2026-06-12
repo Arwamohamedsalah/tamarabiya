@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "subtitle": "Contact Us",
+    "title": "تواصل معنا",
+    "backHome": "العودة للصفحة الرئيسية",
+    "imageAlt": "Contact Us"
+  },
+  "phone": {
+    "title": "الهاتف",
+    "subtitle": "Phone"
+  },
+  "website": {
+    "title": "الموقع الإلكتروني",
+    "subtitle": "Website"
+  },
+  "address": {
+    "title": "العنوان",
+    "subtitle": "Address",
+    "country": "المملكة العربية السعودية",
+    "countryEn": "Kingdom of Saudi Arabia"
+  },
+  "social": {
+    "title": "وسائل التواصل الاجتماعي",
+    "subtitle": "Social Media"
+  },
+  "qr": {
+    "title": "رمز QR",
+    "subtitle": "امسح الرمز للتواصل معنا فوراً",
+    "scanHint": "امسح الرمز بكاميرا هاتفك",
+    "openLink": "فتح الرابط",
+    "imageAlt": "رمز QR - {{destination}}",
+    "destinations": {
+      "whatsapp": "واتساب",
+      "phone": "اتصال هاتفي",
+      "website": "الموقع الإلكتروني",
+      "custom": "رابط مخصص"
+    }
+  },
+  "companyCard": {
+    "tagline": "TAM Alarabiya Co. for contracting",
+    "servicesAr": "الهياكل المعدنية – تنسيق وتنفيذ الحدائق – الأعمال المدنية",
+    "servicesEn": "Earth work – Landscaping – Metal structure",
+    "copyright": "© 2025 – 1445"
+  },
+  "form": {
+    "name": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "service": "نوع الخدمة",
+    "message": "الرسالة",
+    "namePlaceholder": "أدخل اسمك الكامل",
+    "emailPlaceholder": "example@email.com",
+    "phonePlaceholder": "05xxxxxxxx",
+    "servicePlaceholder": "اختر الخدمة",
+    "messagePlaceholder": "اكتب رسالتك هنا...",
+    "submit": "إرسال الرسالة",
+    "submitting": "جاري الإرسال...",
+    "success": "تم إرسال الرسالة بنجاح! سنتواصل معك قريباً.",
+    "error": "حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.",
+    "services": {
+      "landscaping": "اللاندسكيب",
+      "fencing": "السياجات الحديدية",
+      "infrastructure": "البنية التحتية",
+      "other": "أخرى"
+    }
+  }
+}

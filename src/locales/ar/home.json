@@ -1,0 +1,53 @@
+{
+  "hero": {
+    "brandTam": "TAM",
+    "brandAlarabiya": "ALARABIYA",
+    "brandSubtitle": "Co. for contracting",
+    "brandPrefix": "شركة",
+    "brandHighlight": "تام",
+    "brandSuffix": "العربية للمقاولات",
+    "taglineEn": "Earth work – Landscaping – Metal structure",
+    "taglineAr": "أعمال الطرق – تنسيق الحدائق – الهياكل المعدنية",
+    "downloadProfile": "تنزيل الملف",
+    "whoWeAre": "من نحن",
+    "backgroundAlt": "TAM Background"
+  },
+  "services": {
+    "expertise": "Our Expertise",
+    "title": "نطاقات العمل الرئيسية",
+    "explore": "استكشف",
+    "landscaping": {
+      "title": "تنسيق وتنفيذ الحدائق",
+      "titleEn": "Landscaping",
+      "description": "تنفيذ وتنسيق الحدائق والمساحات الخضراء بأعلى معايير الجودة والاستدامة البيئية."
+    },
+    "fencing": {
+      "title": "الهياكل المعدنية والسياجات",
+      "titleEn": "Metal structure & Fencing",
+      "description": "تنفيذ وتركيب الهياكل الحديدية والسياجات الأمنية وجاردريل الحماية للمشاريع الكبرى."
+    },
+    "infrastructure": {
+      "title": "أعمال الطرق والبنية التحتية",
+      "titleEn": "Earth work & Infrastructure",
+      "description": "تنفيذ مشاريع الطرق والحفريات والبنية التحتية المتكاملة بأسلوب هندسي مبتكر."
+    }
+  },
+  "stats": {
+    "title": "رؤية تقودها الثقة",
+    "years": {
+      "number": "+15",
+      "label": "سنة من الإنجاز",
+      "subtitle": "Years of Excellence"
+    },
+    "projects": {
+      "number": "+500",
+      "label": "مشروع نوعي",
+      "subtitle": "Strategic Projects"
+    },
+    "quality": {
+      "number": "100%",
+      "label": "معايير الجودة",
+      "subtitle": "Quality Standards"
+    }
+  }
+}

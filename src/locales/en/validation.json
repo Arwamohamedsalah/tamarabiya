@@ -1,0 +1,22 @@
+{
+  "name": {
+    "min": "Name must be at least 2 characters",
+    "max": "Name must be less than 50 characters",
+    "pattern": "Name must contain letters only"
+  },
+  "email": {
+    "required": "Email is required",
+    "invalid": "Invalid email address"
+  },
+  "phone": {
+    "required": "Phone number is required",
+    "invalid": "Invalid phone number. Must be a valid Saudi number"
+  },
+  "service": {
+    "required": "Please select a service"
+  },
+  "message": {
+    "min": "Message must be at least 10 characters",
+    "max": "Message must be less than 500 characters"
+  }
+}

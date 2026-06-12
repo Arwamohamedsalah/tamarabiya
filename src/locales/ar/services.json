@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "workAreas": "مجالات العمل",
+    "projects": "سابقة الأعمال",
+    "gallery": "معرض الصور"
+  },
+  "sections": {
+    "projects": "سابقة الأعمال",
+    "gallery": "معرض الصور",
+    "noProjects": "لا توجد مشاريع لعرضها",
+    "noGallery": "لا توجد صور في المعرض"
+  },
+  "projectFallback": "مشروع {{number}}",
+  "galleryFallback": "Gallery {{number}}",
+  "location": "المملكة العربية السعودية",
+  "landscaping": {
+    "seoTitle": "اللاندسكيب وتنسيق الحدائق",
+    "seoDescription": "تنسيق وتنفيذ الحدائق والمساحات الخضراء بأعلى معايير الجودة - هاردسكيب، سوفتسكيب، أنظمة ري، صيانة.",
+    "pageTitle": "اللاندسكيب وتنسيق الحدائق",
+    "pageTitleEn": "Landscaping Services",
+    "workAreasTitle": "مجالات عملنا في اللاندسكيب",
+    "introTitle": "تنفيذ وتنسيق الحدائق",
+    "introTitleEn": "Garden Design & Implementation",
+    "introDescription": "نقدم خدمات شاملة في تنسيق الحدائق وتصميم المناظر الطبيعية، من التخطيط والتصميم إلى التنفيذ والصيانة. نحرص على إنشاء مساحات خضراء جميلة ومستدامة تعكس رؤيتك وتلبي احتياجاتك.",
+    "introDescriptionEn": "We provide comprehensive landscaping and landscape design services, from planning and design to implementation and maintenance. We create beautiful, sustainable green spaces that reflect your vision and meet your needs.",
+    "ctaTitle": "هل لديك مشروع لاندسكيب؟",
+    "ctaTitleEn": "Have a landscaping project?",
+    "ctaDescription": "تواصل معنا اليوم للحصول على استشارة مجانية",
+    "ctaDescriptionEn": "Contact us today for a free consultation",
+    "ctaButtonText": "تواصل معنا",
+    "ctaButtonTextEn": "Contact Us",
+    "defaultTypes": [
+      { "name": "Hardscape", "nameAr": "الهاردسكيب", "desc": "الممرات والأرضيات الصلبة", "descEn": "Paths and hard surfaces" },
+      { "name": "Softscape", "nameAr": "السوفتسكيب", "desc": "الزراعة والنباتات", "descEn": "Planting and vegetation" },
+      { "name": "Irrigation", "nameAr": "أنظمة الري", "desc": "ري حديث وذكي", "descEn": "Modern smart irrigation" },
+      { "name": "Maintenance", "nameAr": "الصيانة", "desc": "صيانة دورية شاملة", "descEn": "Comprehensive periodic maintenance" }
+    ]
+  },
+  "fencing": {
+    "seoTitle": "الهياكل المعدنية والسياجات",
+    "seoDescription": "تنفيذ وتركيب الهياكل الحديدية والسياجات وجاردريل الحماية والبوابات بأعلى معايير الجودة والأمان.",
+    "pageTitle": "الهياكل المعدنية والسياجات",
+    "pageTitleEn": "Metal Structures & Fencing",
+    "workAreasTitle": "مجالات عملنا في السياجات",
+    "introTitle": "تنفيذ وتركيب الهياكل الحديدية",
+    "introTitleEn": "Metal Structure Fabrication & Installation",
+    "introDescription": "تنفيذ وتركيب الهياكل الحديدية من مصانع ومستودعات وهياكل اللوحات الإعلانية والسياجات وجاردريل الحماية بأنواعها. نوفر حلول متكاملة من التصميم والتصنيع إلى التركيب والصيانة. منتجاتنا تتميز بالجودة العالية والمتانة والالتزام بالمواصفات القياسية والمعايير الأمنية.",
+    "introDescriptionEn": "Fabrication and installation of metal structures including factories, warehouses, billboard structures, fencing, and guardrails. We provide integrated solutions from design and manufacturing to installation and maintenance, meeting the highest quality and security standards.",
+    "ctaTitle": "تحتاج لحلول سياجات؟",
+    "ctaTitleEn": "Need fencing solutions?",
+    "ctaDescription": "احصل على عرض أسعار مجاني لمشروعك",
+    "ctaDescriptionEn": "Get a free quote for your project",
+    "ctaButtonText": "اطلب عرض سعر",
+    "ctaButtonTextEn": "Request a Quote",
+    "defaultTypes": [
+      { "name": "Security Fencing", "nameAr": "السياجات الأمنية", "desc": "حماية محيطية متطورة", "descEn": "Advanced perimeter protection" },
+      { "name": "Guardrails", "nameAr": "الجارد ريل", "desc": "حواجز الطرق والجسور", "descEn": "Road and bridge barriers" },
+      { "name": "Temporary Fencing", "nameAr": "الأسوار المؤقتة", "desc": "للمواقع والفعاليات", "descEn": "For sites and events" },
+      { "name": "Gate Systems", "nameAr": "أنظمة البوابات", "desc": "بوابات آلية وذكية", "descEn": "Automatic smart gates" }
+    ]
+  },
+  "infrastructure": {
+    "seoTitle": "البنية التحتية والأعمال المدنية",
+    "seoDescription": "تنفيذ مشاريع الطرق والحفريات والبنية التحتية - شبكات المياه، الصرف الصحي، الكهرباء، الاتصالات.",
+    "pageTitle": "البنية التحتية والأعمال المدنية",
+    "pageTitleEn": "Infrastructure & Civil Works",
+    "workAreasTitle": "مجالات عملنا في البنية التحتية",
+    "introTitle": "أعمال الطرق والحفر والردم والبنية التحتية",
+    "introTitleEn": "Road Works, Excavation & Infrastructure",
+    "introDescription": "نعمل على تنفيذ مشاريع الطرق من قطع وحفر وردم ومشاريع حفريات البنية التحتية معتمدة بذلك على تأمين المعدات اللازمة للمشروع وفنيين ومراقبين ذو خبرة سابقة. نمتلك الخبرة والكفاءة في تنفيذ مشاريع البنية التحتية والأعمال المدنية بأعلى معايير الجودة والسلامة.",
+    "introDescriptionEn": "We execute road projects including cutting, excavation, backfilling, and infrastructure excavation projects, supported by the necessary equipment and experienced technicians and supervisors. We deliver infrastructure and civil works projects with the highest quality and safety standards.",
+    "ctaTitle": "لديك مشروع بنية تحتية؟",
+    "ctaTitleEn": "Have an infrastructure project?",
+    "ctaDescription": "دعنا نساعدك في تحويل رؤيتك إلى واقع",
+    "ctaDescriptionEn": "Let us help you turn your vision into reality",
+    "ctaButtonText": "استشارة مجانية",
+    "ctaButtonTextEn": "Free Consultation",
+    "defaultTypes": [
+      { "name": "Water Networks", "nameAr": "شبكات المياه", "desc": "تمديد وصيانة شبكات المياه", "descEn": "Water network extension and maintenance" },
+      { "name": "Sewage Systems", "nameAr": "الصرف الصحي", "desc": "أنظمة الصرف والمعالجة", "descEn": "Drainage and treatment systems" },
+      { "name": "Electrical Works", "nameAr": "الأعمال الكهربائية", "desc": "شبكات الكهرباء والإنارة", "descEn": "Electrical and lighting networks" },
+      { "name": "Telecom Infrastructure", "nameAr": "شبكات الاتصالات", "desc": "البنية التحتية للاتصالات", "descEn": "Telecommunications infrastructure" },
+      { "name": "Roads & Paving", "nameAr": "الطرق والرصف", "desc": "إنشاء وصيانة الطرق", "descEn": "Road construction and maintenance" },
+      { "name": "Drainage Systems", "nameAr": "أنظمة التصريف", "desc": "تصريف مياه الأمطار", "descEn": "Stormwater drainage systems" }
+    ]
+  }
+}

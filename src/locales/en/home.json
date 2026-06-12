@@ -1,0 +1,53 @@
+{
+  "hero": {
+    "brandTam": "TAM",
+    "brandAlarabiya": "ALARABIYA",
+    "brandSubtitle": "Co. for contracting",
+    "brandPrefix": "",
+    "brandHighlight": "TAM",
+    "brandSuffix": "Al Arabia Contracting Co.",
+    "taglineEn": "Earth work – Landscaping – Metal structure",
+    "taglineAr": "Earth work – Landscaping – Metal structure",
+    "downloadProfile": "Download Profile",
+    "whoWeAre": "Who We Are",
+    "backgroundAlt": "TAM Background"
+  },
+  "services": {
+    "expertise": "Our Expertise",
+    "title": "Core Service Areas",
+    "explore": "Explore",
+    "landscaping": {
+      "title": "Landscaping",
+      "titleEn": "Landscaping",
+      "description": "Design and implementation of gardens and green spaces with the highest standards of quality and environmental sustainability."
+    },
+    "fencing": {
+      "title": "Metal Structures & Fencing",
+      "titleEn": "Metal structure & Fencing",
+      "description": "Fabrication and installation of metal structures, security fencing, and guardrails for major projects."
+    },
+    "infrastructure": {
+      "title": "Earth Works & Infrastructure",
+      "titleEn": "Earth work & Infrastructure",
+      "description": "Execution of road projects, excavations, and integrated infrastructure with innovative engineering approaches."
+    }
+  },
+  "stats": {
+    "title": "A Vision Driven by Trust",
+    "years": {
+      "number": "+15",
+      "label": "Years of Excellence",
+      "subtitle": "Years of Excellence"
+    },
+    "projects": {
+      "number": "+500",
+      "label": "Strategic Projects",
+      "subtitle": "Strategic Projects"
+    },
+    "quality": {
+      "number": "100%",
+      "label": "Quality Standards",
+      "subtitle": "Quality Standards"
+    }
+  }
+}

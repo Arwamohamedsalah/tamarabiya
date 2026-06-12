@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "subtitle": "Contact Us",
+    "title": "Contact Us",
+    "backHome": "Back to home page",
+    "imageAlt": "Contact Us"
+  },
+  "phone": {
+    "title": "Phone",
+    "subtitle": "Phone"
+  },
+  "website": {
+    "title": "Website",
+    "subtitle": "Website"
+  },
+  "address": {
+    "title": "Address",
+    "subtitle": "Address",
+    "country": "Kingdom of Saudi Arabia",
+    "countryEn": "Kingdom of Saudi Arabia"
+  },
+  "social": {
+    "title": "Social Media",
+    "subtitle": "Social Media"
+  },
+  "qr": {
+    "title": "QR Code",
+    "subtitle": "Scan to connect with us instantly",
+    "scanHint": "Scan the code with your phone camera",
+    "openLink": "Open link",
+    "imageAlt": "QR Code - {{destination}}",
+    "destinations": {
+      "whatsapp": "WhatsApp",
+      "phone": "Phone call",
+      "website": "Website",
+      "custom": "Custom link"
+    }
+  },
+  "companyCard": {
+    "tagline": "TAM Alarabiya Co. for contracting",
+    "servicesAr": "Metal Structures – Landscaping – Civil Works",
+    "servicesEn": "Earth work – Landscaping – Metal structure",
+    "copyright": "© 2025 – 1445"
+  },
+  "form": {
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "service": "Service Type",
+    "message": "Message",
+    "namePlaceholder": "Enter your full name",
+    "emailPlaceholder": "example@email.com",
+    "phonePlaceholder": "05xxxxxxxx",
+    "servicePlaceholder": "Select a service",
+    "messagePlaceholder": "Write your message here...",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Your message has been sent successfully! We will contact you soon.",
+    "error": "An error occurred while sending your message. Please try again.",
+    "services": {
+      "landscaping": "Landscaping",
+      "fencing": "Metal Fencing",
+      "infrastructure": "Infrastructure",
+      "other": "Other"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "landscaping": "Landscaping",
+    "fencing": "Fencing",
+    "fencingMobile": "Metal Fencing",
+    "infrastructure": "Infrastructure",
+    "contact": "Contact Us"
+  },
+  "aria": {
+    "homePage": "Home page",
+    "mainNav": "Main navigation",
+    "mobileNav": "Mobile navigation",
+    "menuToggle": "Navigation menu",
+    "logoAlt": "TAM Alarabiya logo",
+    "switchToEnglish": "Switch to English",
+    "switchToArabic": "Switch to Arabic"
+  },
+  "tagline": "TAM Alarabiya Co.",
+  "companyName": {
+    "prefix": "",
+    "highlight": "TAM",
+    "suffix": " Al Arabia",
+    "heroEn": "TAM Al Arabia",
+    "heroAr": "TAM Al Arabia Contracting Co."
+  },
+  "footer": {
+    "description": "Your strategic partner in building the future, combining deep expertise with innovative solutions across all modern contracting fields.",
+    "quickLinks": "Quick Links",
+    "services": "Our Services",
+    "contactInfo": "Contact Information",
+    "callUs": "Call Us",
+    "email": "Email",
+    "location": "Location",
+    "locationValue": "Riyadh, Kingdom of Saudi Arabia",
+    "copyright": "© {{year}} – {{hijriYear}}H TAM Al Arabia Contracting Co. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "links": {
+      "home": "Home",
+      "about": "About Us",
+      "contact": "Contact Us",
+      "infrastructure": "Infrastructure",
+      "landscaping": "Landscaping",
+      "fencing": "Metal Fencing",
+      "contracting": "Contracting Works"
+    }
+  },
+  "floating": {
+    "downloadProfile": "Company Profile",
+    "downloadProfileEn": "Company Profile",
+    "downloading": "Downloading...",
+    "home": "Home",
+    "whatsapp": "Chat on WhatsApp",
+    "call": "Call Us"
+  },
+  "videoModal": {
+    "close": "Close",
+    "title": "Project Video"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Page not found",
+    "backHome": "Back to Home"
+  },
+  "languageSwitcher": "AR"
+}

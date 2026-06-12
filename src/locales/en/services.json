@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "workAreas": "Work Areas",
+    "projects": "Past Projects",
+    "gallery": "Photo Gallery"
+  },
+  "sections": {
+    "projects": "Past Projects",
+    "gallery": "Photo Gallery",
+    "noProjects": "No projects to display",
+    "noGallery": "No images in the gallery"
+  },
+  "projectFallback": "Project {{number}}",
+  "galleryFallback": "Gallery {{number}}",
+  "location": "Kingdom of Saudi Arabia",
+  "landscaping": {
+    "seoTitle": "Landscaping & Garden Design",
+    "seoDescription": "Design and implementation of gardens and green spaces with the highest quality standards - hardscape, softscape, irrigation systems, maintenance.",
+    "pageTitle": "Landscaping & Garden Design",
+    "pageTitleEn": "Landscaping Services",
+    "workAreasTitle": "Our Landscaping Work Areas",
+    "introTitle": "Garden Design & Implementation",
+    "introTitleEn": "Garden Design & Implementation",
+    "introDescription": "We provide comprehensive landscaping and landscape design services, from planning and design to implementation and maintenance. We create beautiful, sustainable green spaces that reflect your vision and meet your needs.",
+    "introDescriptionEn": "We provide comprehensive landscaping and landscape design services, from planning and design to implementation and maintenance. We create beautiful, sustainable green spaces that reflect your vision and meet your needs.",
+    "ctaTitle": "Have a landscaping project?",
+    "ctaTitleEn": "Have a landscaping project?",
+    "ctaDescription": "Contact us today for a free consultation",
+    "ctaDescriptionEn": "Contact us today for a free consultation",
+    "ctaButtonText": "Contact Us",
+    "ctaButtonTextEn": "Contact Us",
+    "defaultTypes": [
+      { "name": "Hardscape", "nameAr": "Hardscape", "desc": "Paths and hard surfaces", "descEn": "Paths and hard surfaces" },
+      { "name": "Softscape", "nameAr": "Softscape", "desc": "Planting and vegetation", "descEn": "Planting and vegetation" },
+      { "name": "Irrigation", "nameAr": "Irrigation", "desc": "Modern smart irrigation", "descEn": "Modern smart irrigation" },
+      { "name": "Maintenance", "nameAr": "Maintenance", "desc": "Comprehensive periodic maintenance", "descEn": "Comprehensive periodic maintenance" }
+    ]
+  },
+  "fencing": {
+    "seoTitle": "Metal Structures & Fencing",
+    "seoDescription": "Fabrication and installation of metal structures, fencing, guardrails, and gates with the highest quality and safety standards.",
+    "pageTitle": "Metal Structures & Fencing",
+    "pageTitleEn": "Metal Structures & Fencing",
+    "workAreasTitle": "Our Fencing Work Areas",
+    "introTitle": "Metal Structure Fabrication & Installation",
+    "introTitleEn": "Metal Structure Fabrication & Installation",
+    "introDescription": "Fabrication and installation of metal structures including factories, warehouses, billboard structures, fencing, and guardrails. We provide integrated solutions from design and manufacturing to installation and maintenance, meeting the highest quality and security standards.",
+    "introDescriptionEn": "Fabrication and installation of metal structures including factories, warehouses, billboard structures, fencing, and guardrails. We provide integrated solutions from design and manufacturing to installation and maintenance, meeting the highest quality and security standards.",
+    "ctaTitle": "Need fencing solutions?",
+    "ctaTitleEn": "Need fencing solutions?",
+    "ctaDescription": "Get a free quote for your project",
+    "ctaDescriptionEn": "Get a free quote for your project",
+    "ctaButtonText": "Request a Quote",
+    "ctaButtonTextEn": "Request a Quote",
+    "defaultTypes": [
+      { "name": "Security Fencing", "nameAr": "Security Fencing", "desc": "Advanced perimeter protection", "descEn": "Advanced perimeter protection" },
+      { "name": "Guardrails", "nameAr": "Guardrails", "desc": "Road and bridge barriers", "descEn": "Road and bridge barriers" },
+      { "name": "Temporary Fencing", "nameAr": "Temporary Fencing", "desc": "For sites and events", "descEn": "For sites and events" },
+      { "name": "Gate Systems", "nameAr": "Gate Systems", "desc": "Automatic smart gates", "descEn": "Automatic smart gates" }
+    ]
+  },
+  "infrastructure": {
+    "seoTitle": "Infrastructure & Civil Works",
+    "seoDescription": "Execution of road projects, excavations, and infrastructure - water networks, sewage, electrical, telecommunications.",
+    "pageTitle": "Infrastructure & Civil Works",
+    "pageTitleEn": "Infrastructure & Civil Works",
+    "workAreasTitle": "Our Infrastructure Work Areas",
+    "introTitle": "Road Works, Excavation & Infrastructure",
+    "introTitleEn": "Road Works, Excavation & Infrastructure",
+    "introDescription": "We execute road projects including cutting, excavation, backfilling, and infrastructure excavation projects, supported by the necessary equipment and experienced technicians and supervisors. We deliver infrastructure and civil works projects with the highest quality and safety standards.",
+    "introDescriptionEn": "We execute road projects including cutting, excavation, backfilling, and infrastructure excavation projects, supported by the necessary equipment and experienced technicians and supervisors. We deliver infrastructure and civil works projects with the highest quality and safety standards.",
+    "ctaTitle": "Have an infrastructure project?",
+    "ctaTitleEn": "Have an infrastructure project?",
+    "ctaDescription": "Let us help you turn your vision into reality",
+    "ctaDescriptionEn": "Let us help you turn your vision into reality",
+    "ctaButtonText": "Free Consultation",
+    "ctaButtonTextEn": "Free Consultation",
+    "defaultTypes": [
+      { "name": "Water Networks", "nameAr": "Water Networks", "desc": "Water network extension and maintenance", "descEn": "Water network extension and maintenance" },
+      { "name": "Sewage Systems", "nameAr": "Sewage Systems", "desc": "Drainage and treatment systems", "descEn": "Drainage and treatment systems" },
+      { "name": "Electrical Works", "nameAr": "Electrical Works", "desc": "Electrical and lighting networks", "descEn": "Electrical and lighting networks" },
+      { "name": "Telecom Infrastructure", "nameAr": "Telecom Infrastructure", "desc": "Telecommunications infrastructure", "descEn": "Telecommunications infrastructure" },
+      { "name": "Roads & Paving", "nameAr": "Roads & Paving", "desc": "Road construction and maintenance", "descEn": "Road construction and maintenance" },
+      { "name": "Drainage Systems", "nameAr": "Drainage Systems", "desc": "Stormwater drainage systems", "descEn": "Stormwater drainage systems" }
+    ]
+  }
+}

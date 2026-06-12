@@ -1,0 +1,40 @@
+{
+  "specializations": {
+    "titlePrefix": "",
+    "titleHighlight": "TAM",
+    "titleSuffix": " Alarabiya specialized in three main majors:",
+    "title": "TAM Alarabiya specialized in three main majors:",
+    "items": [
+      "Earth work excavation & backfilling work, road work.",
+      "Landscaping and irrigation work.",
+      "Metal structure and fencing work."
+    ],
+    "paragraph1": "We have hired and trained teams consisting of a supervisor and trained workers for each team, all of them with previous experience and knowledge in the fields of the company.",
+    "paragraph2": "Since establishment, the company has focused on growth by securing projects and employing technical staff to ensure speed and quality of delivery."
+  },
+  "visionMission": {
+    "title": "Vision – Mission",
+    "planning": {
+      "title": "To plan:",
+      "text": "Elaborate planning of the project before receiving it, and identifying and preparing teams of technicians, labour and equipment before receiving the project."
+    },
+    "resources": {
+      "title": "Securing resources:",
+      "text": "Financial resources, adjusting the workflow budget according to the agreed items, weekly follow-up to the project timeline, and supplying labour teams and equipment when needed."
+    },
+    "workflow": {
+      "title": "Workflow:",
+      "text": "Follow-up with official authorities to ensure the progress of work, prepare sites, and develop a weekly plan for the completion of each project."
+    },
+    "delivery": {
+      "title": "Delivery Team:",
+      "text": "Deliver projects to official authorities according to engineering and technical specifications by the consultant."
+    }
+  },
+  "companyVision": {
+    "title": "Our Vision",
+    "heading": "Vision",
+    "paragraph1": "Our vision is focused on growth and expansion, as the company has taken a growth plan by increasing technicians and skilled labors according to the projects entrusted to it.",
+    "paragraph2": "We are keen to implement projects within the specified project timeline."
+  }
+}

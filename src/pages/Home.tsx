@@ -6,6 +6,7 @@ import SeoHead from '../components/SeoHead';
 import { getDefaultImage, getImagesByPageAndSection, getImageWrapperStyle } from '../utils/imageUtils';
 import { useEffect, useMemo, useState } from 'react';
 import ServiceCardWithSlider from '../components/ServiceCardWithSlider';
+import TamArabicText from '../components/TamArabicText';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 
 export default function Home() {
@@ -132,38 +133,38 @@ export default function Home() {
         <div className="relative z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 md:pt-28">
           <div className="animate-fade-in-up">
             <div className="mb-2 lg:mb-4 flex flex-col items-center gap-1 md:gap-2 text-center">
-              {(language === 'en' || language === 'ar') && (
-                <div className="flex flex-col items-center" dir="ltr">
-                  <h2 className="font-black tracking-[0.1em] leading-[1] mb-1 flex items-baseline gap-2">
-                    <span className="text-5xl md:text-6xl lg:text-7xl text-yellow-400 drop-shadow-[0_0_20px_rgba(250,204,21,0.3)]">{t('home:hero.brandTam')}</span>
-                    <span className="text-2xl md:text-3xl lg:text-4xl text-white">{t('home:hero.brandAlarabiya')}</span>
-                  </h2>
-                  <span className="text-[10px] md:text-xs lg:text-sm font-bold text-white/90 uppercase tracking-[0.6em] mb-1">
-                    {t('home:hero.brandSubtitle')}
+              <div className="flex flex-col items-center" dir="ltr">
+                <h2 className="font-montserrat english-brand-text font-semibold tracking-[0.045em] leading-[1] mb-1 inline-flex items-baseline justify-center gap-[0.28em] flex-wrap">
+                  <span className="text-5xl md:text-6xl lg:text-7xl brand-tam-hero-gold">
+                    {t('home:hero.brandTam')}
                   </span>
-                </div>
-              )}
+                  <span className="text-2xl md:text-3xl lg:text-4xl text-white">
+                    {t('home:hero.brandAlarabiya')}
+                  </span>
+                </h2>
+                <span className="font-montserrat english-brand-text text-[10px] md:text-xs lg:text-sm font-bold text-white/90 uppercase tracking-[0.6em] mb-1">
+                  {t('home:hero.brandSubtitle')}
+                </span>
+              </div>
 
               {language === 'ar' && (
                 <>
-                  <div className="w-10 h-1 bg-yellow-400 opacity-60 my-1 mx-auto"></div>
-                  <div className="flex flex-col items-center">
-                    <h2 className="font-black tracking-tight leading-[1] mb-1 flex items-baseline gap-2">
-                      <span className="text-lg md:text-xl lg:text-2xl text-white">{t('home:hero.brandPrefix')}</span>
-                      <span className="text-xl md:text-2xl lg:text-3xl text-yellow-400 drop-shadow-[0_0_20px_rgba(250,204,21,0.3)]">{t('home:hero.brandHighlight')}</span>
-                      <span className="text-lg md:text-xl lg:text-2xl text-white/95">{t('home:hero.brandSuffix')}</span>
-                    </h2>
-                  </div>
+                  <div className="w-10 h-1 bg-yellow-400 opacity-60 my-1 mx-auto" />
+                  <h2 className="font-arabic arabic-brand-text text-lg md:text-xl lg:text-2xl leading-[1] mb-1 inline-flex items-baseline justify-center gap-1 flex-wrap" dir="rtl">
+                    <span className="text-white">{t('home:hero.brandPrefix')}</span>
+                    <TamArabicText />
+                    <span className="text-white/95">{t('home:hero.brandSuffix')}</span>
+                  </h2>
                 </>
               )}
             </div>
 
-            <div className="mb-8 animate-fade-in-up animate-delay-200 text-center items-center flex flex-col">
-              <p className="text-[10px] md:text-xs text-white/80 font-bold tracking-[0.5em] uppercase mb-1">
+            <div className="mb-8 animate-fade-in-up animate-delay-200 text-center items-center flex flex-col gap-1">
+              <p className="font-montserrat text-[10px] md:text-xs text-white/80 font-bold tracking-[0.5em] uppercase">
                 {t('home:hero.taglineEn')}
               </p>
               {language === 'ar' && (
-                <p className="text-sm md:text-lg text-yellow-400 font-bold opacity-90 tracking-wider">
+                <p className="font-arabic arabic-brand-text text-sm md:text-lg text-yellow-400 font-bold opacity-90 tracking-wider">
                   {t('home:hero.taglineAr')}
                 </p>
               )}
@@ -203,7 +204,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16 animate-fade-in-up">
             <span className="text-yellow-500 font-bold tracking-[0.2em] uppercase text-xs mb-3 block">{t('home:services.expertise')}</span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-metal mb-6 tracking-tight">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-metal mb-6">
               {t('home:services.title')}
             </h2>
             <div className="w-16 h-1 bg-yellow-400 mx-auto rounded-none"></div>
@@ -231,7 +232,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 tracking-tight">{t('home:stats.title')}</h2>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">{t('home:stats.title')}</h2>
             <div className="w-16 h-1 bg-cta mx-auto rounded-none"></div>
           </div>
 

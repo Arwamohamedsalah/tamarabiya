@@ -108,7 +108,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
                         {titleEn}
                     </p>
                 ) : null}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-8 tracking-tight drop-shadow-2xl leading-[1.1]">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 drop-shadow-2xl leading-[1.1]">
                     {title}
                 </h1>
                 <div className="w-16 h-1 bg-gradient-to-r from-transparent via-current to-transparent mx-auto opacity-40 rounded-full mb-12" style={{ color: accentColor === 'metal' ? '#94a3b8' : accentColor === 'landscape' ? '#22c55e' : accentColor === 'infra' ? '#f97316' : '#bf813d' }}></div>

@@ -121,7 +121,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
         </nav>
 
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
             {localizedContent.introTitle}
           </h2>
           <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed opacity-90">

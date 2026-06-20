@@ -1,8 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .brand-tam-hero-gold {
+    color: var(--brand-tam-gold);
+    filter: drop-shadow(0 0 16px rgba(243, 191, 28, 0.35));
+  }
+
+  .brand-wordmark-tam-gradient {
+    background: linear-gradient(270deg, #f4cb5e 0%, #e5b33a 35%, #c38f1d 68%, #a87612 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Arabic brand text — Tajawal (DIN Next Arabic Bold alternative) */
+  .arabic-brand-text {
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 500;
+    font-variation-settings: 'wght' 500;
+    letter-spacing: 0.015em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+  }
+
+  /* English brand text — Montserrat (Gotham Bold alternative) */
+  .english-brand-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
 
 @layer base {
   * {
@@ -13,11 +48,19 @@
     scroll-behavior: smooth;
   }
 
+  html[lang='en'] body {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  html[lang='ar'] body {
+    font-family: 'Tajawal', 'Montserrat', system-ui, -apple-system, sans-serif;
+    letter-spacing: 0.015em;
+  }
+
   body {
-    font-family: 'Cairo', 'Montserrat', system-ui, -apple-system, sans-serif;
     @apply text-gray-900 antialiased;
     line-height: 1.75;
-    letter-spacing: 0.01em;
   }
 
   /* Hide Scrollbar but keep scrolling functionality */
@@ -35,6 +78,7 @@
 
   /* 8-point grid system spacing */
   :root {
+    --brand-tam-gold: #f3bf1c;
     --spacing-1: 0.5rem;
     /* 8px */
     --spacing-2: 1rem;
@@ -79,9 +123,18 @@
   h4,
   h5,
   h6 {
-    @apply font-black;
+    @apply font-bold;
     line-height: 1.25;
-    letter-spacing: -0.015em;
+    letter-spacing: 0.02em;
+  }
+
+  html[lang='ar'] h1,
+  html[lang='ar'] h2,
+  html[lang='ar'] h3,
+  html[lang='ar'] h4,
+  html[lang='ar'] h5,
+  html[lang='ar'] h6 {
+    letter-spacing: 0.015em;
   }
 
   /* Better image loading */

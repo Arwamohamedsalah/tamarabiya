@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 650" width="800" height="650" role="img" aria-label="Tam Alarabiya  *'E 'D91(J)">
+  <defs>
+    <linearGradient id="tamGoldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dfaa2c"/>
+      <stop offset="30%" stop-color="#ca9520"/>
+      <stop offset="70%" stop-color="#f5ce62"/>
+      <stop offset="100%" stop-color="#b17e13"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#tamGoldGradient)">
+    <path d="M40,70 H280 V135 H192 V310 H128 V135 H40 Z"/>
+    <path d="M300,310 L375,70 H445 L520,310 H452 L435,250 H385 L368,310 Z M400,132 L396,200 H424 L420,132 Z"/>
+    <path d="M540,310 V70 H610 L650,195 L690,70 H760 V310 H700 V160 L665,265 H635 L600,160 V310 Z"/>
+  </g>
+  <g font-family="sans-serif">
+    <text x="760" y="470" font-size="115" font-weight="900" fill="#0c0c0c" letter-spacing="2" text-anchor="start" style="font-family:'Arial Black',Impact,sans-serif">*@'E</text>
+    <text x="490" y="470" font-size="115" font-weight="900" fill="#c38f1d" text-anchor="start" style="font-family:'Arial Black',Impact,sans-serif">'D9@1(@J@)</text>
+    <rect x="655" y="500" width="16" height="16" fill="#0c0c0c"/>
+    <rect x="625" y="500" width="16" height="16" fill="#0c0c0c"/>
+    <rect x="595" y="500" width="16" height="16" fill="#0c0c0c"/>
+    <rect x="185" y="375" width="16" height="16" fill="#c38f1d"/>
+    <rect x="155" y="375" width="16" height="16" fill="#c38f1d"/>
+  </g>
+  <g font-family="'Futura','Helvetica Neue',Arial,sans-serif">
+    <text x="40" y="580" font-size="62" font-weight="bold" fill="#dfaa2c">Tam</text>
+    <text x="185" y="580" font-size="62" font-weight="bold" fill="#0c0c0c"> Alarabiya</text>
+  </g>
+</svg>

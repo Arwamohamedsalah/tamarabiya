@@ -28,8 +28,12 @@ export default function Footer() {
                 <img src="/tam.png" alt={t('aria.logoAlt')} className="w-full h-full object-contain" />
               </div>
               <div className={isRtl ? 'text-right' : 'text-left'}>
-                <CompanyName variant="light" highlightClassName="text-yellow-400" />
-                <p className="text-[10px] text-metal-silver uppercase tracking-[0.3em] opacity-40">{t('tagline')}</p>
+                <p className="text-lg md:text-xl leading-tight">
+                  <CompanyName variant="light" highlightClassName="brand-tam-hero-gold" />
+                </p>
+                <p className="font-montserrat english-brand-text text-[10px] md:text-xs text-metal-silver uppercase tracking-[0.3em] opacity-40 mt-0.5">
+                  {t('tagline')}
+                </p>
               </div>
             </Link>
             <p className="text-metal-silver text-base lg:text-lg leading-relaxed opacity-80 max-w-sm mx-auto lg:mx-0">

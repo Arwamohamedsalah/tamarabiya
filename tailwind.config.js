@@ -4,7 +4,12 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Cairo', 'Montserrat', 'sans-serif'],
+        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+        english: ['Montserrat', 'sans-serif'],
+        arabic: ['Tajawal', 'sans-serif'],
+        /** @deprecated use font-arabic — kept for existing class names */
+        cairo: ['Tajawal', 'sans-serif'],
       },
       colors: {
         /* البنية التحتية / الأعمال المدنية - احترافية وقوة */

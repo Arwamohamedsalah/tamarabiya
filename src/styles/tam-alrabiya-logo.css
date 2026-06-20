@@ -1,0 +1,45 @@
+/* Tam Alarabiya — SVG vector wordmark wrapper */
+
+.tam-alrabiya-logo {
+  width: 100%;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.tam-alrabiya-logo--hero {
+  max-width: min(500px, 88vw);
+}
+
+.tam-alrabiya-logo--lg {
+  max-width: min(420px, 80vw);
+}
+
+.tam-alrabiya-logo--md {
+  max-width: min(320px, 72vw);
+}
+
+.tam-alrabiya-logo--sm {
+  max-width: min(220px, 55vw);
+}
+
+.tam-alrabiya-logo--xs {
+  max-width: min(140px, 42vw);
+}
+
+.tam-alrabiya-logo__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.tam-alrabiya-logo__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tam-alrabiya-logo__link:focus-visible {
+  outline: 2px solid #dfaa2c;
+  outline-offset: 4px;
+  border-radius: 2px;
+}

@@ -8,6 +8,7 @@ const imageRoutes = require('./routes/imageRoutes');
 const pageContentRoutes = require('./routes/pageContentRoutes');
 const authRoutes = require('./routes/authRoutes');
 const fileRoutes = require('./routes/fileRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
@@ -82,6 +83,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/images', imageRoutes);
 app.use('/api/page-content', pageContentRoutes);
 app.use('/api/site-settings', require('./routes/siteSettingsRoutes'));
+app.use('/api/contact', contactRoutes);
 app.use('/api', fileRoutes);
 
 /* ======================

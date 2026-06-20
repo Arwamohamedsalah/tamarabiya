@@ -128,7 +128,7 @@ export default function ServiceCardWithSlider({
       <div className={`relative z-10 h-full p-8 flex flex-col justify-end ${contentAlign}`}>
         <div className={`w-12 h-1 bg-yellow-400 mb-6 transition-all duration-500 group-hover:w-20`}></div>
 
-        <h3 className="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight group-hover:text-yellow-400 transition-colors">
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">
           {title}
         </h3>
         <h4 className="text-xs font-bold text-yellow-400/80 mb-4 tracking-[0.3em] uppercase">

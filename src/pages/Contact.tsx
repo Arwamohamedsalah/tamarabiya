@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../store/hooks';
 import SeoHead from '../components/SeoHead';
 import QrCodeDisplay from '../components/QrCodeDisplay';
+import ContactForm from '../components/ContactForm';
 import { getImagesByPageAndSection, getImageStyle, getImageWrapperStyle, getDefaultImage } from '../utils/imageUtils';
 import { useEffect, useState } from 'react';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
@@ -127,6 +128,10 @@ export default function Contact() {
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-16 md:mt-24 max-w-2xl mx-auto">
+          <ContactForm />
         </div>
 
         <QrCodeDisplay />

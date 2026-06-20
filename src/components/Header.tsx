@@ -51,8 +51,12 @@ export default function Header() {
               />
             </div>
             <div className={logoAlign}>
-              <h1 className="text-lg md:text-xl lg:text-2xl font-black leading-tight mb-0.5"><CompanyName variant="light" highlightClassName="text-yellow-400" /></h1>
-              <p className="text-[11px] md:text-xs text-metal-silver uppercase tracking-[0.4em] opacity-80">{t('tagline')}</p>
+              <h1 className="text-lg md:text-xl lg:text-2xl leading-tight mb-0.5 font-semibold">
+                <CompanyName variant="light" headerBrand highlightClassName="brand-tam-hero-gold" />
+              </h1>
+              <p className="font-montserrat english-brand-text text-[11px] md:text-xs text-metal-silver uppercase tracking-[0.4em] opacity-80">
+                {t('tagline')}
+              </p>
             </div>
           </Link>
 

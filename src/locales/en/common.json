@@ -18,10 +18,20 @@
     "switchToArabic": "Switch to Arabic"
   },
   "tagline": "TAM Alarabiya Co.",
+  "headerName": {
+    "highlight": "Tam",
+    "suffix": "Alarabiya"
+  },
+  "brandName": {
+    "arHighlight": "تام",
+    "arSuffix": " العربية",
+    "enTam": "Tam",
+    "enAlarabiya": " Alarabiya"
+  },
   "companyName": {
     "prefix": "",
     "highlight": "TAM",
-    "suffix": " Al Arabia",
+    "suffix": "Al Arabia",
     "heroEn": "TAM Al Arabia",
     "heroAr": "TAM Al Arabia Contracting Co."
   },

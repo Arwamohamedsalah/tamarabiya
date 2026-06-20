@@ -1,0 +1,80 @@
+/* Circular nuktas for "تام" — connected word with round dots */
+
+.round-dot-tam {
+  display: inline;
+  white-space: nowrap;
+  font: inherit;
+  color: inherit;
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+
+.round-dot-tam__ta {
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  margin-inline-end: -0.2em;
+}
+
+.round-dot-tam__ta-glyph {
+  display: inline-block;
+  overflow: hidden;
+  height: 0.72em;
+  width: 0.5em;
+  line-height: 1.15;
+  vertical-align: baseline;
+}
+
+.round-dot-tam__ta-glyph-inner {
+  display: block;
+  transform: translateY(-0.24em);
+}
+
+.round-dot-tam__ta-dots {
+  position: absolute;
+  top: 0.05em;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  pointer-events: none;
+}
+
+.round-dot-tam__ta-dots i {
+  display: block;
+  width: 0.11em;
+  height: 0.11em;
+  min-width: 2.5px;
+  min-height: 2.5px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+/* Hero / large sizes — tighter join between ت and ا */
+.round-dot-tam--hero .round-dot-tam__ta {
+  margin-inline-end: -0.12em;
+}
+
+.round-dot-tam--hero .round-dot-tam__ta-glyph {
+  height: 0.76em;
+  width: 0.46em;
+  line-height: 1.12;
+}
+
+.round-dot-tam--hero .round-dot-tam__ta-glyph-inner {
+  transform: translateY(-0.22em);
+}
+
+.round-dot-tam--hero .round-dot-tam__ta-dots {
+  top: 0.06em;
+  gap: 0.12em;
+}
+
+.round-dot-tam--hero .round-dot-tam__ta-dots i {
+  width: 0.09em;
+  height: 0.09em;
+  min-width: 3px;
+  min-height: 3px;
+}

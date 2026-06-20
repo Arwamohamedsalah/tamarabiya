@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 88" fill="none" role="img" aria-label="TAM Alarabiya">
+  <defs>
+    <linearGradient id="tamGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7a5a10"/>
+      <stop offset="18%" stop-color="#a07818"/>
+      <stop offset="42%" stop-color="#c8941a"/>
+      <stop offset="68%" stop-color="#e0b830"/>
+      <stop offset="100%" stop-color="#f5d850"/>
+    </linearGradient>
+  </defs>
+  <!-- TAM -->
+  <text x="0" y="38" font-family="Montserrat, Arial, sans-serif" font-weight="900" font-size="46" letter-spacing="-5.5" fill="url(#tamGold)">TAM</text>
+  <!-- Arabic: ة … العربي … تام -->
+  <text y="62" font-family="Tajawal, Arial, sans-serif" font-weight="700" font-size="19.5" fill="currentColor">
+    <tspan x="0">ة</tspan>
+    <tspan x="52">العربي</tspan>
+    <tspan x="248" fill="url(#tamGold)">تام</tspan>
+  </text>
+  <!-- English -->
+  <text y="84" font-family="Montserrat, Arial, sans-serif" font-weight="500" font-size="13.5" fill="currentColor" letter-spacing="3.2">
+    <tspan fill="url(#tamGold)" letter-spacing="0">T</tspan><tspan dx="1">am Alarabiya</tspan>
+  </text>
+</svg>

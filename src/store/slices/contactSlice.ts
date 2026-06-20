@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { API_BASE_URL } from '../../config/api';
 
 interface ContactFormData {
   name: string;
@@ -35,23 +36,27 @@ export const submitContactForm = createAsyncThunk(
   'contact/submitForm',
   async (formData: ContactFormData, { rejectWithValue }) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      // In a real app, you would make an API call here
-      // const response = await fetch('/api/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // });
-      
-      // if (!response.ok) {
-      //   throw new Error('Failed to submit form');
-      // }
-      
+      const response = await fetch(`${API_BASE_URL}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.service,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        return rejectWithValue(result.message || 'Failed to submit form');
+      }
+
       return formData;
-    } catch (error) {
-      return rejectWithValue(error instanceof Error ? error.message : 'Failed to submit form');
+    } catch {
+      return rejectWithValue('Failed to connect to the server');
     }
   }
 );

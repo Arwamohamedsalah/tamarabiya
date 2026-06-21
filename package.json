@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "preview:prod": "vite preview --mode production",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
-    "verify-production": "node scripts/build-production.js"
+    "verify-production": "node scripts/build-production.js",
+    "verify-api": "node server/scripts/verify-backend.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

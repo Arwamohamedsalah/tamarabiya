@@ -21,16 +21,27 @@ const app = express();
 // Basic security headers
 app.use(helmet());
 
-// CORS
-const allowedOrigins = [
-  process.env.CLIENT_ORIGIN,
-  'http://localhost:5173',
-  'http://localhost:3000',
-  'https://tamarabiya.com',
-  'http://tamarabiya.com',
-  'https://www.tamarabiya.com',
-  'http://www.tamarabiya.com',
-].filter(Boolean);
+// CORS — both tamarabiya.com and tamalarabiya.com (+ comma-separated CLIENT_ORIGIN)
+const clientOrigins = (process.env.CLIENT_ORIGIN || '')
+  .split(',')
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+const uniqueOrigins = [
+  ...new Set([
+    ...clientOrigins,
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://tamarabiya.com',
+    'http://tamarabiya.com',
+    'https://www.tamarabiya.com',
+    'http://www.tamarabiya.com',
+    'https://tamalarabiya.com',
+    'http://tamalarabiya.com',
+    'https://www.tamalarabiya.com',
+    'http://www.tamalarabiya.com',
+  ]),
+];
 
 app.use(
   cors({
@@ -39,7 +50,7 @@ app.use(
       if (!origin) return callback(null, true);
 
       if (
-        allowedOrigins.includes(origin) ||
+        uniqueOrigins.includes(origin) ||
         process.env.NODE_ENV !== 'production'
       ) {
         callback(null, true);

@@ -1,87 +1,58 @@
+/**
+ * Verify backend routes after deploy.
+ * Usage:
+ *   node server/scripts/verify-backend.js
+ *   API_BASE=https://www.tamarabiya.com/api node server/scripts/verify-backend.js
+ */
+const baseUrl = (process.env.API_BASE || 'http://localhost:5000/api').replace(/\/$/, '');
 
-const http = require('http');
+const REQUIRED_ROUTES = [
+  { name: 'Health', path: '/health', expect: [200] },
+  { name: 'Site settings', path: '/site-settings', expect: [200] },
+  { name: 'Categories', path: '/categories', expect: [200] },
+  { name: 'Images', path: '/images', expect: [200] },
+  { name: 'Contact (POST validation)', path: '/contact', method: 'POST', body: {}, expect: [400] },
+];
 
-async function testBackend() {
-  const baseUrl = 'http://localhost:5000/api';
-  console.log('🚀 Starting Backend Verification...');
-
-  // 1. Health Check
-  try {
-    const healthRes = await fetch(`${baseUrl}/health`);
-    if (healthRes.ok) {
-      console.log('✅ Health Check: OK');
-    } else {
-      console.error('❌ Health Check: FAILED', healthRes.status);
-    }
-  } catch (err) {
-    console.error('❌ Health Check: ERROR - Is the server running?');
-    console.error(err);
-    process.exit(1);
-  }
-
-  // 2. Database Connection & Read (Get Categories)
-  try {
-    const res = await fetch(`${baseUrl}/categories`);
-    if (res.ok) {
-      const data = await res.json();
-      console.log(`✅ Get Categories: OK (Found ${data.length} categories)`);
-    } else {
-      console.error('❌ Get Categories: FAILED', res.status);
-    }
-  } catch (err) {
-    console.error('❌ Get Categories: ERROR', err);
-  }
-
-  // 3. Database Write (Create Category)
-  let createdId = null;
-  const testCategory = {
-    name: 'Test Category Integration',
-    slug: 'test-category-integration-' + Date.now(),
-    description: 'Automated test category',
-    order: 999,
-    isActive: false
+async function checkRoute({ name, path, method = 'GET', body, expect }) {
+  const url = `${baseUrl}${path}`;
+  const options = {
+    method,
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
   };
 
   try {
-    const res = await fetch(`${baseUrl}/categories`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(testCategory)
-    });
-
-    if (res.status === 201) {
-      const data = await res.json();
-      createdId = data._id;
-      console.log('✅ Create Category: OK');
-    } else {
-      console.error('❌ Create Category: FAILED', res.status, await res.text());
+    const res = await fetch(url, options);
+    if (expect.includes(res.status)) {
+      console.log(`✅ ${name}: ${res.status}`);
+      return true;
     }
+    console.error(`❌ ${name}: expected ${expect.join('|')}, got ${res.status} (${url})`);
+    return false;
   } catch (err) {
-    console.error('❌ Create Category: ERROR', err);
+    console.error(`❌ ${name}: ${err.message} (${url})`);
+    return false;
   }
-
-  // 4. Cleanup (Delete Category)
-  if (createdId) {
-    try {
-      const res = await fetch(`${baseUrl}/categories/${createdId}`, {
-        method: 'DELETE'
-      });
-      if (res.status === 204) {
-        console.log('✅ Delete Category: OK');
-      } else {
-        console.error('❌ Delete Category: FAILED', res.status);
-      }
-    } catch (err) {
-      console.error('❌ Delete Category: ERROR', err);
-    }
-  }
-
-  console.log('🏁 Verification Complete.');
 }
 
-// Simple fetch polyfill for older node if needed (just in case, but node 18 has it)
-if (!global.fetch) {
-  console.log("⚠️  Fetch not available, skipping test or use Node 18+");
-} else {
-  testBackend();
+async function main() {
+  if (!global.fetch) {
+    console.error('Node 18+ required (fetch API).');
+    process.exit(1);
+  }
+
+  console.log(`🔍 Verifying API at ${baseUrl}`);
+
+  const results = await Promise.all(REQUIRED_ROUTES.map(checkRoute));
+  const failed = results.filter((ok) => !ok).length;
+
+  if (failed > 0) {
+    console.error(`\n❌ ${failed} check(s) failed. Run: pm2 logs tam-backend --lines 50`);
+    process.exit(1);
+  }
+
+  console.log('\n✅ All API checks passed.');
 }
+
+main();

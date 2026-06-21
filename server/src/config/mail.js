@@ -2,14 +2,14 @@ const nodemailer = require('nodemailer');
 
 /**
  * Hostinger SMTP transporter (port 465, SSL).
- * Credentials: EMAIL_USER + EMAIL_PASS from .env
+ * Pass { user, pass } or falls back to EMAIL_USER + EMAIL_PASS from .env
  */
-function createMailTransporter() {
-  const user = process.env.EMAIL_USER;
-  const pass = process.env.EMAIL_PASS;
+function createMailTransporter(credentials) {
+  const user = credentials?.user ?? process.env.EMAIL_USER;
+  const pass = credentials?.pass ?? process.env.EMAIL_PASS;
 
   if (!user || !pass) {
-    throw new Error('EMAIL_USER and EMAIL_PASS must be set in environment variables');
+    throw new Error('SMTP user and password must be set in environment variables');
   }
 
   return nodemailer.createTransport({
@@ -23,4 +23,15 @@ function createMailTransporter() {
   });
 }
 
-module.exports = { createMailTransporter };
+function createSaleMailTransporter() {
+  return createMailTransporter({
+    user: process.env.SALE_EMAIL_USER,
+    pass: process.env.SALE_EMAIL_PASS,
+  });
+}
+
+function isSaleMailConfigured() {
+  return Boolean(process.env.SALE_EMAIL_USER && process.env.SALE_EMAIL_PASS);
+}
+
+module.exports = { createMailTransporter, createSaleMailTransporter, isSaleMailConfigured };

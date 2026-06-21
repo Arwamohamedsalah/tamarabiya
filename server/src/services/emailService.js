@@ -1,17 +1,15 @@
-const { createMailTransporter } = require('../config/mail');
+const {
+  createMailTransporter,
+  createSaleMailTransporter,
+  isSaleMailConfigured,
+} = require('../config/mail');
 
-const DEFAULT_FROM = 'info@tamalarabiya.com';
-const DEFAULT_TO = 'info@tamalarabiya.com';
+const DEFAULT_INFO_FROM = 'info@tamalarabiya.com';
+const DEFAULT_INFO_TO = 'info@tamalarabiya.com';
+const DEFAULT_SALE_FROM = 'sale@tamarbiya.com';
+const DEFAULT_SALE_TO = 'sale@tamarbiya.com';
 
-/**
- * Send a lead notification when a visitor submits the contact form.
- */
-async function sendContactNotification({ name, email, phone, subject, message }) {
-  const transporter = createMailTransporter();
-
-  const fromAddress = process.env.EMAIL_USER || DEFAULT_FROM;
-  const toAddress = process.env.CONTACT_EMAIL_TO || process.env.EMAIL_USER || DEFAULT_TO;
-
+function buildContactMailContent({ name, email, phone, subject, message }) {
   const htmlBody = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #2C3E50; border-bottom: 2px solid #F39C12; padding-bottom: 8px;">
@@ -45,14 +43,56 @@ async function sendContactNotification({ name, email, phone, subject, message })
     message,
   ].join('\n');
 
-  await transporter.sendMail({
-    from: `"TAM Alarabiya Website" <${fromAddress}>`,
-    to: toAddress,
-    replyTo: email,
+  return {
     subject: `[Website Lead] ${subject} — ${name}`,
     text: textBody,
     html: htmlBody,
-  });
+    replyTo: email,
+  };
+}
+
+/**
+ * Send a lead notification when a visitor submits the contact form.
+ * Delivers to info@ and sale@ Hostinger mailboxes (each via its own SMTP when configured).
+ */
+async function sendContactNotification({ name, email, phone, subject, message }) {
+  const content = buildContactMailContent({ name, email, phone, subject, message });
+
+  const infoFrom = process.env.EMAIL_USER || DEFAULT_INFO_FROM;
+  const infoTo = process.env.CONTACT_EMAIL_TO || process.env.EMAIL_USER || DEFAULT_INFO_TO;
+
+  const sends = [
+    createMailTransporter().sendMail({
+      from: `"TAM Alarabiya Website" <${infoFrom}>`,
+      to: infoTo,
+      ...content,
+    }),
+  ];
+
+  if (isSaleMailConfigured()) {
+    const saleFrom = process.env.SALE_EMAIL_USER || DEFAULT_SALE_FROM;
+    const saleTo =
+      process.env.CONTACT_SALE_EMAIL_TO || process.env.SALE_EMAIL_USER || DEFAULT_SALE_TO;
+
+    sends.push(
+      createSaleMailTransporter().sendMail({
+        from: `"TAM Alarabiya Website" <${saleFrom}>`,
+        to: saleTo,
+        ...content,
+      })
+    );
+  } else {
+    const saleTo = process.env.CONTACT_SALE_EMAIL_TO || DEFAULT_SALE_TO;
+    sends.push(
+      createMailTransporter().sendMail({
+        from: `"TAM Alarabiya Website" <${infoFrom}>`,
+        to: saleTo,
+        ...content,
+      })
+    );
+  }
+
+  await Promise.all(sends);
 }
 
 function escapeHtml(value) {

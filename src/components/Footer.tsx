@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import CompanyName from './CompanyName';
 import { Phone, Mail, Facebook, Twitter, Instagram, Linkedin, ArrowLeft, MapPin } from 'lucide-react';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
+import { CONTACT_EMAILS } from '../config/contactEmails';
 
 export default function Footer() {
   const { t } = useTranslation('common');
@@ -118,7 +119,8 @@ export default function Footer() {
                 </div>
                 <div>
                   <p className="text-[10px] text-metal-silver uppercase tracking-widest opacity-40 mb-1">{t('footer.email')}</p>
-                  <a href="mailto:info@tamalarabiya.com" className="text-base lg:text-lg font-bold hover:text-cta transition-colors block break-all">info@tamalarabiya.com</a>
+                  <a href={`mailto:${CONTACT_EMAILS.info}`} className="text-base lg:text-lg font-bold hover:text-cta transition-colors block break-all">{CONTACT_EMAILS.info}</a>
+                  <a href={`mailto:${CONTACT_EMAILS.sales}`} className="text-base lg:text-lg font-bold hover:text-cta transition-colors block break-all mt-1">{CONTACT_EMAILS.sales}</a>
                 </div>
               </li>
               <li className={`flex flex-col lg:flex-row items-center lg:items-start gap-4 group`}>

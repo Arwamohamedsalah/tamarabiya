@@ -1,4 +1,4 @@
-import { ArrowRight, Phone, MapPin, Globe, Facebook, Twitter, Instagram, Linkedin, Youtube } from 'lucide-react';
+import { ArrowRight, Phone, MapPin, Globe, Facebook, Twitter, Instagram, Linkedin, Youtube, Mail } from 'lucide-react';
 import CompanyName from '../components/CompanyName';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,8 @@ import { useAppSelector } from '../store/hooks';
 import SeoHead from '../components/SeoHead';
 import QrCodeDisplay from '../components/QrCodeDisplay';
 import ContactForm from '../components/ContactForm';
+import { CONTACT_EMAILS } from '../config/contactEmails';
+import { CONTACT_PHONES, CONTACT_MAP_QUERIES } from '../config/contactInfo';
 import { getImagesByPageAndSection, getImageStyle, getImageWrapperStyle, getDefaultImage } from '../utils/imageUtils';
 import { useEffect, useState } from 'react';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
@@ -89,18 +91,44 @@ export default function Contact() {
               <Phone className="h-10 w-10 text-cta" aria-hidden="true" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('contact:phone.title')}</h3>
-            <p className="text-gray-600 mb-4 text-sm">{t('contact:phone.subtitle')}</p>
+            <p className="text-gray-600 mb-4 text-sm uppercase tracking-wider">{t('contact:phone.subtitle')}</p>
             <div className="flex flex-col gap-2 items-center">
-              <a href="tel:0507826024" className="text-cta text-xl font-semibold hover:text-cta-hover transition-colors duration-300">
-                0507826024
-              </a>
-              <a href="tel:0555434360" className="text-cta text-xl font-semibold hover:text-cta-hover transition-colors duration-300">
-                0555434360
-              </a>
+              {CONTACT_PHONES.sales.map((phone) => (
+                <a
+                  key={phone.display}
+                  href={`tel:${phone.tel}`}
+                  className="text-cta text-xl font-semibold hover:text-cta-hover transition-colors duration-300"
+                  dir="ltr"
+                >
+                  {phone.display}
+                </a>
+              ))}
             </div>
           </div>
 
           <div className="group bg-white rounded-none shadow-xl p-8 md:p-10 text-center hover:shadow-2xl transition-all duration-500 hover-lift border border-gray-100 animate-fade-in-up animate-delay-100">
+            <div className="bg-gradient-to-br from-cta/20 to-landscape/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <Mail className="h-10 w-10 text-cta" aria-hidden="true" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('contact:email.title')}</h3>
+            <p className="text-gray-600 mb-4 text-sm">{t('contact:email.subtitle')}</p>
+            <div className="flex flex-col gap-2 items-center">
+              <a
+                href={`mailto:${CONTACT_EMAILS.info}`}
+                className="text-cta text-base md:text-lg font-semibold hover:text-cta-hover transition-colors duration-300 break-all"
+              >
+                {CONTACT_EMAILS.info}
+              </a>
+              <a
+                href={`mailto:${CONTACT_EMAILS.sales}`}
+                className="text-cta text-base md:text-lg font-semibold hover:text-cta-hover transition-colors duration-300 break-all"
+              >
+                {CONTACT_EMAILS.sales}
+              </a>
+            </div>
+          </div>
+
+          <div className="group bg-white rounded-none shadow-xl p-8 md:p-10 text-center hover:shadow-2xl transition-all duration-500 hover-lift border border-gray-100 animate-fade-in-up animate-delay-200">
             <div className="bg-gradient-to-br from-cta/20 to-landscape/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
               <Globe className="h-10 w-10 text-cta" aria-hidden="true" />
             </div>
@@ -115,19 +143,38 @@ export default function Contact() {
               www.tamalarabiya.com
             </a>
           </div>
+        </div>
 
-          <div className="group bg-white rounded-none shadow-xl p-8 md:p-10 text-center hover:shadow-2xl transition-all duration-500 hover-lift border border-gray-100 md:col-span-2 lg:col-span-1 animate-fade-in-up animate-delay-200">
-            <div className="bg-gradient-to-br from-cta/20 to-landscape/20 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-              <MapPin className="h-10 w-10 text-cta" aria-hidden="true" />
+        <div className="grid md:grid-cols-2 gap-8 md:gap-10 mt-8 md:mt-10">
+          {(['riyadh', 'jeddah'] as const).map((office, index) => (
+            <div
+              key={office}
+              className={`group bg-white rounded-none shadow-xl p-8 md:p-10 hover:shadow-2xl transition-all duration-500 hover-lift border border-gray-100 animate-fade-in-up ${index === 1 ? 'animate-delay-200' : 'animate-delay-100'}`}
+            >
+              <div className="flex items-start gap-4">
+                <div className="bg-gradient-to-br from-cta/20 to-landscape/20 w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <MapPin className="h-8 w-8 text-cta" aria-hidden="true" />
+                </div>
+                <div className={`flex-1 ${isRtl ? 'text-right' : 'text-left'}`}>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
+                    {t(`contact:address.${office}.city`)}
+                  </h3>
+                  <p className="text-gray-600 text-sm mb-3 uppercase tracking-wider">{t('contact:address.subtitle')}</p>
+                  <p className="text-gray-700 text-base md:text-lg font-medium leading-relaxed">
+                    {t(`contact:address.${office}.line`)}
+                  </p>
+                  <a
+                    href={`https://maps.google.com/?q=${encodeURIComponent(CONTACT_MAP_QUERIES[office])}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-4 text-cta text-sm font-semibold hover:text-cta-hover transition-colors"
+                  >
+                    {t('contact:address.openMap')}
+                  </a>
+                </div>
+              </div>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('contact:address.title')}</h3>
-            <p className="text-gray-600 mb-4 text-sm">{t('contact:address.subtitle')}</p>
-            <div className="space-y-2">
-              <p className="text-gray-700 text-lg font-medium">
-                {t('contact:address.country')}
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
 
         <div className="mt-16 md:mt-24 max-w-2xl mx-auto">

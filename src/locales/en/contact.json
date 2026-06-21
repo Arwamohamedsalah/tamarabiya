@@ -6,8 +6,12 @@
     "imageAlt": "Contact Us"
   },
   "phone": {
-    "title": "Phone",
-    "subtitle": "Phone"
+    "title": "Sales",
+    "subtitle": "Sales"
+  },
+  "email": {
+    "title": "Email",
+    "subtitle": "Email"
   },
   "website": {
     "title": "Website",
@@ -15,9 +19,18 @@
   },
   "address": {
     "title": "Address",
-    "subtitle": "Address",
+    "subtitle": "Our Offices",
     "country": "Kingdom of Saudi Arabia",
-    "countryEn": "Kingdom of Saudi Arabia"
+    "countryEn": "Kingdom of Saudi Arabia",
+    "riyadh": {
+      "city": "Riyadh",
+      "line": "Ahmed Khtab Street – Namar District – Saudi Arabia"
+    },
+    "jeddah": {
+      "city": "Jeddah",
+      "line": "Al Hamdania Street – Al Kauther District – Saudi Arabia"
+    },
+    "openMap": "Open in Google Maps"
   },
   "social": {
     "title": "Social Media",

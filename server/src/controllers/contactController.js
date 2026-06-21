@@ -36,7 +36,7 @@ function parseContactBody(body) {
 
 /**
  * POST /api/contact
- * Public — save submission to MongoDB and email info@tamalarabiya.com
+ * Public — save submission to MongoDB and email info@ + sale@ via Hostinger SMTP
  */
 exports.submitContact = async (req, res) => {
   try {

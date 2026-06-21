@@ -6,8 +6,12 @@
     "imageAlt": "Contact Us"
   },
   "phone": {
-    "title": "الهاتف",
-    "subtitle": "Phone"
+    "title": "المبيعات",
+    "subtitle": "Sales"
+  },
+  "email": {
+    "title": "البريد الإلكتروني",
+    "subtitle": "Email"
   },
   "website": {
     "title": "الموقع الإلكتروني",
@@ -15,9 +19,18 @@
   },
   "address": {
     "title": "العنوان",
-    "subtitle": "Address",
+    "subtitle": "فروعنا",
     "country": "المملكة العربية السعودية",
-    "countryEn": "Kingdom of Saudi Arabia"
+    "countryEn": "Kingdom of Saudi Arabia",
+    "riyadh": {
+      "city": "الرياض",
+      "line": "شارع أحمد خطاب – حي نمار – المملكة العربية السعودية"
+    },
+    "jeddah": {
+      "city": "جدة",
+      "line": "شارع الحمدانية – حي الكوثر – المملكة العربية السعودية"
+    },
+    "openMap": "فتح في خرائط Google"
   },
   "social": {
     "title": "وسائل التواصل الاجتماعي",

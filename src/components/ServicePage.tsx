@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 import type { PageContentData } from '../store/slices/pageContentSlice';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://tamarabiya.com/api';
+import { API_BASE_URL } from '../config/api';
 
 type ServicePageKey = 'landscaping' | 'fencing' | 'infrastructure';
 
@@ -84,13 +84,30 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
   const galleryImages = getImagesByPageAndSection(images, pageKey, 'gallery');
   const projectImages = getImagesByPageAndSection(images, pageKey, 'projects');
 
-  const projects = projectImages.map((img, idx) => ({
+  const defaultProjectsRaw = useMemo(() => {
+    const items = t(`${pageKey}.defaultProjects`, { returnObjects: true, defaultValue: [] });
+    return Array.isArray(items) ? items : [];
+  }, [pageKey, t]);
+
+  const imageProjects = projectImages.map((img, idx) => ({
     name: getProjectName(img.alt, idx, t),
     location: t('location'),
     image: img.url,
     id: img.id,
     videoUrl: img.videoUrl,
   }));
+
+  const textProjects = defaultProjectsRaw.map(
+    (item: { nameAr: string; name: string; clientAr?: string; client?: string }, idx: number) => ({
+      name: language === 'ar' ? item.nameAr : item.name,
+      location: language === 'ar' ? item.clientAr || t('location') : item.client || t('location'),
+      image: null as string | null,
+      id: `default-project-${idx}`,
+      videoUrl: undefined as string | undefined,
+    })
+  );
+
+  const projects = imageProjects.length > 0 ? imageProjects : textProjects;
 
   const gallery = galleryImages.map((img) => img.url);
   const galleryKey = galleryImages.length > 0 ? galleryImages.map(img => img.id).join(',') : 'empty';
@@ -164,6 +181,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
             <div className="grid md:grid-cols-2 gap-6" key={`projects-${imageKey}-${projectsKey}`}>
               {projects.map((project, index) => (
                 <div key={`${project.id || `project-${index}`}-${imageKey}`} className="bg-white rounded-none shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500 hover-lift animate-fade-in-up border border-gray-100" style={{ animationDelay: `${index * 0.1}s` }}>
+                  {project.image ? (
                   <div className="relative overflow-hidden bg-gray-900">
                     {projectImages[index]?.crop ? (
                       <div style={{ ...getImageWrapperStyle(projectImages[index]), height: '280px' }} />
@@ -195,6 +213,12 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
                       <p className={`text-landscape-light ${textAlign} text-sm font-medium`}>{project.location}</p>
                     </div>
                   </div>
+                  ) : (
+                    <div className={`p-8 md:p-10 bg-gradient-to-br from-green-50 to-gray-50 ${borderSide} border-landscape`}>
+                      <h4 className={`text-lg md:text-xl font-bold text-gray-900 mb-2 ${textAlign}`}>{project.name}</h4>
+                      <p className={`text-landscape-dark ${textAlign} text-sm font-semibold`}>{project.location}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

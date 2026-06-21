@@ -55,7 +55,7 @@ function localizeServiceType(
     ...type,
     name: isEn ? type.name || fallback?.name || '' : type.nameAr || fallback?.nameAr || type.name,
     nameAr: type.nameAr || fallback?.nameAr || '',
-    desc: isEn ? type.descEn || fallback?.descEn || type.desc : type.desc || fallback?.desc || '',
+    desc: isEn ? type.descEn || fallback?.descEn || type.desc : type.desc || fallback?.desc || type.descEn || '',
   };
 }
 

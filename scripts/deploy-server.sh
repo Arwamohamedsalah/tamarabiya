@@ -17,6 +17,11 @@ cd server
 npm ci --omit=dev
 cd "$ROOT"
 
+echo "==> Seed page content (MongoDB)"
+cd server
+npm run seed:page-content
+cd "$ROOT"
+
 echo "==> Restart PM2"
 if pm2 describe tam-backend >/dev/null 2>&1; then
   pm2 restart tam-backend --update-env

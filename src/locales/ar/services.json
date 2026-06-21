@@ -15,14 +15,14 @@
   "location": "المملكة العربية السعودية",
   "landscaping": {
     "seoTitle": "اللاندسكيب وتنسيق الحدائق",
-    "seoDescription": "تنسيق وتنفيذ الحدائق والمساحات الخضراء بأعلى معايير الجودة - هاردسكيب، سوفتسكيب، أنظمة ري، صيانة.",
+    "seoDescription": "تنسيق الحدائق والمساحات الخضراء — سوفتسكيب، هاردسكيب، أنظمة ري ذاتية، وصيانة وتشغيل للمشاريع السكنية والتجارية والحكومية.",
     "pageTitle": "اللاندسكيب وتنسيق الحدائق",
     "pageTitleEn": "Landscaping Services",
     "workAreasTitle": "مجالات عملنا في اللاندسكيب",
-    "introTitle": "تنفيذ وتنسيق الحدائق",
-    "introTitleEn": "Garden Design & Implementation",
-    "introDescription": "نقدم خدمات شاملة في تنسيق الحدائق وتصميم المناظر الطبيعية، من التخطيط والتصميم إلى التنفيذ والصيانة. نحرص على إنشاء مساحات خضراء جميلة ومستدامة تعكس رؤيتك وتلبي احتياجاتك.",
-    "introDescriptionEn": "We provide comprehensive landscaping and landscape design services, from planning and design to implementation and maintenance. We create beautiful, sustainable green spaces that reflect your vision and meet your needs.",
+    "introTitle": "اللاندسكيب وتنسيق الحدائق",
+    "introTitleEn": "Landscaping & Garden Design",
+    "introDescription": "يركز هذا القطاع على تجميل وتنسيق المساحات الخارجية للمشاريع السكنية والتجارية والحكومية، ويشمل السوفتسكيب والهاردسكيب وأنظمة الري الذاتية والحديثة، إضافة إلى الصيانة والتشغيل.",
+    "introDescriptionEn": "This sector focuses on beautifying and organizing outdoor spaces for residential, commercial, and government projects, including softscape, hardscape, modern irrigation systems, and maintenance & operations.",
     "ctaTitle": "هل لديك مشروع لاندسكيب؟",
     "ctaTitleEn": "Have a landscaping project?",
     "ctaDescription": "تواصل معنا اليوم للحصول على استشارة مجانية",
@@ -30,45 +30,131 @@
     "ctaButtonText": "تواصل معنا",
     "ctaButtonTextEn": "Contact Us",
     "defaultTypes": [
-      { "name": "Hardscape", "nameAr": "الهاردسكيب", "desc": "الممرات والأرضيات الصلبة", "descEn": "Paths and hard surfaces" },
-      { "name": "Softscape", "nameAr": "السوفتسكيب", "desc": "الزراعة والنباتات", "descEn": "Planting and vegetation" },
-      { "name": "Irrigation", "nameAr": "أنظمة الري", "desc": "ري حديث وذكي", "descEn": "Modern smart irrigation" },
-      { "name": "Maintenance", "nameAr": "الصيانة", "desc": "صيانة دورية شاملة", "descEn": "Comprehensive periodic maintenance" }
+      {
+        "name": "Softscape",
+        "nameAr": "السوفتسكيب",
+        "desc": "الأشجار الكبيرة: توريد وزراعة الأشجار الضخمة والنخيل وأشجار الظل. الأشجار الصغيرة والشجيرات: زراعة أشجار الزينة والشجيرات والزهور وتوزيعها جمالياً. مغطيات التربة والثيل: تنفيذ المسطحات الخضراء الطبيعية والصناعية.",
+        "descEn": "Large trees: supply and planting of mature trees, palms, and shade trees. Shrubs & ornamentals: decorative trees, shrubs, and flowers. Turf & ground cover: natural and artificial green surfaces."
+      },
+      {
+        "name": "Irrigation Systems",
+        "nameAr": "أنظمة الري الذاتية والحديثة",
+        "desc": "توريد وتركيب شبكات الري بالتنقيط والرش. تركيب محابس الري الكهربائية والفلاتر وبرمجة الديكودرات. تركيب المضخات ووحدات التحكم لترشيد استهلاك المياه.",
+        "descEn": "Supply and installation of drip and sprinkler networks. Electric irrigation valves, filters, and decoder programming. Pumps and control units to optimize water consumption."
+      },
+      {
+        "name": "Hardscape",
+        "nameAr": "الهاردسكيب",
+        "desc": "الخرسانة المطبوعة للممرات والساحات الخارجية. الأرضيات المطاطية للممرات الرياضية ومناطق الألعاب. تنفيذ ملاعب الأطفال والمنشآت الرياضية وتركيب المظلات والكراسي والطاولات وسلال النفايات.",
+        "descEn": "Stamped concrete for paths and outdoor plazas. Rubber flooring for sports walkways and play areas. Playgrounds, sports facilities, shades, benches, tables, and waste bins."
+      },
+      {
+        "name": "Maintenance & Operations",
+        "nameAr": "الصيانة والتشغيل",
+        "desc": "قص وترميم وتسميد المسطحات الخضراء، تقليم الأشجار، رش المبيدات، وإعادة تأهيل شبكات الري.",
+        "descEn": "Mowing, renovation, and fertilization of green areas. Tree pruning, pesticide spraying, and rehabilitation of irrigation networks."
+      }
+    ],
+    "defaultProjects": [
+      {
+        "nameAr": "مشروع الحديقة المركزية — واجهة خزام",
+        "name": "Central Park — Khuzam Front",
+        "clientAr": "الشركة الوطنية للإسكان",
+        "client": "National Housing Company"
+      },
+      {
+        "nameAr": "مشروع حديقة مركز المبيعات — السدن",
+        "name": "Sales Center Garden — Al-Sedn",
+        "clientAr": "الشركة الوطنية للإسكان",
+        "client": "National Housing Company"
+      },
+      {
+        "nameAr": "تشجير الطرق — ضاحية خزام",
+        "name": "Road Tree Planting — Khuzam District",
+        "clientAr": "الشركة الوطنية للإسكان",
+        "client": "National Housing Company"
+      },
+      {
+        "nameAr": "مشاريع حدائق وتشجير طرق — مخطط أجدال بجدة",
+        "name": "Gardens & Road Planting — Ajdal Plan, Jeddah",
+        "clientAr": "مخطط أجدال — جدة",
+        "client": "Ajdal Plan — Jeddah"
+      }
     ]
   },
   "fencing": {
-    "seoTitle": "الهياكل المعدنية والسياجات",
-    "seoDescription": "تنفيذ وتركيب الهياكل الحديدية والسياجات وجاردريل الحماية والبوابات بأعلى معايير الجودة والأمان.",
-    "pageTitle": "الهياكل المعدنية والسياجات",
-    "pageTitleEn": "Metal Structures & Fencing",
-    "workAreasTitle": "مجالات عملنا في السياجات",
-    "introTitle": "تنفيذ وتركيب الهياكل الحديدية",
-    "introTitleEn": "Metal Structure Fabrication & Installation",
-    "introDescription": "تنفيذ وتركيب الهياكل الحديدية من مصانع ومستودعات وهياكل اللوحات الإعلانية والسياجات وجاردريل الحماية بأنواعها. نوفر حلول متكاملة من التصميم والتصنيع إلى التركيب والصيانة. منتجاتنا تتميز بالجودة العالية والمتانة والالتزام بالمواصفات القياسية والمعايير الأمنية.",
-    "introDescriptionEn": "Fabrication and installation of metal structures including factories, warehouses, billboard structures, fencing, and guardrails. We provide integrated solutions from design and manufacturing to installation and maintenance, meeting the highest quality and security standards.",
-    "ctaTitle": "تحتاج لحلول سياجات؟",
-    "ctaTitleEn": "Need fencing solutions?",
+    "seoTitle": "الهياكل والسياجات الأمنية",
+    "seoDescription": "سياجات HCIS المعتمدة، الجارد ريل، والهياكل الحديدية للمستودعات والهناجر والمباني سابقة التجهيز (PEB).",
+    "pageTitle": "الهياكل والسياجات الأمنية",
+    "pageTitleEn": "Metal Structures & Security Fencing",
+    "workAreasTitle": "مجالات عملنا في السياجات والهياكل",
+    "introTitle": "الهياكل والسياجات الأمنية",
+    "introTitleEn": "Metal Structures & Security Fencing",
+    "introDescription": "يركز هذا القطاع على أعمال الحماية الحديدية والإنشائية للمنشآت الحيوية والطرق، ويشمل السياجات الأمنية المعتمدة (HCIS)، حواجز الطرق (Guardrail)، والهياكل الحديدية للمشاريع الصناعية والتجارية والسكنية.",
+    "introDescriptionEn": "This sector focuses on steel protection and structural works for critical facilities and roads, including HCIS-approved security fencing, road guardrails, and steel structures for industrial, commercial, and residential projects.",
+    "ctaTitle": "تحتاج لحلول سياجات أو هياكل معدنية؟",
+    "ctaTitleEn": "Need fencing or steel structure solutions?",
     "ctaDescription": "احصل على عرض أسعار مجاني لمشروعك",
     "ctaDescriptionEn": "Get a free quote for your project",
     "ctaButtonText": "اطلب عرض سعر",
     "ctaButtonTextEn": "Request a Quote",
     "defaultTypes": [
-      { "name": "Security Fencing", "nameAr": "السياجات الأمنية", "desc": "حماية محيطية متطورة", "descEn": "Advanced perimeter protection" },
-      { "name": "Guardrails", "nameAr": "الجارد ريل", "desc": "حواجز الطرق والجسور", "descEn": "Road and bridge barriers" },
-      { "name": "Temporary Fencing", "nameAr": "الأسوار المؤقتة", "desc": "للمواقع والفعاليات", "descEn": "For sites and events" },
-      { "name": "Gate Systems", "nameAr": "أنظمة البوابات", "desc": "بوابات آلية وذكية", "descEn": "Automatic smart gates" }
+      {
+        "name": "HCIS Security Fencing",
+        "nameAr": "السياجات الأمنية المعتمدة (HCIS)",
+        "desc": "أسوار مخصصة لحماية المنشآت الصناعية والحيوية في المملكة العربية السعودية، وتصنف حسب مستوى الحماية من Class 1 (حماية عالية جداً) إلى Class 4 (حماية أساسية).",
+        "descEn": "Perimeter fences for industrial and critical facilities in Saudi Arabia, classified from Class 1 (highest protection) to Class 4 (basic protection)."
+      },
+      {
+        "name": "Road Guardrails",
+        "nameAr": "الجارد ريل — حواجز الطرق المعدنية",
+        "desc": "تركيب الحواجز المعدنية على الطرق السريعة والشوارع وفق مواصفات وزارة النقل والخدمات اللوجستية وهيئة المواصفات السعودية (SASO). الأنواع المعتمدة: W Beam Guardrail — C POST، Thrie-Beam، والكابل الستيل.",
+        "descEn": "Installation on highways and streets per MOT and SASO specifications. Approved types: W Beam Guardrail — C POST, Thrie-Beam, and steel cable barriers."
+      },
+      {
+        "name": "Steel Structures",
+        "nameAr": "الهياكل الحديدية",
+        "desc": "تنفيذ وتركيب المنشآت الحديدية للمشاريع الصناعية والتجارية والسكنية: المستودعات، المصانع، الهناجر، الجمالونات للأسقف، والمباني سابقة التجهيز (PEB)، وتصنف إلى هياكل خفيفة وثقيلة.",
+        "descEn": "Fabrication and installation: warehouses, factories, hangars, roof girders, and pre-engineered buildings (PEB) — light and heavy structures."
+      }
+    ],
+    "defaultProjects": [
+      {
+        "nameAr": "أعمال سياج روشن — مشروع عروس البحر",
+        "name": "Roshn Fencing — Bride of the Sea Project",
+        "clientAr": "روشن",
+        "client": "Roshn"
+      },
+      {
+        "nameAr": "سياج القنوات المائية والجاردريل — مخطط أجدال",
+        "name": "Water Channel Fencing & Guardrail — Ajdal Plan",
+        "clientAr": "أمانة جدة — مخطط أجدال",
+        "client": "Jeddah Municipality — Ajdal Plan"
+      },
+      {
+        "nameAr": "مشاريع سياجات المياه الوطنية — جدة والرياض",
+        "name": "National Water Company Fencing — Jeddah & Riyadh",
+        "clientAr": "المياه الوطنية",
+        "client": "National Water Company"
+      },
+      {
+        "nameAr": "مشروع هناجر ومستودعات — الرياض",
+        "name": "Hangars & Warehouses — Riyadh",
+        "clientAr": "الرياض",
+        "client": "Riyadh"
+      }
     ]
   },
   "infrastructure": {
-    "seoTitle": "البنية التحتية والأعمال المدنية",
-    "seoDescription": "تنفيذ مشاريع الطرق والحفريات والبنية التحتية - شبكات المياه، الصرف الصحي، الكهرباء، الاتصالات.",
-    "pageTitle": "البنية التحتية والأعمال المدنية",
-    "pageTitleEn": "Infrastructure & Civil Works",
+    "seoTitle": "أعمال الطرق والبنية التحتية",
+    "seoDescription": "شبكات المياه (دكتايل، HDPE) والصرف الصحي ومياه السيول (GRP) — حفر، تمديد، لحام، اختبار، وردم.",
+    "pageTitle": "أعمال الطرق والبنية التحتية",
+    "pageTitleEn": "Earth Work & Infrastructure",
     "workAreasTitle": "مجالات عملنا في البنية التحتية",
-    "introTitle": "أعمال الطرق والحفر والردم والبنية التحتية",
-    "introTitleEn": "Road Works, Excavation & Infrastructure",
-    "introDescription": "نعمل على تنفيذ مشاريع الطرق من قطع وحفر وردم ومشاريع حفريات البنية التحتية معتمدة بذلك على تأمين المعدات اللازمة للمشروع وفنيين ومراقبين ذو خبرة سابقة. نمتلك الخبرة والكفاءة في تنفيذ مشاريع البنية التحتية والأعمال المدنية بأعلى معايير الجودة والسلامة.",
-    "introDescriptionEn": "We execute road projects including cutting, excavation, backfilling, and infrastructure excavation projects, supported by the necessary equipment and experienced technicians and supervisors. We deliver infrastructure and civil works projects with the highest quality and safety standards.",
+    "introTitle": "أعمال الطرق والبنية التحتية",
+    "introTitleEn": "Earth Work & Infrastructure",
+    "introDescription": "تخصص الشركة في تمديد شبكات المياه والصرف الصحي ومياه السيول وفق المواصفات الهندسية، بما يشمل أعمال الحفر والتمديد واللحام والاختبار والردم.",
+    "introDescriptionEn": "The company specializes in water, sewage, and stormwater networks per engineering specifications, including excavation, laying, welding, testing, and backfilling.",
     "ctaTitle": "لديك مشروع بنية تحتية؟",
     "ctaTitleEn": "Have an infrastructure project?",
     "ctaDescription": "دعنا نساعدك في تحويل رؤيتك إلى واقع",
@@ -76,12 +162,25 @@
     "ctaButtonText": "استشارة مجانية",
     "ctaButtonTextEn": "Free Consultation",
     "defaultTypes": [
-      { "name": "Water Networks", "nameAr": "شبكات المياه", "desc": "تمديد وصيانة شبكات المياه", "descEn": "Water network extension and maintenance" },
-      { "name": "Sewage Systems", "nameAr": "الصرف الصحي", "desc": "أنظمة الصرف والمعالجة", "descEn": "Drainage and treatment systems" },
-      { "name": "Electrical Works", "nameAr": "الأعمال الكهربائية", "desc": "شبكات الكهرباء والإنارة", "descEn": "Electrical and lighting networks" },
-      { "name": "Telecom Infrastructure", "nameAr": "شبكات الاتصالات", "desc": "البنية التحتية للاتصالات", "descEn": "Telecommunications infrastructure" },
-      { "name": "Roads & Paving", "nameAr": "الطرق والرصف", "desc": "إنشاء وصيانة الطرق", "descEn": "Road construction and maintenance" },
-      { "name": "Drainage Systems", "nameAr": "أنظمة التصريف", "desc": "تصريف مياه الأمطار", "descEn": "Stormwater drainage systems" }
-    ]
+      {
+        "name": "Ductile Iron Water Networks",
+        "nameAr": "شبكات المياه — أنابيب الدكتايل",
+        "desc": "أعمال حفر وتمديد ولحام واختبار وردم المشاريع حسب المواصفات الهندسية.",
+        "descEn": "Excavation, laying, welding, pressure testing, and backfilling per engineering specifications."
+      },
+      {
+        "name": "HDPE Water Networks",
+        "nameAr": "شبكات المياه — أنابيب HDPE",
+        "desc": "أعمال الحفر والتمديد واللحام بالوصلات واختبارها لشبكات المياه (البولي إيثيلين عالي الكثافة).",
+        "descEn": "HDPE pipes: excavation, laying, fusion welding, testing, and commissioning for water networks."
+      },
+      {
+        "name": "GRP Sewage & Storm Networks",
+        "nameAr": "الصرف الصحي والسيول — أنابيب GRP",
+        "desc": "أعمال الحفر وتمديد أنابيب البلاستيك المسلح بألياف زجاجية للصرف الصحي والسيول، واختبارها وردمها، بالإضافة إلى تنفيذ المناهيل (غرف التفتيش) والغرف ومصائد المياه.",
+        "descEn": "GRP pipes for sewage and stormwater: excavation, laying, testing, backfilling, manholes, chambers, and catch basins."
+      }
+    ],
+    "defaultProjects": []
   }
 }

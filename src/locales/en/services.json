@@ -15,14 +15,14 @@
   "location": "Kingdom of Saudi Arabia",
   "landscaping": {
     "seoTitle": "Landscaping & Garden Design",
-    "seoDescription": "Design and implementation of gardens and green spaces with the highest quality standards - hardscape, softscape, irrigation systems, maintenance.",
+    "seoDescription": "Garden and green space design — softscape, hardscape, smart irrigation, and maintenance for residential, commercial, and government projects.",
     "pageTitle": "Landscaping & Garden Design",
     "pageTitleEn": "Landscaping Services",
     "workAreasTitle": "Our Landscaping Work Areas",
-    "introTitle": "Garden Design & Implementation",
-    "introTitleEn": "Garden Design & Implementation",
-    "introDescription": "We provide comprehensive landscaping and landscape design services, from planning and design to implementation and maintenance. We create beautiful, sustainable green spaces that reflect your vision and meet your needs.",
-    "introDescriptionEn": "We provide comprehensive landscaping and landscape design services, from planning and design to implementation and maintenance. We create beautiful, sustainable green spaces that reflect your vision and meet your needs.",
+    "introTitle": "Landscaping & Garden Design",
+    "introTitleEn": "Landscaping & Garden Design",
+    "introDescription": "This sector focuses on beautifying and organizing outdoor spaces for residential, commercial, and government projects, including softscape, hardscape, modern irrigation systems, and maintenance & operations.",
+    "introDescriptionEn": "This sector focuses on beautifying and organizing outdoor spaces for residential, commercial, and government projects, including softscape, hardscape, modern irrigation systems, and maintenance & operations.",
     "ctaTitle": "Have a landscaping project?",
     "ctaTitleEn": "Have a landscaping project?",
     "ctaDescription": "Contact us today for a free consultation",
@@ -30,45 +30,131 @@
     "ctaButtonText": "Contact Us",
     "ctaButtonTextEn": "Contact Us",
     "defaultTypes": [
-      { "name": "Hardscape", "nameAr": "Hardscape", "desc": "Paths and hard surfaces", "descEn": "Paths and hard surfaces" },
-      { "name": "Softscape", "nameAr": "Softscape", "desc": "Planting and vegetation", "descEn": "Planting and vegetation" },
-      { "name": "Irrigation", "nameAr": "Irrigation", "desc": "Modern smart irrigation", "descEn": "Modern smart irrigation" },
-      { "name": "Maintenance", "nameAr": "Maintenance", "desc": "Comprehensive periodic maintenance", "descEn": "Comprehensive periodic maintenance" }
+      {
+        "name": "Softscape",
+        "nameAr": "السوفتسكيب",
+        "desc": "Large trees: supply and planting of mature trees, palms, and shade trees. Shrubs & ornamentals: decorative trees, shrubs, and flowers. Turf & ground cover: natural and artificial green surfaces.",
+        "descEn": "Large trees: supply and planting of mature trees, palms, and shade trees. Shrubs & ornamentals: decorative trees, shrubs, and flowers. Turf & ground cover: natural and artificial green surfaces."
+      },
+      {
+        "name": "Irrigation Systems",
+        "nameAr": "أنظمة الري الذاتية والحديثة",
+        "desc": "Supply and installation of drip and sprinkler networks. Electric irrigation valves, filters, and decoder programming. Pumps and control units to optimize water consumption.",
+        "descEn": "Supply and installation of drip and sprinkler networks. Electric irrigation valves, filters, and decoder programming. Pumps and control units to optimize water consumption."
+      },
+      {
+        "name": "Hardscape",
+        "nameAr": "الهاردسكيب",
+        "desc": "Stamped concrete for paths and outdoor plazas. Rubber flooring for sports walkways and play areas. Playgrounds, sports facilities, shades, benches, tables, and waste bins.",
+        "descEn": "Stamped concrete for paths and outdoor plazas. Rubber flooring for sports walkways and play areas. Playgrounds, sports facilities, shades, benches, tables, and waste bins."
+      },
+      {
+        "name": "Maintenance & Operations",
+        "nameAr": "الصيانة والتشغيل",
+        "desc": "Mowing, renovation, and fertilization of green areas. Tree pruning, pesticide spraying, and rehabilitation of irrigation networks.",
+        "descEn": "Mowing, renovation, and fertilization of green areas. Tree pruning, pesticide spraying, and rehabilitation of irrigation networks."
+      }
+    ],
+    "defaultProjects": [
+      {
+        "nameAr": "مشروع الحديقة المركزية — واجهة خزام",
+        "name": "Central Park — Khuzam Front",
+        "clientAr": "الشركة الوطنية للإسكان",
+        "client": "National Housing Company"
+      },
+      {
+        "nameAr": "مشروع حديقة مركز المبيعات — السدن",
+        "name": "Sales Center Garden — Al-Sedn",
+        "clientAr": "الشركة الوطنية للإسكان",
+        "client": "National Housing Company"
+      },
+      {
+        "nameAr": "تشجير الطرق — ضاحية خزام",
+        "name": "Road Tree Planting — Khuzam District",
+        "clientAr": "الشركة الوطنية للإسكان",
+        "client": "National Housing Company"
+      },
+      {
+        "nameAr": "مشاريع حدائق وتشجير طرق — مخطط أجدال بجدة",
+        "name": "Gardens & Road Planting — Ajdal Plan, Jeddah",
+        "clientAr": "مخطط أجدال — جدة",
+        "client": "Ajdal Plan — Jeddah"
+      }
     ]
   },
   "fencing": {
-    "seoTitle": "Metal Structures & Fencing",
-    "seoDescription": "Fabrication and installation of metal structures, fencing, guardrails, and gates with the highest quality and safety standards.",
-    "pageTitle": "Metal Structures & Fencing",
-    "pageTitleEn": "Metal Structures & Fencing",
-    "workAreasTitle": "Our Fencing Work Areas",
-    "introTitle": "Metal Structure Fabrication & Installation",
-    "introTitleEn": "Metal Structure Fabrication & Installation",
-    "introDescription": "Fabrication and installation of metal structures including factories, warehouses, billboard structures, fencing, and guardrails. We provide integrated solutions from design and manufacturing to installation and maintenance, meeting the highest quality and security standards.",
-    "introDescriptionEn": "Fabrication and installation of metal structures including factories, warehouses, billboard structures, fencing, and guardrails. We provide integrated solutions from design and manufacturing to installation and maintenance, meeting the highest quality and security standards.",
-    "ctaTitle": "Need fencing solutions?",
-    "ctaTitleEn": "Need fencing solutions?",
+    "seoTitle": "Metal Structures & Security Fencing",
+    "seoDescription": "HCIS-approved fencing, road guardrails, and steel structures for warehouses, hangars, and pre-engineered buildings (PEB).",
+    "pageTitle": "Metal Structures & Security Fencing",
+    "pageTitleEn": "Metal Structures & Security Fencing",
+    "workAreasTitle": "Our Fencing & Structures Work Areas",
+    "introTitle": "Metal Structures & Security Fencing",
+    "introTitleEn": "Metal Structures & Security Fencing",
+    "introDescription": "This sector focuses on steel protection and structural works for critical facilities and roads, including HCIS-approved security fencing, road guardrails, and steel structures for industrial, commercial, and residential projects.",
+    "introDescriptionEn": "This sector focuses on steel protection and structural works for critical facilities and roads, including HCIS-approved security fencing, road guardrails, and steel structures for industrial, commercial, and residential projects.",
+    "ctaTitle": "Need fencing or steel structure solutions?",
+    "ctaTitleEn": "Need fencing or steel structure solutions?",
     "ctaDescription": "Get a free quote for your project",
     "ctaDescriptionEn": "Get a free quote for your project",
     "ctaButtonText": "Request a Quote",
     "ctaButtonTextEn": "Request a Quote",
     "defaultTypes": [
-      { "name": "Security Fencing", "nameAr": "Security Fencing", "desc": "Advanced perimeter protection", "descEn": "Advanced perimeter protection" },
-      { "name": "Guardrails", "nameAr": "Guardrails", "desc": "Road and bridge barriers", "descEn": "Road and bridge barriers" },
-      { "name": "Temporary Fencing", "nameAr": "Temporary Fencing", "desc": "For sites and events", "descEn": "For sites and events" },
-      { "name": "Gate Systems", "nameAr": "Gate Systems", "desc": "Automatic smart gates", "descEn": "Automatic smart gates" }
+      {
+        "name": "HCIS Security Fencing",
+        "nameAr": "السياجات الأمنية المعتمدة (HCIS)",
+        "desc": "Perimeter fences for industrial and critical facilities in Saudi Arabia, classified from Class 1 (highest protection) to Class 4 (basic protection).",
+        "descEn": "Perimeter fences for industrial and critical facilities in Saudi Arabia, classified from Class 1 (highest protection) to Class 4 (basic protection)."
+      },
+      {
+        "name": "Road Guardrails",
+        "nameAr": "الجارد ريل — حواجز الطرق المعدنية",
+        "desc": "Installation on highways and streets per MOT and SASO specifications. Approved types: W Beam Guardrail — C POST, Thrie-Beam, and steel cable barriers.",
+        "descEn": "Installation on highways and streets per MOT and SASO specifications. Approved types: W Beam Guardrail — C POST, Thrie-Beam, and steel cable barriers."
+      },
+      {
+        "name": "Steel Structures",
+        "nameAr": "الهياكل الحديدية",
+        "desc": "Fabrication and installation: warehouses, factories, hangars, roof girders, and pre-engineered buildings (PEB) — light and heavy structures.",
+        "descEn": "Fabrication and installation: warehouses, factories, hangars, roof girders, and pre-engineered buildings (PEB) — light and heavy structures."
+      }
+    ],
+    "defaultProjects": [
+      {
+        "nameAr": "أعمال سياج روشن — مشروع عروس البحر",
+        "name": "Roshn Fencing — Bride of the Sea Project",
+        "clientAr": "روشن",
+        "client": "Roshn"
+      },
+      {
+        "nameAr": "سياج القنوات المائية والجاردريل — مخطط أجدال",
+        "name": "Water Channel Fencing & Guardrail — Ajdal Plan",
+        "clientAr": "أمانة جدة — مخطط أجدال",
+        "client": "Jeddah Municipality — Ajdal Plan"
+      },
+      {
+        "nameAr": "مشاريع سياجات المياه الوطنية — جدة والرياض",
+        "name": "National Water Company Fencing — Jeddah & Riyadh",
+        "clientAr": "المياه الوطنية",
+        "client": "National Water Company"
+      },
+      {
+        "nameAr": "مشروع هناجر ومستودعات — الرياض",
+        "name": "Hangars & Warehouses — Riyadh",
+        "clientAr": "الرياض",
+        "client": "Riyadh"
+      }
     ]
   },
   "infrastructure": {
-    "seoTitle": "Infrastructure & Civil Works",
-    "seoDescription": "Execution of road projects, excavations, and infrastructure - water networks, sewage, electrical, telecommunications.",
-    "pageTitle": "Infrastructure & Civil Works",
-    "pageTitleEn": "Infrastructure & Civil Works",
+    "seoTitle": "Earth Work & Infrastructure",
+    "seoDescription": "Water networks (ductile iron, HDPE) and sewage/storm networks (GRP) — excavation, laying, welding, testing, and backfilling.",
+    "pageTitle": "Earth Work & Infrastructure",
+    "pageTitleEn": "Earth Work & Infrastructure",
     "workAreasTitle": "Our Infrastructure Work Areas",
-    "introTitle": "Road Works, Excavation & Infrastructure",
-    "introTitleEn": "Road Works, Excavation & Infrastructure",
-    "introDescription": "We execute road projects including cutting, excavation, backfilling, and infrastructure excavation projects, supported by the necessary equipment and experienced technicians and supervisors. We deliver infrastructure and civil works projects with the highest quality and safety standards.",
-    "introDescriptionEn": "We execute road projects including cutting, excavation, backfilling, and infrastructure excavation projects, supported by the necessary equipment and experienced technicians and supervisors. We deliver infrastructure and civil works projects with the highest quality and safety standards.",
+    "introTitle": "Earth Work & Infrastructure",
+    "introTitleEn": "Earth Work & Infrastructure",
+    "introDescription": "The company specializes in water, sewage, and stormwater networks per engineering specifications, including excavation, laying, welding, testing, and backfilling.",
+    "introDescriptionEn": "The company specializes in water, sewage, and stormwater networks per engineering specifications, including excavation, laying, welding, testing, and backfilling.",
     "ctaTitle": "Have an infrastructure project?",
     "ctaTitleEn": "Have an infrastructure project?",
     "ctaDescription": "Let us help you turn your vision into reality",
@@ -76,12 +162,25 @@
     "ctaButtonText": "Free Consultation",
     "ctaButtonTextEn": "Free Consultation",
     "defaultTypes": [
-      { "name": "Water Networks", "nameAr": "Water Networks", "desc": "Water network extension and maintenance", "descEn": "Water network extension and maintenance" },
-      { "name": "Sewage Systems", "nameAr": "Sewage Systems", "desc": "Drainage and treatment systems", "descEn": "Drainage and treatment systems" },
-      { "name": "Electrical Works", "nameAr": "Electrical Works", "desc": "Electrical and lighting networks", "descEn": "Electrical and lighting networks" },
-      { "name": "Telecom Infrastructure", "nameAr": "Telecom Infrastructure", "desc": "Telecommunications infrastructure", "descEn": "Telecommunications infrastructure" },
-      { "name": "Roads & Paving", "nameAr": "Roads & Paving", "desc": "Road construction and maintenance", "descEn": "Road construction and maintenance" },
-      { "name": "Drainage Systems", "nameAr": "Drainage Systems", "desc": "Stormwater drainage systems", "descEn": "Stormwater drainage systems" }
-    ]
+      {
+        "name": "Ductile Iron Water Networks",
+        "nameAr": "شبكات المياه — أنابيب الدكتايل",
+        "desc": "Excavation, laying, welding, pressure testing, and backfilling per engineering specifications.",
+        "descEn": "Excavation, laying, welding, pressure testing, and backfilling per engineering specifications."
+      },
+      {
+        "name": "HDPE Water Networks",
+        "nameAr": "شبكات المياه — أنابيب HDPE",
+        "desc": "HDPE pipes: excavation, laying, fusion welding, testing, and commissioning for water networks.",
+        "descEn": "HDPE pipes: excavation, laying, fusion welding, testing, and commissioning for water networks."
+      },
+      {
+        "name": "GRP Sewage & Storm Networks",
+        "nameAr": "الصرف الصحي والسيول — أنابيب GRP",
+        "desc": "GRP pipes for sewage and stormwater: excavation, laying, testing, backfilling, manholes, chambers, and catch basins.",
+        "descEn": "GRP pipes for sewage and stormwater: excavation, laying, testing, backfilling, manholes, chambers, and catch basins."
+      }
+    ],
+    "defaultProjects": []
   }
 }

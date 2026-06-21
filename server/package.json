@@ -9,6 +9,7 @@
     "start:prod": "node src/server.js",
     "verify": "node scripts/verify-backend.js",
     "seed:company-profile": "node seed-company-profile.js",
+    "seed:page-content": "node scripts/seed-page-content.js",
     "seed:categories": "node -e \"require('dotenv').config(); const connectDB=require('./src/config/db'); const {seedCategories}=require('./src/services/categorySeedService'); const m=require('mongoose'); connectDB().then(async()=>{ console.log(await seedCategories()); await m.disconnect(); });\""
   },
   "dependencies": {

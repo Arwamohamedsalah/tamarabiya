@@ -1,0 +1,123 @@
+[
+  {
+    "id": "security-fencing",
+    "title": "السياجات الأمنية",
+    "titleEn": "Security Fencing",
+    "imageCount": 3,
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "الأسوار الأمنية المعتمدة HCIS :-",
+        "textEn": "Certified HCIS Security Fences:"
+      },
+      {
+        "type": "paragraph",
+        "text": "هي أنظمة أسوار مخصصة لحماية المنشآت الحيوية والصناعية داخل المملكة العربية السعودية وفق اشتراطات HCIS",
+        "textEn": "These are fence systems dedicated to protecting vital and industrial facilities within the Kingdom of Saudi Arabia according to HCIS requirements."
+      },
+      {
+        "type": "table",
+        "title": "",
+        "titleEn": "",
+        "headerCol1": "الفئة",
+        "headerCol1En": "Class",
+        "headerCol2": "مستوى الحماية",
+        "headerCol2En": "Protection Level",
+        "rows": [
+          { "col1": "Class 1", "col1En": "Class 1", "col2": "حماية عالية جداً", "col2En": "Very high protection" },
+          { "col1": "Class 2", "col1En": "Class 2", "col2": "حماية عالية", "col2En": "High protection" },
+          { "col1": "Class 3", "col1En": "Class 3", "col2": "حماية متوسطة", "col2En": "Medium protection" },
+          { "col1": "Class 4", "col1En": "Class 4", "col2": "حماية أساسية", "col2En": "Basic protection" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "guardrails",
+    "title": "الجارد ريل",
+    "titleEn": "Guardrail",
+    "imageCount": 2,
+    "blocks": [
+      {
+        "type": "heading",
+        "text": "الجاردريل (Guardrail) أو حواجز الطرق المعدنية :",
+        "textEn": "Guardrail or metal road barriers:"
+      },
+      {
+        "type": "paragraph",
+        "text": "شركة متخصصة في مجال المقاولات وتقديم خدمات تركيب حواجز الطرق (الجاردريل) وفق أعلى معايير الجودة والسلامة.",
+        "textEn": "A specialized contracting company providing road guardrail installation services according to the highest quality and safety standards."
+      },
+      {
+        "type": "paragraph",
+        "text": "فريق عمل مؤهل لتركيب الحواجز المعدنية على الطرق السريعة والشوارع الرئيسية باستخدام معدات ومواد حديثة مطابقة للمواصفات الفنية.",
+        "textEn": "A qualified team for installing metal barriers on highways and main streets using modern equipment and materials compliant with technical specifications."
+      },
+      {
+        "type": "paragraph",
+        "text": "نهدف إلى تقديم حلول متكاملة لجودة التنفيذ لتحقيق رضا العملاء والمساهمة في تطوير البنية التحتية المستدامة.",
+        "textEn": "We aim to provide integrated solutions for execution quality to achieve customer satisfaction and contribute to sustainable infrastructure development."
+      },
+      {
+        "type": "paragraph",
+        "text": "تخضع المواد لمواصفات وزارة النقل والخدمات اللوجستية بالتعاون مع الهيئة السعودية للمواصفات والمقاييس والجودة (SASO).",
+        "textEn": "Materials comply with the specifications of the Ministry of Transport and Logistic Services in cooperation with SASO."
+      },
+      {
+        "type": "list",
+        "intro": "أهم مواصفات الجاردريل المعتمدة عادةً في مشاريع الطرق السعودية — نوع الحاجز:",
+        "introEn": "Key guardrail specifications approved in Saudi road projects — barrier type:",
+        "items": [
+          "W Beam Guardrail - C POST",
+          "Thrie-Beam للحماية الأعلى",
+          "كابل ستيل لبعض الطرق الخاصة"
+        ],
+        "itemsEn": [
+          "W Beam Guardrail - C POST",
+          "Thrie-Beam for higher protection",
+          "Steel cable for select special roads"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "steel-structures",
+    "title": "الهياكل الحديدية",
+    "titleEn": "Steel Structures",
+    "imageCount": 2,
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "في شركتنا نحرص على تقديم حلول متكاملة في مجال المقاولات والهياكل الحديدية وفق أعلى معايير الجودة والسلامة.",
+        "textEn": "In our company, we are keen to provide integrated solutions in contracting and steel structures according to the highest standards of quality and safety."
+      },
+      {
+        "type": "paragraph",
+        "text": "نمتلك خبرة في تنفيذ وتركيب مختلف أنواع الهياكل الحديدية للمشاريع الصناعية والتجارية والسكنية، بما يشمل المستودعات، المصانع، الهناجر، المظلات، والأسقف المعدنية. كما نستخدم مواد عالية الجودة وفرق عمل متخصصة لضمان تنفيذ المشاريع بدقة وكفاءة.",
+        "textEn": "We have experience in implementing and installing various types of steel structures for industrial, commercial, and residential projects, including warehouses, factories, hangars, shades, and metal roofs. We use high-quality materials and specialized teams to ensure accurate and efficient project delivery."
+      },
+      {
+        "type": "heading",
+        "text": "أنواع المنشآت الحديدية:",
+        "textEn": "Types of steel structures:"
+      },
+      {
+        "type": "list",
+        "intro": "",
+        "introEn": "",
+        "items": [
+          "هياكل خفيفة",
+          "هياكل ثقيلة",
+          "مباني سابقة التجهيز (PEB)",
+          "الجمالونات الحديدية للأسقف"
+        ],
+        "itemsEn": [
+          "Light steel structures",
+          "Heavy steel structures",
+          "Pre-engineered buildings (PEB)",
+          "Steel trusses for roofs"
+        ]
+      }
+    ]
+  }
+]

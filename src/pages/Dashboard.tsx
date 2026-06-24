@@ -8,8 +8,20 @@ import type { PageContentData, ServiceType } from '../store/slices/pageContentSl
 import { useNavigate, Link } from 'react-router-dom';
 import { LogOut, Plus, Edit, Trash2, Image as ImageIcon, Home, Sprout, Fence, Building2, Globe, X, Crop, Info, Phone, FileUp, CheckCircle, QrCode } from 'lucide-react';
 import SiteSettingsEditor from '../components/dashboard/SiteSettingsEditor';
+import WorkAreaContentEditor from '../components/dashboard/WorkAreaContentEditor';
 import { setSiteSettings } from '../store/slices/siteSettingsSlice';
 import { API_BASE_URL } from '../config/api';
+import defaultLandscapingWorkAreas from '../content/landscapingWorkAreas.json';
+import defaultFencingWorkAreas from '../content/fencingWorkAreas.json';
+import defaultInfrastructureWorkAreas from '../content/infrastructureWorkAreas.json';
+import type { WorkAreaSection } from '../types/workAreaSection';
+import type { ImageItem } from '../store/slices/imagesSlice';
+
+const WORK_AREA_DEFAULTS: Record<'landscaping' | 'fencing' | 'infrastructure', WorkAreaSection[]> = {
+  landscaping: defaultLandscapingWorkAreas as WorkAreaSection[],
+  fencing: defaultFencingWorkAreas as WorkAreaSection[],
+  infrastructure: defaultInfrastructureWorkAreas as WorkAreaSection[],
+};
 
 type PageType = 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact' | 'files' | 'settings';
 type SectionType = 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content';
@@ -17,15 +29,26 @@ type SectionType = 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'co
 function PageContentEditor({
   data,
   onSave,
+  token,
+  images,
+  apiBase,
+  onImageChange,
 }: {
   data: PageContentData;
   onSave: (d: Partial<PageContentData>) => void;
+  token: string | null;
+  images: ImageItem[];
+  apiBase: string;
+  onImageChange: (image: ImageItem, action: 'add' | 'update' | 'delete') => void;
 }) {
   const [form, setForm] = useState<PageContentData>(data);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    setForm(data);
+    const workAreaSections = data.workAreaSections?.length
+      ? data.workAreaSections
+      : WORK_AREA_DEFAULTS[data.page] || [];
+    setForm({ ...data, workAreaSections });
   }, [data]);
 
   const update = (k: keyof PageContentData, v: any) => {
@@ -57,7 +80,36 @@ function PageContentEditor({
 
   const handleSave = async () => {
     setSaving(true);
-    await onSave(form);
+    const {
+      page,
+      introTitle,
+      introTitleEn,
+      introDescription,
+      introDescriptionEn,
+      serviceTypes,
+      workAreaSections,
+      ctaTitle,
+      ctaTitleEn,
+      ctaDescription,
+      ctaDescriptionEn,
+      ctaButtonText,
+      ctaButtonTextEn,
+    } = form;
+    await onSave({
+      page,
+      introTitle,
+      introTitleEn,
+      introDescription,
+      introDescriptionEn,
+      serviceTypes,
+      workAreaSections,
+      ctaTitle,
+      ctaTitleEn,
+      ctaDescription,
+      ctaDescriptionEn,
+      ctaButtonText,
+      ctaButtonTextEn,
+    });
     setSaving(false);
   };
 
@@ -89,9 +141,21 @@ function PageContentEditor({
         </div>
       </div>
 
+      {form.workAreaSections && form.workAreaSections.length > 0 && (
+        <WorkAreaContentEditor
+          page={form.page}
+          sections={form.workAreaSections}
+          onChange={(sections) => update('workAreaSections', sections)}
+          images={images}
+          token={token}
+          apiBase={apiBase}
+          onImageChange={onImageChange}
+        />
+      )}
+
       <div className="space-y-4">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-gray-800">مجالات العمل</h3>
+          <h3 className="text-lg font-semibold text-gray-800">مجالات العمل (بطاقات — للصفحات البسيطة)</h3>
           <button
             type="button"
             onClick={addServiceType}
@@ -481,6 +545,7 @@ export default function Dashboard() {
           updatedAt: img.updatedAt,
           videoUrl: img.videoUrl || '',
           videoPublicId: img.videoPublicId,
+          workAreaId: img.workAreaId || '',
         }));
         dispatch(setImages(mapped));
       } catch (err) {
@@ -840,10 +905,16 @@ export default function Dashboard() {
       });
       if (res.ok) {
         const updated = await res.json();
-        dispatch(setPageContent(updated));
+        dispatch(setPageContent({ ...updated, page: selectedPage as PageContentData['page'] }));
+        dispatch(addNotification({ message: 'تم حفظ المحتوى في قاعدة البيانات بنجاح', type: 'success' }));
+      } else {
+        const errText = await res.text();
+        console.error('Failed to save page content', errText);
+        dispatch(addNotification({ message: 'فشل حفظ المحتوى — تأكدي أن الباك إند شغال', type: 'error' }));
       }
     } catch (err) {
       console.error('Failed to save page content', err);
+      dispatch(addNotification({ message: 'فشل حفظ المحتوى — تحققي من الاتصال بالسيرفر', type: 'error' }));
     }
   };
 
@@ -1033,6 +1104,14 @@ export default function Dashboard() {
             <PageContentEditor
               data={currentContent}
               onSave={handleSavePageContent}
+              token={token}
+              images={images}
+              apiBase={API_BASE_URL}
+              onImageChange={(image, action) => {
+                if (action === 'add') dispatch(addImage(image));
+                else if (action === 'update') dispatch(updateImage(image));
+                else dispatch(deleteImage(image.id));
+              }}
             />
           ) : (
             /* Images List */

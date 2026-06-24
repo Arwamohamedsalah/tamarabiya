@@ -5,16 +5,27 @@ import { setPageContent } from '../store/slices/pageContentSlice';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
 import VideoModal from '../components/VideoModal';
-import { getImagesByPageAndSection, getImageWrapperStyle } from '../utils/imageUtils';
+import { getImagesByPageAndSection, getImageWrapperStyle, getWorkAreaImages } from '../utils/imageUtils';
 import { resolvePageContent, getProjectName } from '../utils/localizedContent';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
+import WorkAreaSections from './WorkAreaSections';
+import landscapingWorkAreas from '../content/landscapingWorkAreas.json';
+import fencingWorkAreas from '../content/fencingWorkAreas.json';
+import infrastructureWorkAreas from '../content/infrastructureWorkAreas.json';
+import type { WorkAreaSection } from '../types/workAreaSection';
 import type { PageContentData } from '../store/slices/pageContentSlice';
 
 import { API_BASE_URL } from '../config/api';
 
 type ServicePageKey = 'landscaping' | 'fencing' | 'infrastructure';
+
+const DEFAULT_WORK_AREAS: Record<ServicePageKey, WorkAreaSection[]> = {
+  landscaping: landscapingWorkAreas as WorkAreaSection[],
+  fencing: fencingWorkAreas as WorkAreaSection[],
+  infrastructure: infrastructureWorkAreas as WorkAreaSection[],
+};
 
 interface ServicePageProps {
   pageKey: ServicePageKey;
@@ -109,8 +120,36 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const projects = imageProjects.length > 0 ? imageProjects : textProjects;
 
-  const gallery = galleryImages.map((img) => img.url);
-  const galleryKey = galleryImages.length > 0 ? galleryImages.map(img => img.id).join(',') : 'empty';
+  const richWorkAreas = useMemo(() => {
+    const fromApi = content?.workAreaSections;
+    if (fromApi?.length) return fromApi;
+    return DEFAULT_WORK_AREAS[pageKey] || [];
+  }, [pageKey, content?.workAreaSections]);
+
+  const useRichWorkAreas = richWorkAreas.length > 0;
+  const workAreaImageCount = useRichWorkAreas
+    ? richWorkAreas.reduce((sum, section) => sum + (section.imageCount ?? 2), 0)
+    : 0;
+
+  const hasDedicatedWorkAreaImages = useMemo(
+    () =>
+      useRichWorkAreas &&
+      richWorkAreas.some((section) => getWorkAreaImages(images, pageKey, section.id).length > 0),
+    [useRichWorkAreas, richWorkAreas, images, pageKey]
+  );
+
+  const usesLegacyGalleryForWorkAreas =
+    useRichWorkAreas && !hasDedicatedWorkAreaImages && galleryImages.length > 0;
+
+  const galleryForDisplay = usesLegacyGalleryForWorkAreas
+    ? galleryImages.slice(workAreaImageCount)
+    : galleryImages;
+
+  const accentTextClass =
+    accentColor === 'landscape' ? 'text-landscape-dark' : accentColor === 'metal' ? 'text-metal' : 'text-infra';
+
+  const gallery = galleryForDisplay.map((img) => img.url);
+  const galleryKey = galleryForDisplay.length > 0 ? galleryForDisplay.map(img => img.id).join(',') : 'empty';
   const projectsKey = projectImages.length > 0 ? projectImages.map(img => img.id).join(',') : 'empty';
   const textAlign = isRtl ? 'text-right' : 'text-left';
   const borderSide = isRtl ? 'border-r-4' : 'border-l-4';
@@ -137,37 +176,55 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
           <a href="#gallery" className="px-6 py-3 rounded-none bg-landscape/10 text-landscape-dark font-black hover:bg-landscape/20 transition-all uppercase tracking-wider text-xs">{t('nav.gallery')}</a>
         </nav>
 
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
-            {localizedContent.introTitle}
-          </h2>
-          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed opacity-90">
-            {localizedContent.introDescription}
-          </p>
-        </div>
+        {!useRichWorkAreas && (
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
+              {localizedContent.introTitle}
+            </h2>
+            <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed opacity-90">
+              {localizedContent.introDescription}
+            </p>
+          </div>
+        )}
 
-        <div id="work-areas" className="scroll-mt-24 bg-white rounded-none shadow-xl p-8 md:p-12 mb-16 border border-gray-100 hover:shadow-2xl transition-all duration-500">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-1 h-10 bg-gradient-to-b from-landscape to-landscape-dark rounded-full"></div>
-            <h3 className={`text-xl md:text-2xl font-black text-gray-900 ${textAlign}`}>
-              {t(`${pageKey}.workAreasTitle`)}
-            </h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {localizedContent.serviceTypes.map((type, index) => (
-              <div
-                key={index}
-                className={`group bg-gradient-to-br from-green-50 to-gray-50 p-6 rounded-none ${borderSide} border-landscape hover:border-landscape-light hover:shadow-lg transition-all duration-300 hover-lift animate-fade-in-up`}
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`flex justify-between items-start mb-2 ${isRtl ? '' : 'flex-row-reverse'}`}>
-                  <p className="text-xs text-gray-500 font-medium">{isRtl ? type.name : type.nameAr}</p>
-                  <h4 className="text-lg font-bold text-gray-900 group-hover:text-landscape-dark transition-colors duration-300">{isRtl ? type.nameAr : type.name}</h4>
-                </div>
-                <p className={`text-gray-600 ${textAlign} text-sm leading-relaxed`}>{type.desc}</p>
+        <div id="work-areas" className={`scroll-mt-24 ${useRichWorkAreas ? 'mb-16' : 'bg-white rounded-none shadow-xl p-8 md:p-12 mb-16 border border-gray-100 hover:shadow-2xl transition-all duration-500'}`}>
+          {useRichWorkAreas ? (
+            <WorkAreaSections
+              sections={richWorkAreas}
+              title={t(`${pageKey}.workAreasTitle`)}
+              language={language}
+              isRtl={isRtl}
+              getSectionImages={(workAreaId) => getWorkAreaImages(images, pageKey, workAreaId)}
+              legacyGalleryImages={usesLegacyGalleryForWorkAreas ? galleryImages : []}
+              accentClass={accentTextClass}
+              accentTheme={accentColor}
+              imageKey={imageKey}
+            />
+          ) : (
+            <>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1 h-10 bg-gradient-to-b from-landscape to-landscape-dark rounded-full"></div>
+                <h3 className={`text-xl md:text-2xl font-black text-gray-900 ${textAlign}`}>
+                  {t(`${pageKey}.workAreasTitle`)}
+                </h3>
               </div>
-            ))}
-          </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                {localizedContent.serviceTypes.map((type, index) => (
+                  <div
+                    key={index}
+                    className={`group bg-gradient-to-br from-green-50 to-gray-50 p-6 rounded-none ${borderSide} border-landscape hover:border-landscape-light hover:shadow-lg transition-all duration-300 hover-lift animate-fade-in-up`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className={`flex justify-between items-start mb-2 ${isRtl ? '' : 'flex-row-reverse'}`}>
+                      <p className="text-xs text-gray-500 font-medium">{isRtl ? type.name : type.nameAr}</p>
+                      <h4 className="text-lg font-bold text-gray-900 group-hover:text-landscape-dark transition-colors duration-300">{isRtl ? type.nameAr : type.name}</h4>
+                    </div>
+                    <p className={`text-gray-600 ${textAlign} text-sm leading-relaxed whitespace-pre-line`}>{type.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         <div id="projects" className="scroll-mt-24 mb-16">
@@ -240,26 +297,26 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-stretch" key={`gallery-${imageKey}-${galleryKey}`}>
               {gallery.map((image, index) => (
                 <div
-                  key={`${galleryImages[index]?.id || `default-${index}`}-${imageKey}`}
+                  key={`${galleryForDisplay[index]?.id || `default-${index}`}-${imageKey}`}
                   className="flex flex-col overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <div className="relative flex items-center justify-center flex-1 min-h-[320px] md:min-h-[360px] p-6 bg-gradient-to-br from-gray-50 to-white">
-                    {galleryImages[index]?.crop ? (
-                      <div style={getImageWrapperStyle(galleryImages[index])} className="w-full h-full" />
+                    {galleryForDisplay[index]?.crop ? (
+                      <div style={getImageWrapperStyle(galleryForDisplay[index])} className="w-full h-full" />
                     ) : (
                       <img
                         src={image}
-                        alt={galleryImages[index]?.alt || t('galleryFallback', { number: index + 1 })}
+                        alt={galleryForDisplay[index]?.alt || t('galleryFallback', { number: index + 1 })}
                         className="w-full h-full object-contain rounded-none group-hover:scale-105 transition-transform duration-700"
                         loading="lazy"
-                        key={`${galleryImages[index]?.id || `default-img-${index}`}-${imageKey}`}
+                        key={`${galleryForDisplay[index]?.id || `default-img-${index}`}-${imageKey}`}
                       />
                     )}
                   </div>
                   <div className="min-h-[80px] flex items-center p-4 md:p-5">
-                    {(galleryImages[index]?.alt) ? (
-                      <p className={`text-gray-700 text-base ${textAlign} leading-relaxed w-full`}>{galleryImages[index]?.alt}</p>
+                    {(galleryForDisplay[index]?.alt) ? (
+                      <p className={`text-gray-700 text-base ${textAlign} leading-relaxed w-full`}>{galleryForDisplay[index]?.alt}</p>
                     ) : (
                       <span className="invisible">.</span>
                     )}

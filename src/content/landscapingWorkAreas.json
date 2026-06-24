@@ -1,0 +1,120 @@
+[
+  {
+    "id": "softscape",
+    "title": "السوفتسكيب",
+    "titleEn": "Softscape",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "في شركة تام العربية للمقاولات — تنفيذ جميع أعمال السoftscape (الزراعة والنباتات والزهور والثيل) باحترافية متناهية، مع توريد وزراعة الأشجار والشجيرات والزهور وتوزيعها جمالياً داخل المشاريع السكنية والتجارية والحكومية.",
+        "textEn": "At TAM Alarabiya Co. — we execute all softscape works (planting, vegetation, flowers, and turf) with high professionalism, supplying and planting trees, shrubs, and flowers with aesthetic distribution across residential, commercial, and government projects."
+      },
+      {
+        "type": "heading",
+        "text": "أقسام أعمال اللاندسكيب:",
+        "textEn": "Landscaping work sections:"
+      },
+      {
+        "type": "highlight",
+        "title": "قسم زراعة الأشجار الكبيرة:",
+        "titleEn": "Large tree planting:",
+        "body": "توريد وزراعة الأشجار الضخمة والنخيل وأشجار الظل وفق المواصفات الفنية والجمالية للمشروع.",
+        "bodyEn": "Supply and planting of mature trees, palms, and shade trees per the project's technical and aesthetic specifications."
+      },
+      {
+        "type": "highlight",
+        "title": "قسم زراعة الأشجار الصغيرة والشجيرات:",
+        "titleEn": "Shrubs and ornamental planting:",
+        "body": "زراعة أشجار الزينة والشجيرات والزهور وتوزيعها جمالياً بما يتناسب مع تصميم الحديقة والمساحات الخضراء.",
+        "bodyEn": "Planting ornamental trees, shrubs, and flowers with aesthetic distribution suited to the garden and green space design."
+      },
+      {
+        "type": "highlight",
+        "title": "قسم مغطيات التربة والثيل:",
+        "titleEn": "Turf and ground cover:",
+        "body": "تنفيذ المسطحات الخضراء الطبيعية والصناعية (الثيل) ومغطيات التربة بجودة عالية ومعايير صيانة مناسبة.",
+        "bodyEn": "Implementation of natural and artificial green surfaces (turf) and ground covers with high quality and appropriate maintenance standards."
+      }
+    ]
+  },
+  {
+    "id": "irrigation",
+    "title": "أنظمة الري",
+    "titleEn": "Irrigation Systems",
+    "blocks": [
+      {
+        "type": "list",
+        "intro": "أعمال شبكات الري الحديثة ذات الري الذاتي:",
+        "introEn": "Modern self-irrigation network works:",
+        "items": [
+          "توريد وتركيب واختبار محابس الري الكهربائية وصناديق الفلاتر.",
+          "تركيب وبرمجة الديكودرات الخاصة بالمحابس الكهربائية.",
+          "تركيب الرشاشات وخطوط التنقيط.",
+          "تنفيذ شبكات الري بالتنقيط والرش.",
+          "تركيب المضخات ووحدات التحكم الحديثة لترشيد استهلاك المياه.",
+          "ضمان وصول المياه لجميع النباتات بكفاءة عالية."
+        ],
+        "itemsEn": [
+          "Supply, installation, and testing of electric irrigation valves and filter boxes.",
+          "Installation and programming of decoders for electric valves.",
+          "Installation of sprayers and drip lines.",
+          "Implementation of drip and sprinkler irrigation networks.",
+          "Installation of pumps and modern control units to optimize water consumption.",
+          "Ensuring water reaches all plants with high efficiency."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hardscape",
+    "title": "الهاردسكيب",
+    "titleEn": "Hardscape",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "تنفيذ جميع أعمال الهاردسكيب (الأعمال المدنية والأرضيات الخارجية) للمشاريع السكنية والتجارية والحكومية بجودة عالية ومظهر فخم.",
+        "textEn": "Execution of all hardscape works (civil works and outdoor flooring) for residential, commercial, and government projects with high quality and an elegant appearance."
+      },
+      {
+        "type": "highlight",
+        "title": "قسم أعمال الأرضيات:",
+        "titleEn": "Flooring works:",
+        "body": "أ- الخرسانة المطبوعة: للممرات والساحات الخارجية لإعطاء مظهر فخم.\nب- الأرضيات المطاطية: مخصصة للممرات الرياضية ومناطق الألعاب.",
+        "bodyEn": "a- Stamped concrete: for paths and outdoor plazas with an elegant finish.\nb- Rubber flooring: for sports walkways and play areas."
+      },
+      {
+        "type": "highlight",
+        "title": "قسم الملاعب والمظلات:",
+        "titleEn": "Playgrounds and shades:",
+        "body": "تنفيذ ملاعب الأطفال والمنشآت الرياضية، وتركيب المظلات والكراسي والطاولات وسلال النفايات وفق متطلبات المشروع.",
+        "bodyEn": "Construction of children's playgrounds and sports facilities, and installation of shades, benches, tables, and waste bins per project requirements."
+      }
+    ]
+  },
+  {
+    "id": "maintenance",
+    "title": "الصيانة",
+    "titleEn": "Maintenance",
+    "blocks": [
+      {
+        "type": "list",
+        "intro": "صيانة وتشغيل الحدائق:",
+        "introEn": "Garden maintenance and operations:",
+        "items": [
+          "صيانة المسطحات الخضراء: قص وترميم وتسميد المسطحات.",
+          "تقليم الأشجار والشجيرات.",
+          "رش المبيدات والعناية بالنباتات.",
+          "إصلاح وإعادة تأهيل شبكات الري.",
+          "صيانة عامة للحدائق والمساحات الخارجية."
+        ],
+        "itemsEn": [
+          "Green area maintenance: mowing, renovation, and fertilization.",
+          "Tree and shrub pruning.",
+          "Pesticide application and plant care.",
+          "Repair and rehabilitation of irrigation networks.",
+          "General maintenance of gardens and outdoor spaces."
+        ]
+      }
+    ]
+  }
+]

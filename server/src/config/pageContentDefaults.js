@@ -1,6 +1,10 @@
 /**
  * Default CMS content for service pages — matches company profile (PDF).
  */
+const LANDSCAPING_WORK_AREAS = require('./landscapingWorkAreas.json');
+const FENCING_WORK_AREAS = require('./fencingWorkAreas.json');
+const INFRASTRUCTURE_WORK_AREAS = require('./infrastructureWorkAreas.json');
+
 const PAGE_CONTENT_DEFAULTS = {
   landscaping: {
     page: 'landscaping',
@@ -44,6 +48,7 @@ const PAGE_CONTENT_DEFAULTS = {
         order: 3,
       },
     ],
+    workAreaSections: LANDSCAPING_WORK_AREAS,
     ctaTitle: 'هل لديك مشروع لاندسكيب؟',
     ctaTitleEn: 'Have a landscaping project?',
     ctaDescription: 'تواصل معنا اليوم للحصول على استشارة مجانية',
@@ -85,6 +90,7 @@ const PAGE_CONTENT_DEFAULTS = {
         order: 2,
       },
     ],
+    workAreaSections: FENCING_WORK_AREAS,
     ctaTitle: 'تحتاج لحلول سياجات أو هياكل معدنية؟',
     ctaTitleEn: 'Need fencing or steel structure solutions?',
     ctaDescription: 'احصل على عرض أسعار مجاني لمشروعك',
@@ -126,6 +132,7 @@ const PAGE_CONTENT_DEFAULTS = {
         order: 2,
       },
     ],
+    workAreaSections: INFRASTRUCTURE_WORK_AREAS,
     ctaTitle: 'لديك مشروع بنية تحتية؟',
     ctaTitleEn: 'Have an infrastructure project?',
     ctaDescription: 'دعنا نساعدك في تحويل رؤيتك إلى واقع',

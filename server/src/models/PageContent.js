@@ -8,6 +8,46 @@ const serviceTypeSchema = new mongoose.Schema({
   order: { type: Number, default: 0 },
 });
 
+const workAreaBlockSchema = new mongoose.Schema(
+  {
+    type: { type: String, enum: ['paragraph', 'heading', 'highlight', 'list', 'table'] },
+    text: { type: String, trim: true },
+    textEn: { type: String, trim: true },
+    title: { type: String, trim: true },
+    titleEn: { type: String, trim: true },
+    body: { type: String, trim: true },
+    bodyEn: { type: String, trim: true },
+    intro: { type: String, trim: true },
+    introEn: { type: String, trim: true },
+    items: [{ type: String, trim: true }],
+    itemsEn: [{ type: String, trim: true }],
+    headerCol1: { type: String, trim: true },
+    headerCol1En: { type: String, trim: true },
+    headerCol2: { type: String, trim: true },
+    headerCol2En: { type: String, trim: true },
+    rows: [
+      {
+        col1: { type: String, trim: true },
+        col1En: { type: String, trim: true },
+        col2: { type: String, trim: true },
+        col2En: { type: String, trim: true },
+      },
+    ],
+  },
+  { _id: false }
+);
+
+const workAreaSectionSchema = new mongoose.Schema(
+  {
+    id: { type: String, required: true, trim: true },
+    title: { type: String, trim: true },
+    titleEn: { type: String, trim: true },
+    imageCount: { type: Number, default: 2 },
+    blocks: [workAreaBlockSchema],
+  },
+  { _id: false }
+);
+
 const pageContentSchema = new mongoose.Schema(
   {
     page: {
@@ -21,6 +61,7 @@ const pageContentSchema = new mongoose.Schema(
     introDescription: { type: String, trim: true },
     introDescriptionEn: { type: String, trim: true },
     serviceTypes: [serviceTypeSchema],
+    workAreaSections: [workAreaSectionSchema],
     ctaTitle: { type: String, trim: true },
     ctaTitleEn: { type: String, trim: true },
     ctaDescription: { type: String, trim: true },

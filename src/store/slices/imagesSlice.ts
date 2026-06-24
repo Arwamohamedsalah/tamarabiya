@@ -12,7 +12,8 @@ export interface ImageItem {
   url: string;
   alt: string;
   page: 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact';
-  section: 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content';
+  section: 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content' | 'work-area';
+  workAreaId?: string;
   index?: number;
   crop?: ImageCrop; // Optional crop settings
   order?: number; // Display order from backend

@@ -1,0 +1,39 @@
+[
+  {
+    "id": "water-networks",
+    "title": "شبكات المياه",
+    "titleEn": "Water Networks",
+    "imageCount": 2,
+    "blocks": [
+      {
+        "type": "highlight",
+        "title": "انابيب الدكتايل",
+        "titleEn": "Ductile Pipes",
+        "body": "اعمال حفر تمديد مشاريع المياه وتمديد انابيب الدكتايل وما يلزمها من لحام واختبار وردم وتسليم حسب المواصفات الهندسية المعتمدة",
+        "bodyEn": "Excavation and extension works for water projects, ductile pipe laying, and necessary welding, testing, backfilling, and delivery according to approved engineering specifications."
+      },
+      {
+        "type": "highlight",
+        "title": "انابيب HDPE",
+        "titleEn": "HDPE Pipes",
+        "body": "اعمال حفر وتمديد مشاريع المياه وتمديد انابيب HDPE وما يلزمها من لحام ووصلات واختبار وردم وتسليم حسب المواصفات الهندسية المعتمدة.",
+        "bodyEn": "Excavation and extension works for water projects, HDPE pipe laying, and necessary welding, connections, testing, backfilling, and delivery according to approved engineering specifications."
+      }
+    ]
+  },
+  {
+    "id": "sewage-grp",
+    "title": "الصرف الصحي",
+    "titleEn": "Sewage Networks",
+    "imageCount": 2,
+    "blocks": [
+      {
+        "type": "highlight",
+        "title": "انابيب GRP",
+        "titleEn": "GRP Pipes",
+        "body": "أعمال حفر وتمديد مشاريع الصرف والسيول وتمديد انابيب GRP وما يلزمها من لحام واختبار وردم وتسليم حسب المواصفات الهندسية المعتمدة\n\nوتنفيذ ما يلزمها من مناهيل وغرف ومصايد .",
+        "bodyEn": "Excavation and laying works for sewage and stormwater projects, GRP pipe laying, and necessary welding, testing, backfilling, and delivery according to approved engineering specifications.\n\nIncluding manholes, chambers, and catch basins as required."
+      }
+    ]
+  }
+]

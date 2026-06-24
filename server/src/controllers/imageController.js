@@ -23,7 +23,7 @@ exports.getImages = asyncHandler(async (req, res) => {
 // POST /api/images
 // Body: { categoryId, file (base64 or URL), title, alt, page, section, crop }
 exports.createImage = asyncHandler(async (req, res) => {
-  let { categoryId, file, title, alt, page, section, crop, order, videoUrl } = req.body;
+  let { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId } = req.body;
 
   if (!file || !page || !section) {
     return res
@@ -43,8 +43,13 @@ exports.createImage = asyncHandler(async (req, res) => {
     category = await getOrCreateCategoryForPageSection(page, section);
   }
 
+  const uploadFolder =
+    section === 'work-area' && workAreaId
+      ? `tam-gallery/${page}/work-area/${workAreaId}`
+      : `tam-gallery/${page}/${section}`;
+
   const uploaded = await uploadImage(file, {
-    folder: `tam-gallery/${page}/${section}`,
+    folder: uploadFolder,
   });
 
   let uploadedVideo = null;
@@ -62,6 +67,7 @@ exports.createImage = asyncHandler(async (req, res) => {
     publicId: uploaded.publicId,
     page,
     section,
+    workAreaId: section === 'work-area' ? workAreaId : undefined,
     crop,
     order,
     videoUrl: uploadedVideo ? uploadedVideo.url : videoUrl,
@@ -76,7 +82,7 @@ exports.createImage = asyncHandler(async (req, res) => {
 // Can update metadata, category, crop, and optionally replace file
 exports.updateImage = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { categoryId, file, title, alt, page, section, crop, order, videoUrl } = req.body;
+  const { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId } = req.body;
 
   const image = await Image.findById(id);
   if (!image) {
@@ -96,6 +102,7 @@ exports.updateImage = asyncHandler(async (req, res) => {
   if (typeof alt !== 'undefined') image.alt = alt;
   if (typeof page !== 'undefined') image.page = page;
   if (typeof section !== 'undefined') image.section = section;
+  if (typeof workAreaId !== 'undefined') image.workAreaId = workAreaId;
   if (typeof order !== 'undefined') image.order = order;
   if (typeof videoUrl !== 'undefined') image.videoUrl = videoUrl;
   if (crop) image.crop = crop;

@@ -30,8 +30,12 @@ const imageSchema = new mongoose.Schema(
     },
     section: {
       type: String,
-      enum: ['hero', 'services', 'gallery', 'projects', 'header', 'content'],
+      enum: ['hero', 'services', 'gallery', 'projects', 'header', 'content', 'work-area'],
       required: true,
+      trim: true,
+    },
+    workAreaId: {
+      type: String,
       trim: true,
     },
     crop: {

@@ -3,9 +3,22 @@ import { ImageItem } from '../store/slices/imagesSlice';
 export const getImagesByPageAndSection = (
   images: ImageItem[],
   page: 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact',
-  section: 'hero' | 'services' | 'gallery' | 'projects' | 'header'
+  section: 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content' | 'work-area'
 ): ImageItem[] => {
   return images.filter((img) => img.page === page && img.section === section);
+};
+
+export const getWorkAreaImages = (
+  images: ImageItem[],
+  page: 'landscaping' | 'fencing' | 'infrastructure',
+  workAreaId: string
+): ImageItem[] => {
+  return images
+    .filter(
+      (img) =>
+        img.page === page && img.section === 'work-area' && img.workAreaId === workAreaId
+    )
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 };
 
 export const getImageStyle = (image: ImageItem): React.CSSProperties => {

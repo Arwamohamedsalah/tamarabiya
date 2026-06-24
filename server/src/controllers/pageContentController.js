@@ -3,6 +3,33 @@ const asyncHandler = require('../middleware/asyncHandler');
 const { localizePageContent } = require('../utils/localizeContent');
 const { PAGE_CONTENT_DEFAULTS } = require('../config/pageContentDefaults');
 
+const ALLOWED_UPDATE_FIELDS = [
+  'introTitle',
+  'introTitleEn',
+  'introDescription',
+  'introDescriptionEn',
+  'serviceTypes',
+  'workAreaSections',
+  'ctaTitle',
+  'ctaTitleEn',
+  'ctaDescription',
+  'ctaDescriptionEn',
+  'ctaButtonText',
+  'ctaButtonTextEn',
+];
+
+async function ensureWorkAreaDefaults(doc, page) {
+  if (
+    !doc.workAreaSections?.length &&
+    PAGE_CONTENT_DEFAULTS[page]?.workAreaSections?.length
+  ) {
+    doc.workAreaSections = PAGE_CONTENT_DEFAULTS[page].workAreaSections;
+    doc.markModified('workAreaSections');
+    await doc.save();
+  }
+  return doc;
+}
+
 exports.getPageContent = asyncHandler(async (req, res) => {
   const { page } = req.params;
   const lang = req.query.lang === 'en' ? 'en' : 'ar';
@@ -12,6 +39,8 @@ exports.getPageContent = asyncHandler(async (req, res) => {
   let doc = await PageContent.findOne({ page });
   if (!doc) {
     doc = await PageContent.create(PAGE_CONTENT_DEFAULTS[page]);
+  } else {
+    doc = await ensureWorkAreaDefaults(doc, page);
   }
   res.json(localizePageContent(doc, lang));
 });
@@ -21,8 +50,13 @@ exports.getAllPageContents = asyncHandler(async (req, res) => {
   const pages = ['landscaping', 'fencing', 'infrastructure'];
   const result = {};
   for (const p of pages) {
-    const found = docs.find((d) => d.page === p);
-    result[p] = found ? found.toObject() : PAGE_CONTENT_DEFAULTS[p];
+    let found = docs.find((d) => d.page === p);
+    if (!found) {
+      found = await PageContent.create(PAGE_CONTENT_DEFAULTS[p]);
+    } else {
+      found = await ensureWorkAreaDefaults(found, p);
+    }
+    result[p] = found.toObject();
   }
   res.json(result);
 });
@@ -32,12 +66,23 @@ exports.updatePageContent = asyncHandler(async (req, res) => {
   if (!['landscaping', 'fencing', 'infrastructure'].includes(page)) {
     return res.status(400).json({ message: 'Invalid page' });
   }
+
   let doc = await PageContent.findOne({ page });
   if (!doc) {
-    doc = await PageContent.create({ ...PAGE_CONTENT_DEFAULTS[page], ...req.body });
-  } else {
-    Object.assign(doc, req.body);
-    await doc.save();
+    doc = new PageContent({ page, ...PAGE_CONTENT_DEFAULTS[page] });
   }
-  res.json(doc);
+
+  for (const key of ALLOWED_UPDATE_FIELDS) {
+    if (req.body[key] !== undefined) {
+      doc[key] = req.body[key];
+      if (key === 'workAreaSections' || key === 'serviceTypes') {
+        doc.markModified(key);
+      }
+    }
+  }
+
+  doc.page = page;
+  await doc.save();
+
+  res.json(doc.toObject());
 });

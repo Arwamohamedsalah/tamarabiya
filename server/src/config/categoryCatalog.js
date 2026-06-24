@@ -20,6 +20,7 @@ const SECTION_LABELS = {
   gallery: 'معرض الصور',
   projects: 'المشاريع',
   content: 'محتوى الصفحة',
+  'work-area': 'صور مجالات العمل',
 };
 
 /** Sections available per page (matches Dashboard sidebar) */
@@ -27,9 +28,9 @@ const PAGE_SECTIONS = {
   home: ['hero', 'services', 'header'],
   about: ['hero'],
   contact: ['hero'],
-  landscaping: ['hero', 'gallery', 'projects', 'content'],
-  fencing: ['hero', 'gallery', 'projects', 'content'],
-  infrastructure: ['hero', 'gallery', 'projects', 'content'],
+  landscaping: ['hero', 'gallery', 'projects', 'content', 'work-area'],
+  fencing: ['hero', 'gallery', 'projects', 'content', 'work-area'],
+  infrastructure: ['hero', 'gallery', 'projects', 'content', 'work-area'],
 };
 
 function getCategorySlug(page, section) {

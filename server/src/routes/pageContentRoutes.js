@@ -13,5 +13,3 @@ router.get('/:page', getPageContent);
 router.put('/:page', protect, updatePageContent);
 
 module.exports = router;
-
-module.exports = router;

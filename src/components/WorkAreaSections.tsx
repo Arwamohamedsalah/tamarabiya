@@ -184,6 +184,9 @@ export default function WorkAreaSections({
 
           const textColumn = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
+              <h4 className={`text-xl md:text-2xl font-black text-gray-900 ${textAlign}`}>
+                {sectionTitle}
+              </h4>
               {section.blocks.map((block, blockIndex) => (
                 <WorkAreaBlockView
                   key={`${section.id}-block-${blockIndex}`}

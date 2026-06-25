@@ -21,6 +21,18 @@ export const getWorkAreaImages = (
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 };
 
+export const getHomeServiceImages = (
+  images: ImageItem[],
+  serviceKey: 'landscaping' | 'fencing' | 'infrastructure'
+): ImageItem[] => {
+  return images
+    .filter(
+      (img) =>
+        img.page === 'home' && img.section === 'services' && img.serviceKey === serviceKey
+    )
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+};
+
 export const getImageStyle = (image: ImageItem): React.CSSProperties => {
   if (!image.crop) return {};
 

@@ -106,10 +106,10 @@
         "intro": "",
         "introEn": "",
         "items": [
-          "هياكل خفيفة",
-          "هياكل ثقيلة",
-          "مباني سابقة التجهيز (PEB)",
-          "الجمالونات الحديدية للأسقف"
+          "هياكل خفيفة (Light Steel)",
+          "هياكل ثقيلة (Heavy Steel Structures)",
+          "مباني سابقة التجهيز (Pre-Engineered Buildings - PEB)",
+          "الجمالونات الحديدية للأسقف (Steel trusses for roofs)"
         ],
         "itemsEn": [
           "Light steel structures",

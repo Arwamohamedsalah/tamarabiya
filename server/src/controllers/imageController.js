@@ -23,7 +23,7 @@ exports.getImages = asyncHandler(async (req, res) => {
 // POST /api/images
 // Body: { categoryId, file (base64 or URL), title, alt, page, section, crop }
 exports.createImage = asyncHandler(async (req, res) => {
-  let { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId } = req.body;
+  let { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId, serviceKey } = req.body;
 
   if (!file || !page || !section) {
     return res
@@ -68,6 +68,7 @@ exports.createImage = asyncHandler(async (req, res) => {
     page,
     section,
     workAreaId: section === 'work-area' ? workAreaId : undefined,
+    serviceKey: section === 'services' && page === 'home' ? serviceKey : undefined,
     crop,
     order,
     videoUrl: uploadedVideo ? uploadedVideo.url : videoUrl,
@@ -82,7 +83,7 @@ exports.createImage = asyncHandler(async (req, res) => {
 // Can update metadata, category, crop, and optionally replace file
 exports.updateImage = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId } = req.body;
+  const { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId, serviceKey } = req.body;
 
   const image = await Image.findById(id);
   if (!image) {
@@ -103,6 +104,7 @@ exports.updateImage = asyncHandler(async (req, res) => {
   if (typeof page !== 'undefined') image.page = page;
   if (typeof section !== 'undefined') image.section = section;
   if (typeof workAreaId !== 'undefined') image.workAreaId = workAreaId;
+  if (typeof serviceKey !== 'undefined') image.serviceKey = serviceKey;
   if (typeof order !== 'undefined') image.order = order;
   if (typeof videoUrl !== 'undefined') image.videoUrl = videoUrl;
   if (crop) image.crop = crop;

@@ -3,7 +3,7 @@ import { ArrowRight, Download, FileText, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../store/hooks';
 import SeoHead from '../components/SeoHead';
-import { getDefaultImage, getImagesByPageAndSection, getImageWrapperStyle } from '../utils/imageUtils';
+import { getDefaultImage, getHomeServiceImages, getImagesByPageAndSection, getImageWrapperStyle } from '../utils/imageUtils';
 import { useEffect, useMemo, useState } from 'react';
 import ServiceCardWithSlider from '../components/ServiceCardWithSlider';
 import TamArabicText from '../components/TamArabicText';
@@ -27,21 +27,9 @@ export default function Home() {
     }
   };
 
-  const landscapingImages = [
-    ...getImagesByPageAndSection(images, 'landscaping', 'hero'),
-    ...getImagesByPageAndSection(images, 'landscaping', 'gallery'),
-    ...getImagesByPageAndSection(images, 'landscaping', 'projects'),
-  ];
-  const fencingImages = [
-    ...getImagesByPageAndSection(images, 'fencing', 'hero'),
-    ...getImagesByPageAndSection(images, 'fencing', 'gallery'),
-    ...getImagesByPageAndSection(images, 'fencing', 'projects'),
-  ];
-  const infrastructureImages = [
-    ...getImagesByPageAndSection(images, 'infrastructure', 'hero'),
-    ...getImagesByPageAndSection(images, 'infrastructure', 'gallery'),
-    ...getImagesByPageAndSection(images, 'infrastructure', 'projects'),
-  ];
+  const landscapingImages = getHomeServiceImages(images, 'landscaping');
+  const fencingImages = getHomeServiceImages(images, 'fencing');
+  const infrastructureImages = getHomeServiceImages(images, 'infrastructure');
 
   const services = useMemo(() => [
     {

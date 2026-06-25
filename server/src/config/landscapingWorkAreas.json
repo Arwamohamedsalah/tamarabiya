@@ -10,28 +10,23 @@
         "textEn": "At TAM Alarabiya Co. — we execute all softscape works (planting, vegetation, flowers, and turf) with high professionalism, supplying and planting trees, shrubs, and flowers with aesthetic distribution across residential, commercial, and government projects."
       },
       {
-        "type": "heading",
-        "text": "أقسام أعمال اللاندسكيب:",
-        "textEn": "Landscaping work sections:"
-      },
-      {
         "type": "highlight",
         "title": "قسم زراعة الأشجار الكبيرة:",
-        "titleEn": "Large tree planting:",
+        "titleEn": "Large tree planting section:",
         "body": "توريد وزراعة الأشجار الضخمة والنخيل وأشجار الظل وفق المواصفات الفنية والجمالية للمشروع.",
         "bodyEn": "Supply and planting of mature trees, palms, and shade trees per the project's technical and aesthetic specifications."
       },
       {
         "type": "highlight",
         "title": "قسم زراعة الأشجار الصغيرة والشجيرات:",
-        "titleEn": "Shrubs and ornamental planting:",
+        "titleEn": "Shrubs and ornamental planting section:",
         "body": "زراعة أشجار الزينة والشجيرات والزهور وتوزيعها جمالياً بما يتناسب مع تصميم الحديقة والمساحات الخضراء.",
         "bodyEn": "Planting ornamental trees, shrubs, and flowers with aesthetic distribution suited to the garden and green space design."
       },
       {
         "type": "highlight",
         "title": "قسم مغطيات التربة والثيل:",
-        "titleEn": "Turf and ground cover:",
+        "titleEn": "Turf and ground cover section:",
         "body": "تنفيذ المسطحات الخضراء الطبيعية والصناعية (الثيل) ومغطيات التربة بجودة عالية ومعايير صيانة مناسبة.",
         "bodyEn": "Implementation of natural and artificial green surfaces (turf) and ground covers with high quality and appropriate maintenance standards."
       }
@@ -39,9 +34,14 @@
   },
   {
     "id": "irrigation",
-    "title": "أنظمة الري",
-    "titleEn": "Irrigation Systems",
+    "title": "الري",
+    "titleEn": "Irrigation",
     "blocks": [
+      {
+        "type": "heading",
+        "text": "قسم الري:",
+        "textEn": "Irrigation section:"
+      },
       {
         "type": "list",
         "intro": "أعمال شبكات الري الحديثة ذات الري الذاتي:",
@@ -78,14 +78,14 @@
       {
         "type": "highlight",
         "title": "قسم أعمال الأرضيات:",
-        "titleEn": "Flooring works:",
+        "titleEn": "Flooring works section:",
         "body": "أ- الخرسانة المطبوعة: للممرات والساحات الخارجية لإعطاء مظهر فخم.\nب- الأرضيات المطاطية: مخصصة للممرات الرياضية ومناطق الألعاب.",
         "bodyEn": "a- Stamped concrete: for paths and outdoor plazas with an elegant finish.\nb- Rubber flooring: for sports walkways and play areas."
       },
       {
         "type": "highlight",
         "title": "قسم الملاعب والمظلات:",
-        "titleEn": "Playgrounds and shades:",
+        "titleEn": "Playgrounds and shades section:",
         "body": "تنفيذ ملاعب الأطفال والمنشآت الرياضية، وتركيب المظلات والكراسي والطاولات وسلال النفايات وفق متطلبات المشروع.",
         "bodyEn": "Construction of children's playgrounds and sports facilities, and installation of shades, benches, tables, and waste bins per project requirements."
       }
@@ -96,6 +96,11 @@
     "title": "الصيانة",
     "titleEn": "Maintenance",
     "blocks": [
+      {
+        "type": "heading",
+        "text": "قسم الصيانة:",
+        "textEn": "Maintenance section:"
+      },
       {
         "type": "list",
         "intro": "صيانة وتشغيل الحدائق:",

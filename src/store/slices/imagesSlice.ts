@@ -14,6 +14,7 @@ export interface ImageItem {
   page: 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact';
   section: 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content' | 'work-area';
   workAreaId?: string;
+  serviceKey?: 'landscaping' | 'fencing' | 'infrastructure';
   index?: number;
   crop?: ImageCrop; // Optional crop settings
   order?: number; // Display order from backend

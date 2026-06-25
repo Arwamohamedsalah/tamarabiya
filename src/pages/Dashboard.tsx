@@ -23,8 +23,28 @@ const WORK_AREA_DEFAULTS: Record<'landscaping' | 'fencing' | 'infrastructure', W
   infrastructure: defaultInfrastructureWorkAreas as WorkAreaSection[],
 };
 
+type ServiceKeyOption = '' | 'landscaping' | 'fencing' | 'infrastructure';
 type PageType = 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact' | 'files' | 'settings';
 type SectionType = 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content';
+
+const createEmptyImageForm = (
+  page: PageType = 'home',
+  section: SectionType = 'hero',
+  serviceKey: ServiceKeyOption = ''
+) => ({
+  url: '',
+  alt: '',
+  page,
+  section,
+  videoUrl: '',
+  serviceKey,
+});
+
+const HOME_SERVICE_LABELS: Record<'landscaping' | 'fencing' | 'infrastructure', string> = {
+  landscaping: 'اللاندسكيب',
+  fencing: 'السياجات والهياكل',
+  infrastructure: 'البنية التحتية',
+};
 
 function PageContentEditor({
   data,
@@ -498,13 +518,7 @@ export default function Dashboard() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingImage, setEditingImage] = useState<string | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [formData, setFormData] = useState({
-    url: '',
-    alt: '',
-    page: 'home' as PageType,
-    section: 'hero' as SectionType,
-    videoUrl: '',
-  });
+  const [formData, setFormData] = useState(createEmptyImageForm());
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [previewUrls, setPreviewUrls] = useState<Array<{ url: string; alt: string; file?: File }>>([]);
@@ -546,6 +560,7 @@ export default function Dashboard() {
           videoUrl: img.videoUrl || '',
           videoPublicId: img.videoPublicId,
           workAreaId: img.workAreaId || '',
+          serviceKey: img.serviceKey || '',
         }));
         dispatch(setImages(mapped));
       } catch (err) {
@@ -658,7 +673,38 @@ export default function Dashboard() {
     }
   };
 
+  const isHomeServicesSection = selectedPage === 'home' && selectedSection === 'services';
+
+  const buildUploadExtras = () => {
+    const extras: Record<string, string> = {};
+    if (isHomeServicesSection && formData.serviceKey) {
+      extras.serviceKey = formData.serviceKey;
+    }
+    return extras;
+  };
+
+  const mapCreatedImage = (created: any) => ({
+    id: created._id,
+    url: created.url,
+    alt: created.alt || '',
+    page: created.page,
+    section: created.section,
+    crop: created.crop,
+    order: created.order,
+    isActive: created.isActive,
+    createdAt: created.createdAt,
+    updatedAt: created.updatedAt,
+    videoUrl: created.videoUrl || '',
+    workAreaId: created.workAreaId || '',
+    serviceKey: created.serviceKey || '',
+  });
+
   const handleAddImage = async () => {
+    if (isHomeServicesSection && !formData.serviceKey) {
+      dispatch(addNotification({ message: 'اختر القسم (لاندسكيب / سياجات / بنية تحتية) قبل رفع الصورة', type: 'warning' }));
+      return;
+    }
+
     if (multipleMode && previewUrls.length > 0) {
       // Add multiple images عبر الـ API + تحديث Redux
       for (const preview of previewUrls) {
@@ -675,7 +721,8 @@ export default function Dashboard() {
                 alt: preview.alt,
                 page: selectedPage,
                 section: selectedSection,
-                videoUrl: preview.alt.toLowerCase().includes('video') ? preview.url : undefined, // fallback logic if needed
+                videoUrl: preview.alt.toLowerCase().includes('video') ? preview.url : undefined,
+                ...buildUploadExtras(),
               }),
             });
             if (!res.ok) {
@@ -683,28 +730,14 @@ export default function Dashboard() {
               continue;
             }
             const created = await res.json();
-            dispatch(
-              addImage({
-                id: created._id,
-                url: created.url,
-                alt: created.alt || '',
-                page: created.page,
-                section: created.section,
-                crop: created.crop,
-                order: created.order,
-                isActive: created.isActive,
-                createdAt: created.createdAt,
-                updatedAt: created.updatedAt,
-                videoUrl: created.videoUrl || '',
-              })
-            );
+            dispatch(addImage(mapCreatedImage(created)));
           } catch (err) {
             console.error('Failed to upload image', err);
             dispatch(addNotification({ message: 'فشل رفع إحدى الصور. تأكدي أن الباك إند شغال و Cloudinary مضبوط.', type: 'error' }));
           }
         }
       }
-      setFormData({ url: '', alt: '', page: 'home', section: 'hero', videoUrl: '' });
+      setFormData(createEmptyImageForm());
       setSelectedFiles([]);
       setPreviewUrls([]);
       setMultipleMode(false);
@@ -729,6 +762,7 @@ export default function Dashboard() {
               page: selectedPage,
               section: selectedSection,
               videoUrl: formData.videoUrl,
+              ...buildUploadExtras(),
             }),
           });
           if (!res.ok) {
@@ -737,28 +771,14 @@ export default function Dashboard() {
             dispatch(addNotification({ message: 'فشل رفع الصورة. تأكدي أن الباك إند شغال و Cloudinary مضبوط.', type: 'error' }));
           } else {
             const created = await res.json();
-            dispatch(
-              addImage({
-                id: created._id,
-                url: created.url,
-                alt: created.alt || '',
-                page: created.page,
-                section: created.section,
-                crop: created.crop,
-                order: created.order,
-                isActive: created.isActive,
-                createdAt: created.createdAt,
-                updatedAt: created.updatedAt,
-                videoUrl: created.videoUrl || '',
-              })
-            );
+            dispatch(addImage(mapCreatedImage(created)));
             window.dispatchEvent(new Event('customStorage'));
           }
         } catch (err) {
           console.error('Failed to upload image', err);
           dispatch(addNotification({ message: 'فشل رفع الصورة. تأكدي أن الباك إند شغال على المنفذ 5000.', type: 'error' }));
         }
-        setFormData({ url: '', alt: '', page: 'home', section: 'hero', videoUrl: '' });
+        setFormData(createEmptyImageForm());
         setVideoFile(null);
         setSelectedFiles([]);
         setPreviewUrls([]);
@@ -810,6 +830,7 @@ export default function Dashboard() {
             section: formData.section || image.section,
             crop: image.crop,
             videoUrl: videoDataToSend,
+            serviceKey: formData.serviceKey || image.serviceKey,
           }),
         });
         if (!res.ok) {
@@ -830,6 +851,8 @@ export default function Dashboard() {
               updatedAt: updated.updatedAt,
               videoUrl: updated.videoUrl || '',
               videoPublicId: updated.videoPublicId,
+              workAreaId: updated.workAreaId || '',
+              serviceKey: updated.serviceKey || '',
             })
           );
         }
@@ -837,7 +860,7 @@ export default function Dashboard() {
         console.error('Failed to update image', err);
       }
       setEditingImage(null);
-      setFormData({ url: '', alt: '', page: 'home', section: 'hero', videoUrl: '' });
+      setFormData(createEmptyImageForm());
       setVideoFile(null);
       setSelectedFiles([]);
       setPreviewUrls([]);
@@ -1073,7 +1096,13 @@ export default function Dashboard() {
               {!showContentEditor && selectedPage !== 'files' && selectedPage !== 'settings' && (
                 <button
                   onClick={() => {
-                    setFormData({ url: '', alt: '', page: selectedPage, section: selectedSection, videoUrl: '' });
+                    setFormData(
+                      createEmptyImageForm(
+                        selectedPage,
+                        selectedSection,
+                        isHomeServicesSection ? 'landscaping' : ''
+                      )
+                    );
                     setVideoFile(null);
                     setSelectedFiles([]);
                     setPreviewUrls([]);
@@ -1116,9 +1145,14 @@ export default function Dashboard() {
           ) : (
             /* Images List */
             <div className="bg-white rounded-none shadow-lg p-6">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">
+              <h2 className="text-lg font-bold text-gray-900 mb-2">
                 الصور ({filteredImages.length})
               </h2>
+              {isHomeServicesSection && (
+                <p className="text-sm text-gray-500 mb-4 text-right">
+                  ارفعي صور عملنا لكل قسم على حدة (لاندسكيب / سياجات / بنية تحتية) — تظهر في الصفحة الرئيسية بنفس المقاس الحالي.
+                </p>
+              )}
               {filteredImages.length === 0 ? (
                 <div className="text-center py-12 text-gray-500">
                   <ImageIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
@@ -1144,6 +1178,11 @@ export default function Dashboard() {
                         )}
                       </div>
                       <div className="p-4">
+                        {image.serviceKey && (
+                          <p className="text-xs font-bold text-cta mb-1">
+                            {HOME_SERVICE_LABELS[image.serviceKey as keyof typeof HOME_SERVICE_LABELS]}
+                          </p>
+                        )}
                         <p className="text-sm font-medium text-gray-900 mb-2 truncate">{image.alt}</p>
                         <div className="flex gap-2">
                           <button
@@ -1155,6 +1194,7 @@ export default function Dashboard() {
                                 page: image.page,
                                 section: image.section,
                                 videoUrl: image.videoUrl || '',
+                                serviceKey: (image.serviceKey || '') as ServiceKeyOption,
                               });
                               setVideoFile(null);
                               setSelectedFiles([]);
@@ -1208,7 +1248,7 @@ export default function Dashboard() {
                 onClick={() => {
                   setShowAddModal(false);
                   setEditingImage(null);
-                  setFormData({ url: '', alt: '', page: 'home', section: 'hero', videoUrl: '' });
+                  setFormData(createEmptyImageForm());
                   setVideoFile(null);
                 }}
                 className="text-gray-400 hover:text-gray-600"
@@ -1272,6 +1312,30 @@ export default function Dashboard() {
                   {multipleMode && ' | يمكن اختيار عدة صور في نفس الوقت'}
                 </p>
               </div>
+
+              {(formData.page === 'home' && formData.section === 'services') && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2 text-right">
+                    القسم في الصفحة الرئيسية
+                  </label>
+                  <select
+                    value={formData.serviceKey}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        serviceKey: e.target.value as ServiceKeyOption,
+                      })
+                    }
+                    className="w-full px-4 py-3 border border-gray-300 rounded-none focus:outline-none focus:ring-2 focus:ring-cta"
+                    dir="rtl"
+                  >
+                    <option value="">اختر القسم...</option>
+                    <option value="landscaping">اللاندسكيب</option>
+                    <option value="fencing">السياجات والهياكل</option>
+                    <option value="infrastructure">البنية التحتية</option>
+                  </select>
+                </div>
+              )}
 
               {!multipleMode && previewUrls.length === 0 && !editingImage && (
                 <div>
@@ -1431,7 +1495,7 @@ export default function Dashboard() {
                   onClick={() => {
                     setShowAddModal(false);
                     setEditingImage(null);
-                    setFormData({ url: '', alt: '', page: 'home', section: 'hero', videoUrl: '' });
+                    setFormData(createEmptyImageForm());
                     setVideoFile(null);
                   }}
                   className="flex-1 px-4 py-3 border border-gray-300 rounded-none hover:bg-gray-50 transition-colors"

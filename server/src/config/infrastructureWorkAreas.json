@@ -1,9 +1,9 @@
 [
   {
-    "id": "water-networks",
+    "id": "water-ductile",
     "title": "شبكات المياه",
     "titleEn": "Water Networks",
-    "imageCount": 2,
+    "imageCount": 1,
     "blocks": [
       {
         "type": "highlight",
@@ -11,7 +11,15 @@
         "titleEn": "Ductile Pipes",
         "body": "اعمال حفر تمديد مشاريع المياه وتمديد انابيب الدكتايل وما يلزمها من لحام واختبار وردم وتسليم حسب المواصفات الهندسية المعتمدة",
         "bodyEn": "Excavation and extension works for water projects, ductile pipe laying, and necessary welding, testing, backfilling, and delivery according to approved engineering specifications."
-      },
+      }
+    ]
+  },
+  {
+    "id": "water-hdpe",
+    "title": "شبكات المياه",
+    "titleEn": "Water Networks",
+    "imageCount": 1,
+    "blocks": [
       {
         "type": "highlight",
         "title": "انابيب HDPE",

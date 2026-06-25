@@ -38,6 +38,11 @@ const imageSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    serviceKey: {
+      type: String,
+      enum: ['landscaping', 'fencing', 'infrastructure'],
+      trim: true,
+    },
     crop: {
       x: Number,
       y: Number,

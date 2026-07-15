@@ -6,6 +6,7 @@ import { store } from './store/store';
 import { setImages } from './store/slices/imagesSlice';
 import { DEFAULT_SITE_SETTINGS, API_BASE_URL } from './config/api';
 import { setSiteSettings } from './store/slices/siteSettingsSlice';
+import { mapApiImageToItem } from './utils/imageUtils';
 import DocumentLanguageSync from './components/DocumentLanguageSync';
 import { useLocaleDirection } from './hooks/useLocaleDirection';
 
@@ -58,14 +59,7 @@ function App() {
         const res = await fetch(`${API_BASE_URL}/images`);
         if (!res.ok) return;
         const data = await res.json();
-        const mapped = data.map((img: { _id: string; url: string; alt?: string; page: string; section: string; crop?: object }) => ({
-          id: img._id,
-          url: img.url,
-          alt: img.alt || '',
-          page: img.page,
-          section: img.section,
-          crop: img.crop,
-        }));
+        const mapped = data.map((img: Record<string, unknown>) => mapApiImageToItem(img));
         store.dispatch(setImages(mapped));
       } catch {
         // الباك إند غير شغال أو خطأ في الشبكة
@@ -112,14 +106,7 @@ function App() {
           ]);
           if (imagesRes.ok) {
             const data = await imagesRes.json();
-            const mapped = data.map((img: { _id: string; url: string; alt?: string; page: string; section: string; crop?: object }) => ({
-              id: img._id,
-              url: img.url,
-              alt: img.alt || '',
-              page: img.page,
-              section: img.section,
-              crop: img.crop,
-            }));
+            const mapped = data.map((img: Record<string, unknown>) => mapApiImageToItem(img));
             store.dispatch(setImages(mapped));
           }
           if (settingsRes.ok) {

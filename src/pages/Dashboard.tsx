@@ -11,6 +11,7 @@ import SiteSettingsEditor from '../components/dashboard/SiteSettingsEditor';
 import WorkAreaContentEditor from '../components/dashboard/WorkAreaContentEditor';
 import { setSiteSettings } from '../store/slices/siteSettingsSlice';
 import { API_BASE_URL } from '../config/api';
+import { mapApiImageToItem } from '../utils/imageUtils';
 import defaultLandscapingWorkAreas from '../content/landscapingWorkAreas.json';
 import defaultFencingWorkAreas from '../content/fencingWorkAreas.json';
 import defaultInfrastructureWorkAreas from '../content/infrastructureWorkAreas.json';
@@ -545,23 +546,7 @@ export default function Dashboard() {
         const res = await fetch(`${API_BASE_URL}/images`);
         if (!res.ok) return;
         const data = await res.json();
-        // نطابق شكل البيانات مع ImageItem في الفرونت
-        const mapped = data.map((img: any) => ({
-          id: img._id,
-          url: img.url,
-          alt: img.alt || '',
-          page: img.page,
-          section: img.section,
-          crop: img.crop,
-          order: img.order,
-          isActive: img.isActive,
-          createdAt: img.createdAt,
-          updatedAt: img.updatedAt,
-          videoUrl: img.videoUrl || '',
-          videoPublicId: img.videoPublicId,
-          workAreaId: img.workAreaId || '',
-          serviceKey: img.serviceKey || '',
-        }));
+        const mapped = data.map((img: Record<string, unknown>) => mapApiImageToItem(img));
         dispatch(setImages(mapped));
       } catch (err) {
         console.error('Failed to load images from API', err);
@@ -683,21 +668,7 @@ export default function Dashboard() {
     return extras;
   };
 
-  const mapCreatedImage = (created: any) => ({
-    id: created._id,
-    url: created.url,
-    alt: created.alt || '',
-    page: created.page,
-    section: created.section,
-    crop: created.crop,
-    order: created.order,
-    isActive: created.isActive,
-    createdAt: created.createdAt,
-    updatedAt: created.updatedAt,
-    videoUrl: created.videoUrl || '',
-    workAreaId: created.workAreaId || '',
-    serviceKey: created.serviceKey || '',
-  });
+  const mapCreatedImage = (created: any) => mapApiImageToItem(created);
 
   const handleAddImage = async () => {
     if (isHomeServicesSection && !formData.serviceKey) {
@@ -830,31 +801,15 @@ export default function Dashboard() {
             section: formData.section || image.section,
             crop: image.crop,
             videoUrl: videoDataToSend,
-            serviceKey: formData.serviceKey || image.serviceKey,
+            workAreaId: image.workAreaId || undefined,
+            serviceKey: formData.serviceKey || image.serviceKey || undefined,
           }),
         });
         if (!res.ok) {
           console.error('Failed to update image', await res.text());
         } else {
           const updated = await res.json();
-          dispatch(
-            updateImage({
-              id: updated._id,
-              url: updated.url,
-              alt: updated.alt || '',
-              page: updated.page,
-              section: updated.section,
-              crop: updated.crop,
-              order: updated.order,
-              isActive: updated.isActive,
-              createdAt: updated.createdAt,
-              updatedAt: updated.updatedAt,
-              videoUrl: updated.videoUrl || '',
-              videoPublicId: updated.videoPublicId,
-              workAreaId: updated.workAreaId || '',
-              serviceKey: updated.serviceKey || '',
-            })
-          );
+          dispatch(updateImage(mapApiImageToItem(updated)));
         }
       } catch (err) {
         console.error('Failed to update image', err);

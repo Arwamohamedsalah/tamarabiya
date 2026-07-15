@@ -1,7 +1,10 @@
 import { useState } from 'react';
-import { ImageIcon, Plus, Trash2, Upload } from 'lucide-react';
+import { ImageIcon, Plus, Trash2, Upload, Replace } from 'lucide-react';
+import { useAppDispatch } from '../../store/hooks';
+import { addNotification } from '../../store/slices/uiSlice';
 import type { ImageItem } from '../../store/slices/imagesSlice';
 import type { WorkAreaBlock, WorkAreaSection } from '../../types/workAreaSection';
+import { mapApiImageToItem } from '../../utils/imageUtils';
 
 interface WorkAreaContentEditorProps {
   page: 'landscaping' | 'fencing' | 'infrastructure';
@@ -52,7 +55,10 @@ function WorkAreaImageSlot({
   apiBase: string;
   onImageChange: WorkAreaContentEditorProps['onImageChange'];
 }) {
+  const dispatch = useAppDispatch();
   const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
   const existing = images
     .filter((img) => img.page === page && img.section === 'work-area' && img.workAreaId === workAreaId)
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))[slot];
@@ -65,22 +71,16 @@ function WorkAreaImageSlot({
       reader.readAsDataURL(file);
     });
 
-  const mapImage = (created: Record<string, unknown>): ImageItem => ({
-    id: String(created._id),
-    url: String(created.url),
-    alt: String(created.alt || ''),
-    page: created.page as ImageItem['page'],
-    section: 'work-area',
-    workAreaId: String(created.workAreaId || workAreaId),
-    crop: created.crop as ImageItem['crop'],
-    order: typeof created.order === 'number' ? created.order : slot,
-    isActive: created.isActive as boolean | undefined,
-    createdAt: created.createdAt as string | undefined,
-    updatedAt: created.updatedAt as string | undefined,
-  });
-
   const handleUpload = async (file: File) => {
-    if (!token || !file.type.startsWith('image/')) return;
+    if (!token) {
+      dispatch(addNotification({ message: 'يجب تسجيل الدخول أولاً لرفع الصور', type: 'warning' }));
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      dispatch(addNotification({ message: 'الملف يجب أن يكون صورة', type: 'warning' }));
+      return;
+    }
+
     setUploading(true);
     try {
       const base64 = await readFile(file);
@@ -104,12 +104,29 @@ function WorkAreaImageSlot({
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || 'Upload failed');
+      }
+
       const saved = await res.json();
-      onImageChange(mapImage(saved), existing ? 'update' : 'add');
+      const mapped = mapApiImageToItem({ ...saved, workAreaId: saved.workAreaId || workAreaId, order: saved.order ?? slot });
+      onImageChange(mapped, existing ? 'update' : 'add');
       window.dispatchEvent(new Event('customStorage'));
+      dispatch(
+        addNotification({
+          message: existing ? 'تم استبدال الصورة بنجاح' : 'تم رفع الصورة بنجاح',
+          type: 'success',
+        })
+      );
     } catch (err) {
       console.error('Work area image upload failed', err);
+      dispatch(
+        addNotification({
+          message: 'فشل رفع الصورة. تأكدي أن الباك إند و Cloudinary شغالين.',
+          type: 'error',
+        })
+      );
     } finally {
       setUploading(false);
     }
@@ -117,34 +134,50 @@ function WorkAreaImageSlot({
 
   const handleDelete = async () => {
     if (!existing || !token) return;
+    if (!confirm('هل أنتِ متأكدة من حذف هذه الصورة؟')) return;
+
+    setDeleting(true);
     try {
       const res = await fetch(`${apiBase}/images/${existing.id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (res.ok) {
-        onImageChange(existing, 'delete');
-        window.dispatchEvent(new Event('customStorage'));
+      if (!res.ok && res.status !== 204) {
+        throw new Error(await res.text());
       }
+      onImageChange(existing, 'delete');
+      window.dispatchEvent(new Event('customStorage'));
+      dispatch(addNotification({ message: 'تم حذف الصورة', type: 'success' }));
     } catch (err) {
       console.error('Work area image delete failed', err);
+      dispatch(addNotification({ message: 'فشل حذف الصورة', type: 'error' }));
+    } finally {
+      setDeleting(false);
     }
   };
 
   return (
-    <div className="border border-gray-200 p-3 space-y-2">
+    <div className="border border-gray-200 p-3 space-y-2 bg-white">
       <p className="text-xs text-gray-500 text-right">صورة {slot + 1}</p>
       {existing ? (
-        <div className="relative">
-          <img src={existing.url} alt={existing.alt} className="w-full h-36 object-cover" />
-          <div className="flex gap-2 mt-2">
-            <label className="flex-1 cursor-pointer text-center py-1.5 bg-gray-100 hover:bg-gray-200 text-sm">
-              {uploading ? 'جاري الرفع...' : 'استبدال'}
+        <div className="space-y-2">
+          <div className="relative group overflow-hidden bg-gray-100">
+            <img src={existing.url} alt={existing.alt || `صورة ${slot + 1}`} className="w-full h-40 object-cover" />
+            {uploading && (
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <span className="text-white text-sm">جاري الرفع...</span>
+              </div>
+            )}
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <label className="cursor-pointer flex items-center justify-center gap-1.5 py-2 bg-gray-100 hover:bg-gray-200 text-sm text-gray-800 transition-colors">
+              <Replace className="h-4 w-4" />
+              {uploading ? 'جاري...' : 'تعديل'}
               <input
                 type="file"
                 accept="image/*"
                 className="hidden"
-                disabled={uploading}
+                disabled={uploading || deleting}
                 onChange={(e) => {
                   const file = e.target.files?.[0];
                   if (file) handleUpload(file);
@@ -152,13 +185,19 @@ function WorkAreaImageSlot({
                 }}
               />
             </label>
-            <button type="button" onClick={handleDelete} className="px-3 py-1.5 text-red-600 hover:bg-red-50 text-sm">
-              حذف
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={uploading || deleting}
+              className="flex items-center justify-center gap-1.5 py-2 text-red-600 hover:bg-red-50 text-sm transition-colors disabled:opacity-50"
+            >
+              <Trash2 className="h-4 w-4" />
+              {deleting ? 'جاري...' : 'حذف'}
             </button>
           </div>
         </div>
       ) : (
-        <label className="flex flex-col items-center justify-center h-36 border-2 border-dashed border-gray-300 cursor-pointer hover:border-cta hover:bg-cta/5 transition-colors">
+        <label className="flex flex-col items-center justify-center h-40 border-2 border-dashed border-gray-300 cursor-pointer hover:border-cta hover:bg-cta/5 transition-colors">
           {uploading ? (
             <span className="text-sm text-gray-500">جاري الرفع...</span>
           ) : (
@@ -369,7 +408,7 @@ export default function WorkAreaContentEditor({
         <h3 className="text-lg font-semibold text-gray-800">أقسام مجالات العمل (نص + صور)</h3>
       </div>
       <p className="text-sm text-gray-500 text-right">
-        عدّلي النصوص وارفعي الصور لكل قسم — تظهر بجانب الكلام في صفحة الخدمة. المحتوى القديم (مجالات العمل / المعرض / المشاريع) ما زال محفوظاً.
+        ارفعي الصور لكل قسم — تظهر بجانب النص في صفحة الخدمة. تقدرين تستبدلي أو تحذفي أي صورة بعد الرفع.
       </p>
 
       {sections.map((section, sectionIndex) => {

@@ -1,5 +1,23 @@
 import { ImageItem } from '../store/slices/imagesSlice';
 
+/** Map a Mongo/API image document to the Redux ImageItem shape */
+export const mapApiImageToItem = (img: Record<string, unknown>): ImageItem => ({
+  id: String(img._id ?? img.id ?? ''),
+  url: String(img.url ?? ''),
+  alt: String(img.alt || ''),
+  page: img.page as ImageItem['page'],
+  section: img.section as ImageItem['section'],
+  crop: img.crop as ImageItem['crop'],
+  order: typeof img.order === 'number' ? img.order : undefined,
+  isActive: img.isActive as boolean | undefined,
+  createdAt: img.createdAt as string | undefined,
+  updatedAt: img.updatedAt as string | undefined,
+  videoUrl: (img.videoUrl as string) || '',
+  videoPublicId: img.videoPublicId as string | undefined,
+  workAreaId: (img.workAreaId as string) || '',
+  serviceKey: (img.serviceKey as ImageItem['serviceKey']) || undefined,
+});
+
 export const getImagesByPageAndSection = (
   images: ImageItem[],
   page: 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact',

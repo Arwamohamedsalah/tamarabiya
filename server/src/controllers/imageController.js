@@ -59,6 +59,11 @@ exports.createImage = asyncHandler(async (req, res) => {
     });
   }
 
+  const resolvedServiceKey =
+    section === 'services' && page === 'home' && serviceKey
+      ? serviceKey
+      : undefined;
+
   const image = await Image.create({
     category: category._id,
     title,
@@ -67,8 +72,8 @@ exports.createImage = asyncHandler(async (req, res) => {
     publicId: uploaded.publicId,
     page,
     section,
-    workAreaId: section === 'work-area' ? workAreaId : undefined,
-    serviceKey: section === 'services' && page === 'home' ? serviceKey : undefined,
+    workAreaId: section === 'work-area' && workAreaId ? workAreaId : undefined,
+    serviceKey: resolvedServiceKey,
     crop,
     order,
     videoUrl: uploadedVideo ? uploadedVideo.url : videoUrl,
@@ -103,16 +108,29 @@ exports.updateImage = asyncHandler(async (req, res) => {
   if (typeof alt !== 'undefined') image.alt = alt;
   if (typeof page !== 'undefined') image.page = page;
   if (typeof section !== 'undefined') image.section = section;
-  if (typeof workAreaId !== 'undefined') image.workAreaId = workAreaId;
-  if (typeof serviceKey !== 'undefined') image.serviceKey = serviceKey;
+  if (typeof workAreaId !== 'undefined') {
+    image.workAreaId = workAreaId === '' ? undefined : workAreaId;
+  }
+  if (typeof serviceKey !== 'undefined') {
+    if (serviceKey === '' || serviceKey == null) {
+      image.serviceKey = undefined;
+      image.set('serviceKey', undefined);
+    } else {
+      image.serviceKey = serviceKey;
+    }
+  }
   if (typeof order !== 'undefined') image.order = order;
   if (typeof videoUrl !== 'undefined') image.videoUrl = videoUrl;
   if (crop) image.crop = crop;
 
   // If file provided, upload new image and delete old one
   if (file) {
+    const uploadFolder =
+      image.section === 'work-area' && image.workAreaId
+        ? `tam-gallery/${image.page}/work-area/${image.workAreaId}`
+        : `tam-gallery/${image.page}/${image.section}`;
     const uploaded = await uploadImage(file, {
-      folder: `tam-gallery/${image.page}/${image.section}`,
+      folder: uploadFolder,
     });
 
     // Delete old from Cloudinary (ignore errors)

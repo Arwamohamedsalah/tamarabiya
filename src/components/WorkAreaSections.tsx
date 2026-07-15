@@ -11,7 +11,6 @@ interface WorkAreaSectionsProps {
   language: SupportedLanguage;
   isRtl: boolean;
   getSectionImages: (workAreaId: string, sectionIndex: number) => ImageItem[];
-  legacyGalleryImages?: ImageItem[];
   accentClass?: string;
   accentTheme?: AccentTheme;
   imageKey?: number;
@@ -153,7 +152,6 @@ export default function WorkAreaSections({
   language,
   isRtl,
   getSectionImages,
-  legacyGalleryImages = [],
   accentClass = 'text-landscape-dark',
   accentTheme = 'landscape',
   imageKey = 0,
@@ -172,14 +170,7 @@ export default function WorkAreaSections({
       <div className="space-y-14 md:space-y-20">
         {sections.map((section, sectionIndex) => {
           const slotCount = section.imageCount ?? 2;
-          const dedicatedImages = getSectionImages(section.id, sectionIndex);
-          const legacyStart = sections
-            .slice(0, sectionIndex)
-            .reduce((sum, s) => sum + (s.imageCount ?? 2), 0);
-          const sectionImages =
-            dedicatedImages.length > 0
-              ? dedicatedImages.slice(0, slotCount)
-              : legacyGalleryImages.slice(legacyStart, legacyStart + slotCount);
+          const sectionImages = getSectionImages(section.id, sectionIndex).slice(0, slotCount);
           const sectionTitle = pickText(language, section.title, section.titleEn);
 
           const textColumn = (

@@ -42,6 +42,7 @@ const imageSchema = new mongoose.Schema(
       type: String,
       enum: ['landscaping', 'fencing', 'infrastructure'],
       trim: true,
+      set: (value) => (value === '' || value == null ? undefined : value),
     },
     crop: {
       x: Number,

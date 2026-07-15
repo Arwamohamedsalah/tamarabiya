@@ -92,6 +92,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
     fetchContent();
   }, [dispatch, pageKey, language]);
 
+  const heroImages = getImagesByPageAndSection(images, pageKey, 'hero');
   const galleryImages = getImagesByPageAndSection(images, pageKey, 'gallery');
   const projectImages = getImagesByPageAndSection(images, pageKey, 'projects');
 
@@ -127,29 +128,12 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
   }, [pageKey, content?.workAreaSections]);
 
   const useRichWorkAreas = richWorkAreas.length > 0;
-  const workAreaImageCount = useRichWorkAreas
-    ? richWorkAreas.reduce((sum, section) => sum + (section.imageCount ?? 2), 0)
-    : 0;
-
-  const hasDedicatedWorkAreaImages = useMemo(
-    () =>
-      useRichWorkAreas &&
-      richWorkAreas.some((section) => getWorkAreaImages(images, pageKey, section.id).length > 0),
-    [useRichWorkAreas, richWorkAreas, images, pageKey]
-  );
-
-  const usesLegacyGalleryForWorkAreas =
-    useRichWorkAreas && !hasDedicatedWorkAreaImages && galleryImages.length > 0;
-
-  const galleryForDisplay = usesLegacyGalleryForWorkAreas
-    ? galleryImages.slice(workAreaImageCount)
-    : galleryImages;
 
   const accentTextClass =
     accentColor === 'landscape' ? 'text-landscape-dark' : accentColor === 'metal' ? 'text-metal' : 'text-infra';
 
-  const gallery = galleryForDisplay.map((img) => img.url);
-  const galleryKey = galleryForDisplay.length > 0 ? galleryForDisplay.map(img => img.id).join(',') : 'empty';
+  const gallery = galleryImages.map((img) => img.url);
+  const galleryKey = galleryImages.length > 0 ? galleryImages.map(img => img.id).join(',') : 'empty';
   const projectsKey = projectImages.length > 0 ? projectImages.map(img => img.id).join(',') : 'empty';
   const textAlign = isRtl ? 'text-right' : 'text-left';
   const borderSide = isRtl ? 'border-r-4' : 'border-l-4';
@@ -166,7 +150,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
         title={t(`${pageKey}.pageTitle`)}
         titleEn={t(`${pageKey}.pageTitleEn`)}
         accentColor={accentColor}
-        images={galleryImages}
+        images={heroImages}
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -195,7 +179,6 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
               language={language}
               isRtl={isRtl}
               getSectionImages={(workAreaId) => getWorkAreaImages(images, pageKey, workAreaId)}
-              legacyGalleryImages={usesLegacyGalleryForWorkAreas ? galleryImages : []}
               accentClass={accentTextClass}
               accentTheme={accentColor}
               imageKey={imageKey}
@@ -297,26 +280,26 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-stretch" key={`gallery-${imageKey}-${galleryKey}`}>
               {gallery.map((image, index) => (
                 <div
-                  key={`${galleryForDisplay[index]?.id || `default-${index}`}-${imageKey}`}
+                  key={`${galleryImages[index]?.id || `default-${index}`}-${imageKey}`}
                   className="flex flex-col overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <div className="relative flex items-center justify-center flex-1 min-h-[320px] md:min-h-[360px] p-6 bg-gradient-to-br from-gray-50 to-white">
-                    {galleryForDisplay[index]?.crop ? (
-                      <div style={getImageWrapperStyle(galleryForDisplay[index])} className="w-full h-full" />
+                    {galleryImages[index]?.crop ? (
+                      <div style={getImageWrapperStyle(galleryImages[index])} className="w-full h-full" />
                     ) : (
                       <img
                         src={image}
-                        alt={galleryForDisplay[index]?.alt || t('galleryFallback', { number: index + 1 })}
+                        alt={galleryImages[index]?.alt || t('galleryFallback', { number: index + 1 })}
                         className="w-full h-full object-contain rounded-none group-hover:scale-105 transition-transform duration-700"
                         loading="lazy"
-                        key={`${galleryForDisplay[index]?.id || `default-img-${index}`}-${imageKey}`}
+                        key={`${galleryImages[index]?.id || `default-img-${index}`}-${imageKey}`}
                       />
                     )}
                   </div>
                   <div className="min-h-[80px] flex items-center p-4 md:p-5">
-                    {(galleryForDisplay[index]?.alt) ? (
-                      <p className={`text-gray-700 text-base ${textAlign} leading-relaxed w-full`}>{galleryForDisplay[index]?.alt}</p>
+                    {(galleryImages[index]?.alt) ? (
+                      <p className={`text-gray-700 text-base ${textAlign} leading-relaxed w-full`}>{galleryImages[index]?.alt}</p>
                     ) : (
                       <span className="invisible">.</span>
                     )}

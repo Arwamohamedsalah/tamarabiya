@@ -277,31 +277,24 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
             </h3>
           </div>
           {gallery.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 items-stretch" key={`gallery-${imageKey}-${galleryKey}`}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8" key={`gallery-${imageKey}-${galleryKey}`}>
               {gallery.map((image, index) => (
                 <div
                   key={`${galleryImages[index]?.id || `default-${index}`}-${imageKey}`}
-                  className="flex flex-col overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group"
+                  className="overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <div className="relative flex items-center justify-center flex-1 min-h-[320px] md:min-h-[360px] p-6 bg-gradient-to-br from-gray-50 to-white">
+                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
                     {galleryImages[index]?.crop ? (
-                      <div style={getImageWrapperStyle(galleryImages[index])} className="w-full h-full" />
+                      <div style={getImageWrapperStyle(galleryImages[index])} className="absolute inset-0 w-full h-full" />
                     ) : (
                       <img
                         src={image}
                         alt={galleryImages[index]?.alt || t('galleryFallback', { number: index + 1 })}
-                        className="w-full h-full object-contain rounded-none group-hover:scale-105 transition-transform duration-700"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         loading="lazy"
                         key={`${galleryImages[index]?.id || `default-img-${index}`}-${imageKey}`}
                       />
-                    )}
-                  </div>
-                  <div className="min-h-[80px] flex items-center p-4 md:p-5">
-                    {(galleryImages[index]?.alt) ? (
-                      <p className={`text-gray-700 text-base ${textAlign} leading-relaxed w-full`}>{galleryImages[index]?.alt}</p>
-                    ) : (
-                      <span className="invisible">.</span>
                     )}
                   </div>
                 </div>

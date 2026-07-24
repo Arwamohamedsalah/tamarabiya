@@ -8,7 +8,8 @@ import QrCodeDisplay from '../components/QrCodeDisplay';
 import ContactForm from '../components/ContactForm';
 import { CONTACT_EMAILS } from '../config/contactEmails';
 import { CONTACT_PHONES, CONTACT_MAP_QUERIES } from '../config/contactInfo';
-import { getImagesByPageAndSection, getImageStyle, getImageWrapperStyle, getDefaultImage } from '../utils/imageUtils';
+import { getImagesByPageAndSection, getDefaultImage } from '../utils/imageUtils';
+import CroppedImage from '../components/CroppedImage';
 import { useEffect, useState } from 'react';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 
@@ -42,24 +43,21 @@ export default function Contact() {
         path="/contact"
       />
       <section className="relative h-[60vh] md:h-[70vh] bg-metal overflow-hidden">
-        {heroImages.length > 0 && heroImages[0].crop ? (
-          <div
-            style={{
-              ...getImageWrapperStyle(heroImages[0]),
-              opacity: 0.6,
-            }}
-            className="absolute inset-0 w-full h-full group-hover:scale-105 transition-transform duration-700"
+        {heroImages.length > 0 ? (
+          <CroppedImage
             key={`${heroImages[0]?.id || 'default-hero'}-${imageKey}`}
-            role="img"
-            aria-label={t('contact:hero.imageAlt')}
+            image={heroImages[0]}
+            alt={heroImages[0].alt || t('contact:hero.imageAlt')}
+            className="absolute inset-0 w-full h-full opacity-60 group-hover:scale-105 transition-transform duration-700"
+            uncroppedClassName="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+            fit="contain"
+            loading="eager"
           />
         ) : (
           <img
-            src={heroImages.length > 0 ? heroImages[0].url : getDefaultImage('landscaping')}
-            alt={heroImages.length > 0 ? heroImages[0].alt : t('contact:hero.imageAlt')}
+            src={getDefaultImage('landscaping')}
+            alt={t('contact:hero.imageAlt')}
             className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-            style={heroImages.length > 0 ? getImageStyle(heroImages[0]) : {}}
-            key={`${heroImages[0]?.id || 'default-hero'}-${imageKey}`}
             loading="eager"
           />
         )}

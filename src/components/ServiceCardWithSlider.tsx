@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { ImageItem } from '../store/slices/imagesSlice';
-import { getImageStyle, getImageWrapperStyle } from '../utils/imageUtils';
+import CroppedImage from './CroppedImage';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 
 interface ServiceCardWithSliderProps {
@@ -28,15 +28,14 @@ function renderImg(img: ImageItem | undefined, defaultImage: string, title: stri
       />
     );
   }
-  if (img.crop) {
-    return <div style={getImageWrapperStyle(img)} className="w-full h-full" />;
-  }
   return (
-    <img
-      src={img.url}
+    <CroppedImage
+      image={img}
       alt={img.alt || title}
-      className={`w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 ${extra ?? ''}`}
-      style={getImageStyle(img)}
+      className="w-full h-full"
+      uncroppedClassName={`w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 ${extra ?? ''}`}
+      imgClassName={`transition-transform duration-1000 group-hover:scale-110 ${extra ?? ''}`}
+      fit="contain"
     />
   );
 }

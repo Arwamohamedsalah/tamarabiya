@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import CompanyName from './CompanyName';
-
-interface ImageCrop {
-    x: number;
-    y: number;
-    width: number;
-    height: number;
-}
-
-interface HeaderImage {
-    id: string;
-    url: string;
-    alt?: string;
-    crop?: ImageCrop;
-}
+import CroppedImage from './CroppedImage';
+import type { ImageItem } from '../store/slices/imagesSlice';
 
 interface PageHeaderProps {
     title: string;
     titleEn: string;
     accentColor?: 'cta' | 'landscape' | 'metal' | 'infra';
     showCompanyName?: boolean;
-    images?: HeaderImage[];
+    images?: Pick<ImageItem, 'id' | 'url' | 'alt' | 'crop'>[];
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
@@ -53,39 +41,20 @@ const PageHeader: React.FC<PageHeaderProps> = ({
             {/* Background Images Slider */}
             <div className="absolute inset-0 z-0">
                 {images.length > 0 ? (
-                    images.map((img, idx) => {
-                        const hasCrop = img.crop && (img.crop.width < 100 || img.crop.height < 100 || img.crop.x > 0 || img.crop.y > 0);
-                        const { x = 0, y = 0, width = 100, height = 100 } = img.crop || {};
-                        const scaleX = 100 / width;
-                        const scaleY = 100 / height;
-                        const scale = Math.max(scaleX, scaleY);
-                        const posX = width >= 100 ? 0 : (x / (100 - width)) * 100;
-                        const posY = height >= 100 ? 0 : (y / (100 - height)) * 100;
-
-                        return (
-                            <div
-                                key={img.id}
-                                className={`absolute inset-0 transition-opacity duration-1000 ${idx === heroIndex ? 'opacity-40' : 'opacity-0'}`}
-                            >
-                                {hasCrop ? (
-                                    <div style={{
-                                        backgroundImage: `url(${img.url})`,
-                                        backgroundSize: `${scale * 100}%`,
-                                        backgroundPosition: `${posX}% ${posY}%`,
-                                        backgroundRepeat: 'no-repeat',
-                                        width: '100%',
-                                        height: '100%',
-                                    }} />
-                                ) : (
-                                    <img
-                                        src={img.url}
-                                        alt={img.alt || title}
-                                        className="w-full h-full object-cover"
-                                    />
-                                )}
-                            </div>
-                        );
-                    })
+                    images.map((img, idx) => (
+                        <div
+                            key={img.id}
+                            className={`absolute inset-0 transition-opacity duration-1000 ${idx === heroIndex ? 'opacity-40' : 'opacity-0'}`}
+                        >
+                            <CroppedImage
+                                image={img}
+                                alt={img.alt || title}
+                                className="w-full h-full"
+                                uncroppedClassName="w-full h-full object-cover"
+                                fit="contain"
+                            />
+                        </div>
+                    ))
                 ) : (
                     <div className="absolute inset-0 bg-metal-dark/20 opacity-40" />
                 )}

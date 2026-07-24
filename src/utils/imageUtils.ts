@@ -1,4 +1,9 @@
-import { ImageItem } from '../store/slices/imagesSlice';
+import { ImageItem, ImageCrop } from '../store/slices/imagesSlice';
+
+export function hasEffectiveCrop(crop?: ImageCrop): boolean {
+  if (!crop) return false;
+  return crop.x > 0 || crop.y > 0 || crop.width < 100 || crop.height < 100;
+}
 
 /** Map a Mongo/API image document to the Redux ImageItem shape */
 export const mapApiImageToItem = (img: Record<string, unknown>): ImageItem => ({
@@ -62,17 +67,16 @@ export const getImageStyle = (image: ImageItem): React.CSSProperties => {
   };
 };
 
-export function getImageWrapperStyle(image: ImageItem): React.CSSProperties {
-  if (!image.crop) return {};
+export function getImageWrapperStyle(
+  image: ImageItem,
+  fit: 'contain' | 'cover' = 'contain'
+): React.CSSProperties {
+  if (!hasEffectiveCrop(image.crop)) return {};
 
-  const { x, y, width, height } = image.crop;
-
-  // Scale: we need the image to be large enough so the crop region fills 100%
-  // If crop width = 60% of the image, we need image scaled to 100/60 = 1.667x
+  const { x, y, width, height } = image.crop!;
   const scaleX = 100 / width;
   const scaleY = 100 / height;
-  // Use the larger scale to ensure the crop fully fills the container
-  const scale = Math.max(scaleX, scaleY);
+  const scale = fit === 'contain' ? Math.min(scaleX, scaleY) : Math.max(scaleX, scaleY);
 
   // backgroundPosition in CSS % works as:
   //   0% = align left/top edge of image to left/top of container

@@ -1,4 +1,4 @@
-import { getImageWrapperStyle } from '../utils/imageUtils';
+import CroppedImage from './CroppedImage';
 import type { ImageItem } from '../store/slices/imagesSlice';
 import type { WorkAreaBlock, WorkAreaSection } from '../types/workAreaSection';
 import type { SupportedLanguage } from '../i18n';
@@ -202,16 +202,15 @@ export default function WorkAreaSections({
                       key={`${img.id}-${imageKey}-${imgIndex}`}
                       className="overflow-hidden bg-gray-100 border border-gray-200 shadow-sm"
                     >
-                      {img.crop ? (
-                        <div style={{ ...getImageWrapperStyle(img), minHeight: '220px' }} />
-                      ) : (
-                        <img
-                          src={img.url}
-                          alt={img.alt || sectionTitle}
-                          className="w-full h-auto max-h-[320px] object-cover"
-                          loading="lazy"
-                        />
-                      )}
+                      <CroppedImage
+                        image={img}
+                        alt={img.alt || sectionTitle}
+                        className="w-full"
+                        style={{ minHeight: '220px' }}
+                        uncroppedClassName="w-full h-auto max-h-[320px] object-cover"
+                        fit="contain"
+                        loading="lazy"
+                      />
                     </div>
                   ))
                 ) : (

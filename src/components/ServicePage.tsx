@@ -5,7 +5,8 @@ import { setPageContent } from '../store/slices/pageContentSlice';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
 import VideoModal from '../components/VideoModal';
-import { getImagesByPageAndSection, getImageWrapperStyle, getWorkAreaImages } from '../utils/imageUtils';
+import { getImagesByPageAndSection, getWorkAreaImages } from '../utils/imageUtils';
+import CroppedImage from './CroppedImage';
 import { resolvePageContent, getProjectName } from '../utils/localizedContent';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -223,8 +224,17 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
                 <div key={`${project.id || `project-${index}`}-${imageKey}`} className="bg-white rounded-none shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500 hover-lift animate-fade-in-up border border-gray-100" style={{ animationDelay: `${index * 0.1}s` }}>
                   {project.image ? (
                   <div className="relative overflow-hidden bg-gray-900">
-                    {projectImages[index]?.crop ? (
-                      <div style={{ ...getImageWrapperStyle(projectImages[index]), height: '280px' }} />
+                    {projectImages[index] ? (
+                      <CroppedImage
+                        image={projectImages[index]}
+                        alt={project.name}
+                        className="w-full"
+                        style={{ height: '280px' }}
+                        uncroppedClassName="w-full object-contain block mx-auto"
+                        uncroppedStyle={{ maxHeight: '300px', background: '#111827' }}
+                        fit="contain"
+                        loading="lazy"
+                      />
                     ) : (
                       <img
                         src={project.image}
@@ -285,15 +295,22 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
                   <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
-                    {galleryImages[index]?.crop ? (
-                      <div style={getImageWrapperStyle(galleryImages[index])} className="absolute inset-0 w-full h-full" />
+                    {galleryImages[index] ? (
+                      <CroppedImage
+                        key={`${galleryImages[index]?.id || `default-img-${index}`}-${imageKey}`}
+                        image={galleryImages[index]}
+                        alt={galleryImages[index]?.alt || t('galleryFallback', { number: index + 1 })}
+                        className="absolute inset-0 w-full h-full"
+                        uncroppedClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        fit="contain"
+                        loading="lazy"
+                      />
                     ) : (
                       <img
                         src={image}
-                        alt={galleryImages[index]?.alt || t('galleryFallback', { number: index + 1 })}
+                        alt={t('galleryFallback', { number: index + 1 })}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         loading="lazy"
-                        key={`${galleryImages[index]?.id || `default-img-${index}`}-${imageKey}`}
                       />
                     )}
                   </div>

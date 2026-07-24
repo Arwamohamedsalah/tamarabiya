@@ -3,7 +3,8 @@ import { ArrowRight, Download, FileText, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../store/hooks';
 import SeoHead from '../components/SeoHead';
-import { getDefaultImage, getHomeServiceImages, getImagesByPageAndSection, getImageWrapperStyle } from '../utils/imageUtils';
+import { getDefaultImage, getHomeServiceImages, getImagesByPageAndSection } from '../utils/imageUtils';
+import CroppedImage from '../components/CroppedImage';
 import { useEffect, useMemo, useState } from 'react';
 import ServiceCardWithSlider from '../components/ServiceCardWithSlider';
 import TamArabicText from '../components/TamArabicText';
@@ -95,15 +96,13 @@ export default function Home() {
                 className={`absolute inset-0 transition-opacity duration-1000 ${idx === heroIndex ? 'opacity-40' : 'opacity-0'
                   }`}
               >
-                {img.crop ? (
-                  <div style={getImageWrapperStyle(img)} className="w-full h-full" />
-                ) : (
-                  <img
-                    src={img.url}
-                    alt={img.alt || t('home:hero.backgroundAlt')}
-                    className="w-full h-full object-cover"
-                  />
-                )}
+                <CroppedImage
+                  image={img}
+                  alt={img.alt || t('home:hero.backgroundAlt')}
+                  className="w-full h-full"
+                  uncroppedClassName="w-full h-full object-cover"
+                  fit="contain"
+                />
               </div>
             ))
           ) : (

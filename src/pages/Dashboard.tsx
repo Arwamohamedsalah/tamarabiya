@@ -6,7 +6,7 @@ import { setPageContent, setAllPageContents } from '../store/slices/pageContentS
 import { addNotification } from '../store/slices/uiSlice';
 import type { PageContentData, ServiceType } from '../store/slices/pageContentSlice';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogOut, Plus, Edit, Trash2, Image as ImageIcon, Home, Sprout, Fence, Building2, Globe, X, Crop, Info, Phone, FileUp, CheckCircle, QrCode } from 'lucide-react';
+import { LogOut, Plus, Edit, Trash2, Image as ImageIcon, Home, Sprout, Fence, Building2, Globe, X, Crop, Info, Phone, FileUp, CheckCircle, QrCode, Loader2 } from 'lucide-react';
 import SiteSettingsEditor from '../components/dashboard/SiteSettingsEditor';
 import WorkAreaContentEditor from '../components/dashboard/WorkAreaContentEditor';
 import { setSiteSettings } from '../store/slices/siteSettingsSlice';
@@ -23,6 +23,11 @@ const WORK_AREA_DEFAULTS: Record<'landscaping' | 'fencing' | 'infrastructure', W
   fencing: defaultFencingWorkAreas as WorkAreaSection[],
   infrastructure: defaultInfrastructureWorkAreas as WorkAreaSection[],
 };
+
+const createTempImageId = () =>
+  `temp-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+
+const isPendingImageId = (id: string) => id.startsWith('temp-');
 
 type ServiceKeyOption = '' | 'landscaping' | 'fencing' | 'infrastructure';
 type PageType = 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact' | 'files' | 'settings';
@@ -532,6 +537,7 @@ export default function Dashboard() {
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
   const [dragType, setDragType] = useState<'move' | 'resize-top' | 'resize-bottom' | 'resize-left' | 'resize-right' | 'resize-tl' | 'resize-tr' | 'resize-bl' | 'resize-br' | null>(null);
   const [cropContainerRef, setCropContainerRef] = useState<HTMLDivElement | null>(null);
+  const [isSavingImage, setIsSavingImage] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -558,12 +564,17 @@ export default function Dashboard() {
     }
   }, [isAuthenticated, dispatch]);
 
-  // Reset section to hero when switching to about or contact page
+  // Reset section when switching pages
   useEffect(() => {
     if (selectedPage === 'about' || selectedPage === 'contact' || selectedPage === 'settings') {
       setSelectedSection('hero');
+    } else if (
+      selectedPage === 'home' &&
+      (selectedSection === 'gallery' || selectedSection === 'projects')
+    ) {
+      setSelectedSection('hero');
     }
-  }, [selectedPage]);
+  }, [selectedPage, selectedSection]);
 
   // تحميل محتوى الصفحات من الـ API
   useEffect(() => {
@@ -668,98 +679,165 @@ export default function Dashboard() {
     return extras;
   };
 
-  const mapCreatedImage = (created: any) => mapApiImageToItem(created);
+  const mapCreatedImage = (created: Record<string, unknown>) => mapApiImageToItem(created);
+
+  const resetImageForm = () => {
+    setFormData(createEmptyImageForm());
+    setVideoFile(null);
+    setSelectedFiles([]);
+    setPreviewUrls([]);
+    setMultipleMode(false);
+    setShowAddModal(false);
+  };
+
+  const uploadImageToApi = async (payload: {
+    file: string;
+    alt: string;
+    videoUrl?: string;
+    extras?: Record<string, string>;
+  }) => {
+    const res = await fetch(`${API_BASE_URL}/images`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        file: payload.file,
+        alt: payload.alt,
+        page: selectedPage,
+        section: selectedSection,
+        videoUrl: payload.videoUrl,
+        ...(payload.extras ?? buildUploadExtras()),
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(await res.text());
+    }
+
+    return mapCreatedImage((await res.json()) as Record<string, unknown>);
+  };
 
   const handleAddImage = async () => {
+    if (isSavingImage) return;
+
     if (isHomeServicesSection && !formData.serviceKey) {
       dispatch(addNotification({ message: 'اختر القسم (لاندسكيب / سياجات / بنية تحتية) قبل رفع الصورة', type: 'warning' }));
       return;
     }
 
     if (multipleMode && previewUrls.length > 0) {
-      // Add multiple images عبر الـ API + تحديث Redux
-      for (const preview of previewUrls) {
-        if (preview.url && preview.alt) {
+      const items = previewUrls.filter((preview) => preview.url && preview.alt);
+      if (items.length === 0) {
+        dispatch(addNotification({ message: 'الرجاء اختيار صورة واحدة على الأقل', type: 'warning' }));
+        return;
+      }
+
+      const pending = items.map((preview) => ({
+        tempId: createTempImageId(),
+        preview,
+      }));
+
+      const uploadExtras = buildUploadExtras();
+
+      pending.forEach(({ tempId, preview }) => {
+        dispatch(
+          addImage({
+            id: tempId,
+            url: preview.url,
+            alt: preview.alt,
+            page: selectedPage,
+            section: selectedSection,
+            serviceKey: isHomeServicesSection ? formData.serviceKey : undefined,
+          })
+        );
+      });
+
+      resetImageForm();
+      setIsSavingImage(true);
+
+      const results = await Promise.all(
+        pending.map(async ({ tempId, preview }) => {
           try {
-            const res = await fetch(`${API_BASE_URL}/images`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-              },
-              body: JSON.stringify({
-                file: preview.url,
-                alt: preview.alt,
-                page: selectedPage,
-                section: selectedSection,
-                videoUrl: preview.alt.toLowerCase().includes('video') ? preview.url : undefined,
-                ...buildUploadExtras(),
-              }),
+            const created = await uploadImageToApi({
+              file: preview.url,
+              alt: preview.alt,
+              videoUrl: preview.alt.toLowerCase().includes('video') ? preview.url : undefined,
+              extras: uploadExtras,
             });
-            if (!res.ok) {
-              console.error('Failed to upload image', await res.text());
-              continue;
-            }
-            const created = await res.json();
-            dispatch(addImage(mapCreatedImage(created)));
+            dispatch(deleteImage(tempId));
+            dispatch(addImage(created));
+            return true;
           } catch (err) {
             console.error('Failed to upload image', err);
-            dispatch(addNotification({ message: 'فشل رفع إحدى الصور. تأكدي أن الباك إند شغال و Cloudinary مضبوط.', type: 'error' }));
+            dispatch(deleteImage(tempId));
+            return false;
           }
-        }
+        })
+      );
+
+      const failedCount = results.filter((ok) => !ok).length;
+      if (failedCount > 0) {
+        dispatch(addNotification({
+          message: `فشل رفع ${failedCount} صورة. تأكدي أن الباك إند شغال و Cloudinary مضبوط.`,
+          type: 'error',
+        }));
       }
-      setFormData(createEmptyImageForm());
-      setSelectedFiles([]);
-      setPreviewUrls([]);
-      setMultipleMode(false);
-      setShowAddModal(false);
-      window.dispatchEvent(new Event('customStorage'));
-    } else if (!multipleMode && (formData.url || previewUrls.length > 0)) {
-      // Single image mode عبر الـ API
+      if (results.some(Boolean)) {
+        window.dispatchEvent(new Event('customStorage'));
+      }
+      setIsSavingImage(false);
+      return;
+    }
+
+    if (!multipleMode && (formData.url || previewUrls.length > 0)) {
       const imageUrl = previewUrls[0]?.url || formData.url;
       const imageAlt = formData.alt || previewUrls[0]?.alt || 'صورة';
 
-      if (imageUrl && imageAlt) {
-        try {
-          const res = await fetch(`${API_BASE_URL}/images`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-              file: imageUrl,
-              alt: imageAlt,
-              page: selectedPage,
-              section: selectedSection,
-              videoUrl: formData.videoUrl,
-              ...buildUploadExtras(),
-            }),
-          });
-          if (!res.ok) {
-            const errText = await res.text();
-            console.error('Failed to upload image', errText);
-            dispatch(addNotification({ message: 'فشل رفع الصورة. تأكدي أن الباك إند شغال و Cloudinary مضبوط.', type: 'error' }));
-          } else {
-            const created = await res.json();
-            dispatch(addImage(mapCreatedImage(created)));
-            window.dispatchEvent(new Event('customStorage'));
-          }
-        } catch (err) {
-          console.error('Failed to upload image', err);
-          dispatch(addNotification({ message: 'فشل رفع الصورة. تأكدي أن الباك إند شغال على المنفذ 5000.', type: 'error' }));
-        }
-        setFormData(createEmptyImageForm());
-        setVideoFile(null);
-        setSelectedFiles([]);
-        setPreviewUrls([]);
-        setShowAddModal(false);
-      } else {
+      if (!imageUrl || !imageAlt) {
         dispatch(addNotification({ message: 'الرجاء إدخال النص البديل واختيار صورة', type: 'warning' }));
+        return;
       }
-    } else {
-      dispatch(addNotification({ message: 'الرجاء اختيار صورة واحدة على الأقل', type: 'warning' }));
+
+      const tempId = createTempImageId();
+      const uploadExtras = buildUploadExtras();
+      const videoUrl = formData.videoUrl;
+      dispatch(
+        addImage({
+          id: tempId,
+          url: imageUrl,
+          alt: imageAlt,
+          page: selectedPage,
+          section: selectedSection,
+          videoUrl,
+          serviceKey: isHomeServicesSection ? formData.serviceKey : undefined,
+        })
+      );
+      resetImageForm();
+      setIsSavingImage(true);
+
+      try {
+        const created = await uploadImageToApi({
+          file: imageUrl,
+          alt: imageAlt,
+          videoUrl,
+          extras: uploadExtras,
+        });
+        dispatch(deleteImage(tempId));
+        dispatch(addImage(created));
+        window.dispatchEvent(new Event('customStorage'));
+      } catch (err) {
+        console.error('Failed to upload image', err);
+        dispatch(deleteImage(tempId));
+        dispatch(addNotification({ message: 'فشل رفع الصورة. تأكدي أن الباك إند شغال و Cloudinary مضبوط.', type: 'error' }));
+      } finally {
+        setIsSavingImage(false);
+      }
+      return;
     }
+
+    dispatch(addNotification({ message: 'الرجاء اختيار صورة واحدة على الأقل', type: 'warning' }));
   };
 
   const handleUpdateImage = async (id: string) => {
@@ -975,7 +1053,11 @@ export default function Dashboard() {
                 { section: 'hero' as SectionType, label: 'الصورة الرئيسية' },
                 ...(selectedPage === 'home' ? [{ section: 'services' as SectionType, label: 'الخدمات' }] : []),
                 ...(selectedPage === 'home' ? [{ section: 'header' as SectionType, label: 'الهيدر' }] : []),
-                ...(selectedPage !== 'about' && selectedPage !== 'contact' && selectedPage !== 'files' ? [
+                ...(selectedPage !== 'about' &&
+                selectedPage !== 'contact' &&
+                selectedPage !== 'files' &&
+                selectedPage !== 'home'
+                  ? [
                   { section: 'gallery' as SectionType, label: 'معرض الصور' },
                   { section: 'projects' as SectionType, label: 'المشاريع' },
                   { section: 'content' as SectionType, label: 'محتوى الصفحة' },
@@ -1126,6 +1208,12 @@ export default function Dashboard() {
                             (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Image+Not+Found';
                           }}
                         />
+                        {isPendingImageId(image.id) && (
+                          <div className="absolute inset-0 bg-black/45 flex flex-col items-center justify-center gap-2 text-white">
+                            <Loader2 className="h-6 w-6 animate-spin" />
+                            <span className="text-xs font-medium">جاري الرفع...</span>
+                          </div>
+                        )}
                         {image.videoUrl && (
                           <div className="absolute top-2 right-2 bg-cta text-white p-1.5 shadow-lg group-hover:scale-110 transition-transform">
                             <Globe className="h-4 w-4 animate-pulse" />
@@ -1141,6 +1229,7 @@ export default function Dashboard() {
                         <p className="text-sm font-medium text-gray-900 mb-2 truncate">{image.alt}</p>
                         <div className="flex gap-2">
                           <button
+                            disabled={isPendingImageId(image.id)}
                             onClick={() => {
                               setEditingImage(image.id);
                               setFormData({
@@ -1157,25 +1246,27 @@ export default function Dashboard() {
                               setMultipleMode(false);
                               setShowAddModal(true);
                             }}
-                            className="flex-1 flex items-center justify-center gap-1 bg-blue-50 text-blue-700 px-3 py-2 rounded-none hover:bg-blue-100 transition-colors text-sm"
+                            className="flex-1 flex items-center justify-center gap-1 bg-blue-50 text-blue-700 px-3 py-2 rounded-none hover:bg-blue-100 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             <Edit className="h-4 w-4" />
                             تعديل
                           </button>
                           <button
+                            disabled={isPendingImageId(image.id)}
                             onClick={() => {
                               setCroppingImage(image.id);
                               setCropSettings(image.crop || { x: 0, y: 0, width: 100, height: 100 });
                               setShowCropModal(true);
                             }}
-                            className="flex-1 flex items-center justify-center gap-1 bg-landscape/10 text-landscape-dark px-3 py-2 rounded-none hover:bg-landscape/20 transition-colors text-sm"
+                            className="flex-1 flex items-center justify-center gap-1 bg-landscape/10 text-landscape-dark px-3 py-2 rounded-none hover:bg-landscape/20 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             <Crop className="h-4 w-4" />
                             قص
                           </button>
                           <button
+                            disabled={isPendingImageId(image.id)}
                             onClick={() => handleDeleteImage(image.id)}
-                            className="flex-1 flex items-center justify-center gap-1 bg-red-50 text-red-700 px-3 py-2 rounded-none hover:bg-red-100 transition-colors text-sm"
+                            className="flex-1 flex items-center justify-center gap-1 bg-red-50 text-red-700 px-3 py-2 rounded-none hover:bg-red-100 transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             <Trash2 className="h-4 w-4" />
                             حذف
@@ -1462,13 +1553,20 @@ export default function Dashboard() {
                     if (editingImage) {
                       handleUpdateImage(editingImage);
                     } else {
-                      handleAddImage();
+                      void handleAddImage();
                     }
                   }}
-                  disabled={!multipleMode && !previewUrls.length && !formData.url}
-                  className="flex-1 px-4 py-3 bg-cta text-white rounded-none font-black uppercase tracking-widest hover:bg-cta-hover transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSavingImage || (!multipleMode && !previewUrls.length && !formData.url)}
+                  className="flex-1 px-4 py-3 bg-cta text-white rounded-none font-black uppercase tracking-widest hover:bg-cta-hover transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {editingImage ? 'حفظ التعديلات' : multipleMode ? `إضافة ${previewUrls.length} صورة` : 'إضافة'}
+                  {isSavingImage && <Loader2 className="h-4 w-4 animate-spin" />}
+                  {editingImage
+                    ? 'حفظ التعديلات'
+                    : isSavingImage
+                      ? 'جاري الرفع...'
+                      : multipleMode
+                        ? `إضافة ${previewUrls.length} صورة`
+                        : 'إضافة'}
                 </button>
               </div>
             </div>

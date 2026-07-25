@@ -66,6 +66,13 @@
     "close": "إغلاق",
     "title": "Project Video"
   },
+  "galleryLightbox": {
+    "title": "معرض الصور",
+    "close": "إغلاق",
+    "previous": "الصورة السابقة",
+    "next": "الصورة التالية",
+    "counter": "{{current}} / {{total}}"
+  },
   "notFound": {
     "title": "404",
     "message": "الصفحة غير موجودة",

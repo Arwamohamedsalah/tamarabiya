@@ -70,6 +70,13 @@
     "close": "Close",
     "title": "Project Video"
   },
+  "galleryLightbox": {
+    "title": "Photo Gallery",
+    "close": "Close",
+    "previous": "Previous image",
+    "next": "Next image",
+    "counter": "{{current}} / {{total}}"
+  },
   "notFound": {
     "title": "404",
     "message": "Page not found",

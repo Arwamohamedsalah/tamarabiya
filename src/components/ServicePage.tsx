@@ -5,6 +5,7 @@ import { setPageContent } from '../store/slices/pageContentSlice';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
 import VideoModal from '../components/VideoModal';
+import GalleryLightbox from '../components/GalleryLightbox';
 import { getImagesByPageAndSection, getWorkAreaImages } from '../utils/imageUtils';
 import CroppedImage from './CroppedImage';
 import { resolvePageContent, getProjectName } from '../utils/localizedContent';
@@ -44,6 +45,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const [imageKey, setImageKey] = useState(0);
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null);
 
   const pageDefaults = useMemo(() => {
     const defaults = t(`${pageKey}.defaultTypes`, { returnObjects: true }) as Array<{
@@ -289,10 +291,13 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
           {gallery.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8" key={`gallery-${imageKey}-${galleryKey}`}>
               {gallery.map((image, index) => (
-                <div
+                <button
+                  type="button"
                   key={`${galleryImages[index]?.id || `default-${index}`}-${imageKey}`}
-                  className="overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group"
+                  onClick={() => setActiveGalleryIndex(index)}
+                  className="overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group text-left w-full cursor-zoom-in"
                   style={{ animationDelay: `${index * 0.05}s` }}
+                  aria-label={galleryImages[index]?.alt || t('galleryFallback', { number: index + 1 })}
                 >
                   <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
                     {galleryImages[index] ? (
@@ -314,7 +319,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
                       />
                     )}
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           ) : (
@@ -338,6 +343,14 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
           </Link>
         </div>
       </section>
+
+      <GalleryLightbox
+        images={galleryImages}
+        initialIndex={activeGalleryIndex ?? 0}
+        isOpen={activeGalleryIndex !== null}
+        onClose={() => setActiveGalleryIndex(null)}
+        getAlt={(img, idx) => img.alt || t('galleryFallback', { number: idx + 1 })}
+      />
 
       <VideoModal
         isOpen={!!activeVideo}

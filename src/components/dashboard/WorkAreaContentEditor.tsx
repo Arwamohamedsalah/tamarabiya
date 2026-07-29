@@ -16,7 +16,14 @@ interface WorkAreaContentEditorProps {
   onImageChange: (image: ImageItem, action: 'add' | 'update' | 'delete') => void;
 }
 
-function emptyBlock(type: WorkAreaBlock['type']): WorkAreaBlock {
+const MAX_WORK_AREA_IMAGES = 8;
+const IMAGE_SLOT_OPTIONS = Array.from({ length: MAX_WORK_AREA_IMAGES }, (_, i) => i + 1);
+
+function dashboardImageGridClass(slots: number): string {
+  if (slots >= 5) return 'md:grid-cols-4';
+  if (slots >= 3) return 'md:grid-cols-3';
+  return 'md:grid-cols-2';
+}
   if (type === 'paragraph' || type === 'heading') {
     return { type, text: '', textEn: '' };
   }
@@ -443,13 +450,13 @@ export default function WorkAreaContentEditor({
                 onChange={(e) => updateSection(sectionIndex, { imageCount: Number(e.target.value) })}
                 className="px-2 py-1 border rounded-none text-sm"
               >
-                {[1, 2, 3, 4].map((n) => (
+                {IMAGE_SLOT_OPTIONS.map((n) => (
                   <option key={n} value={n}>{n}</option>
                 ))}
               </select>
             </div>
 
-            <div className={`grid gap-3 ${imageSlots >= 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'}`}>
+            <div className={`grid gap-3 grid-cols-2 ${dashboardImageGridClass(imageSlots)}`}>
               {Array.from({ length: imageSlots }).map((_, slot) => (
                 <WorkAreaImageSlot
                   key={`${section.id}-img-${slot}`}

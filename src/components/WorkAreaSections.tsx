@@ -184,11 +184,15 @@ function WorkAreaImageButton({
   );
 }
 
+const MAX_WORK_AREA_IMAGES = 8;
+
 function getImageGridClass(imageCount: number): string {
   if (imageCount <= 1) return 'grid-cols-1 max-w-sm mx-auto lg:max-w-none lg:mx-0';
   if (imageCount === 2) return 'grid-cols-2';
   if (imageCount === 3) return 'grid-cols-2 md:grid-cols-3';
-  return 'grid-cols-2';
+  if (imageCount === 4) return 'grid-cols-2';
+  if (imageCount <= 6) return 'grid-cols-2 md:grid-cols-3';
+  return 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4';
 }
 
 export default function WorkAreaSections({
@@ -239,8 +243,9 @@ export default function WorkAreaSections({
         {sections.map((section, sectionIndex) => {
           const slotCount = section.imageCount ?? 2;
           const allImages = getSectionImages(section.id, sectionIndex);
-          const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, 4);
+          const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, MAX_WORK_AREA_IMAGES);
           const sectionTitle = pickText(language, section.title, section.titleEn);
+          const useStackedLayout = displayCount > 4;
 
           const textColumn = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
@@ -264,7 +269,7 @@ export default function WorkAreaSections({
               {allImages.length > 0 ? (
                 allImages.map((img, imgIndex) => renderImage(img, imgIndex, section.id, sectionTitle))
               ) : (
-                Array.from({ length: Math.min(slotCount, 4) }).map((_, placeholderIndex) => (
+                Array.from({ length: Math.min(slotCount, MAX_WORK_AREA_IMAGES) }).map((_, placeholderIndex) => (
                   <div
                     key={placeholderIndex}
                     className={`aspect-[4/3] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-4`}
@@ -279,9 +284,18 @@ export default function WorkAreaSections({
           return (
             <article
               key={section.id}
-              className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center bg-white p-6 md:p-10 border border-gray-100 shadow-sm"
+              className={
+                useStackedLayout
+                  ? 'flex flex-col gap-8 bg-white p-6 md:p-10 border border-gray-100 shadow-sm'
+                  : 'grid lg:grid-cols-2 gap-8 lg:gap-10 items-center bg-white p-6 md:p-10 border border-gray-100 shadow-sm'
+              }
             >
-              {isRtl ? (
+              {useStackedLayout ? (
+                <>
+                  {textColumn}
+                  {imagesGrid}
+                </>
+              ) : isRtl ? (
                 <>
                   {textColumn}
                   {imagesGrid}

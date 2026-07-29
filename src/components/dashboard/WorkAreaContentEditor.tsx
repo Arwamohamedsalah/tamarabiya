@@ -24,6 +24,8 @@ function dashboardImageGridClass(slots: number): string {
   if (slots >= 3) return 'md:grid-cols-3';
   return 'md:grid-cols-2';
 }
+
+function emptyBlock(type: WorkAreaBlock['type']): WorkAreaBlock {
   if (type === 'paragraph' || type === 'heading') {
     return { type, text: '', textEn: '' };
   }

@@ -270,13 +270,13 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
                   </div>
 
                   {project.images.length > 0 && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-6 md:px-10 pb-6 md:pb-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-6 md:px-10 pb-6 md:pb-8">
                       {project.images.map((img, imgIndex) => (
                         <button
                           key={`${img.id}-${imageKey}`}
                           type="button"
                           onClick={() => setActiveProjectLightbox({ projectId: project.id, index: imgIndex })}
-                          className="overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group text-left w-full cursor-zoom-in"
+                          className="overflow-hidden rounded-none bg-white shadow-[0_2px_12px_-2px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_24px_-6px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-500 group text-left w-full cursor-zoom-in"
                           aria-label={`${project.name} - ${imgIndex + 1}`}
                         >
                           <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">

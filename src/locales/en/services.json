@@ -56,32 +56,7 @@
         "descEn": "Mowing, renovation, and fertilization of green areas. Tree pruning, pesticide spraying, and rehabilitation of irrigation networks."
       }
     ],
-    "defaultProjects": [
-      {
-        "nameAr": "مشروع الحديقة المركزية — واجهة خزام",
-        "name": "Central Park — Khuzam Front",
-        "clientAr": "الشركة الوطنية للإسكان",
-        "client": "National Housing Company"
-      },
-      {
-        "nameAr": "مشروع حديقة مركز المبيعات — السدن",
-        "name": "Sales Center Garden — Al-Sedn",
-        "clientAr": "الشركة الوطنية للإسكان",
-        "client": "National Housing Company"
-      },
-      {
-        "nameAr": "تشجير الطرق — ضاحية خزام",
-        "name": "Road Tree Planting — Khuzam District",
-        "clientAr": "الشركة الوطنية للإسكان",
-        "client": "National Housing Company"
-      },
-      {
-        "nameAr": "مشاريع حدائق وتشجير طرق — مخطط أجدال بجدة",
-        "name": "Gardens & Road Planting — Ajdal Plan, Jeddah",
-        "clientAr": "مخطط أجدال — جدة",
-        "client": "Ajdal Plan — Jeddah"
-      }
-    ]
+    "defaultProjects": []
   },
   "fencing": {
     "seoTitle": "Metal Structures & Security Fencing",
@@ -119,32 +94,7 @@
         "descEn": "Fabrication and installation: warehouses, factories, hangars, roof girders, and pre-engineered buildings (PEB) — light and heavy structures."
       }
     ],
-    "defaultProjects": [
-      {
-        "nameAr": "أعمال سياج روشن — مشروع عروس البحر",
-        "name": "Roshn Fencing — Bride of the Sea Project",
-        "clientAr": "روشن",
-        "client": "Roshn"
-      },
-      {
-        "nameAr": "سياج القنوات المائية والجاردريل — مخطط أجدال",
-        "name": "Water Channel Fencing & Guardrail — Ajdal Plan",
-        "clientAr": "أمانة جدة — مخطط أجدال",
-        "client": "Jeddah Municipality — Ajdal Plan"
-      },
-      {
-        "nameAr": "مشاريع سياجات المياه الوطنية — جدة والرياض",
-        "name": "National Water Company Fencing — Jeddah & Riyadh",
-        "clientAr": "المياه الوطنية",
-        "client": "National Water Company"
-      },
-      {
-        "nameAr": "مشروع هناجر ومستودعات — الرياض",
-        "name": "Hangars & Warehouses — Riyadh",
-        "clientAr": "الرياض",
-        "client": "Riyadh"
-      }
-    ]
+    "defaultProjects": []
   },
   "infrastructure": {
     "seoTitle": "Earth Work & Infrastructure",

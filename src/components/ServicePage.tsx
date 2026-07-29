@@ -109,10 +109,6 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const heroImages = getImagesByPageAndSection(images, pageKey, 'hero');
   const galleryImages = getImagesByPageAndSection(images, pageKey, 'gallery');
-  const defaultProjectsRaw = useMemo(() => {
-    const items = t(`${pageKey}.defaultProjects`, { returnObjects: true, defaultValue: [] });
-    return Array.isArray(items) ? items : [];
-  }, [pageKey, t]);
 
   const displayProjects = useMemo((): DisplayProject[] => {
     const structured = content?.projects?.length
@@ -145,16 +141,8 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
       }));
     }
 
-    return defaultProjectsRaw.map(
-      (item: { nameAr: string; name: string; clientAr?: string; client?: string }, idx: number) => ({
-        id: `default-project-${idx}`,
-        name: language === 'ar' ? item.nameAr : item.name,
-        subtitle: language === 'ar' ? item.clientAr || t('location') : item.client || t('location'),
-        description: '',
-        images: [],
-      })
-    );
-  }, [content?.projects, images, pageKey, language, defaultProjectsRaw, t]);
+    return [];
+  }, [content?.projects, images, pageKey, language, t]);
 
   const projectLightboxImages = useMemo(() => {
     if (!activeProjectLightbox) return [];
@@ -171,6 +159,8 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const accentTextClass =
     accentColor === 'landscape' ? 'text-landscape-dark' : accentColor === 'metal' ? 'text-metal' : 'text-infra';
+  const accentBorderClass =
+    accentColor === 'landscape' ? 'border-landscape' : accentColor === 'metal' ? 'border-metal' : 'border-infra';
 
   const gallery = galleryImages.map((img) => img.url);
   const galleryKey = galleryImages.length > 0 ? galleryImages.map(img => img.id).join(',') : 'empty';
@@ -262,47 +252,45 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
               {displayProjects.map((project, index) => (
                 <article
                   key={`${project.id}-${imageKey}`}
-                  className="overflow-hidden border border-gray-800 bg-gray-900 shadow-2xl animate-fade-in-up"
+                  className={`bg-white rounded-none shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 animate-fade-in-up ${borderSide} ${accentBorderClass}`}
                   style={{ animationDelay: `${index * 0.08}s` }}
                 >
-                  <div className="px-6 md:px-10 py-8 md:py-10 text-center">
-                    <h4 className="text-2xl md:text-4xl font-black text-cta mb-2 leading-tight">{project.name}</h4>
-                    {project.subtitle && (
-                      <p className="text-xs md:text-sm font-bold text-cta/80 uppercase tracking-[0.25em] mb-4">
-                        {project.subtitle}
-                      </p>
+                  <div className={`px-6 md:px-10 py-6 md:py-8 ${textAlign}`}>
+                    <h4 className={`text-xl md:text-2xl font-black text-gray-900 mb-2 leading-tight ${accentTextClass}`}>
+                      {project.name}
+                    </h4>
+                    {project.subtitle && project.subtitle !== project.name && (
+                      <p className="text-xs text-gray-500 font-medium mb-3">{project.subtitle}</p>
                     )}
                     {project.description && (
-                      <p className={`text-gray-300 text-sm md:text-base leading-relaxed max-w-4xl mx-auto whitespace-pre-line ${textAlign}`}>
+                      <p className="text-gray-600 text-sm md:text-base leading-relaxed whitespace-pre-line">
                         {project.description}
                       </p>
                     )}
                   </div>
 
-                  {project.images.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 p-1 bg-white">
+                  {project.images.length > 0 && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 px-6 md:px-10 pb-6 md:pb-8">
                       {project.images.map((img, imgIndex) => (
                         <button
                           key={`${img.id}-${imageKey}`}
                           type="button"
                           onClick={() => setActiveProjectLightbox({ projectId: project.id, index: imgIndex })}
-                          className="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-zoom-in group"
+                          className="overflow-hidden rounded-none bg-white shadow-[0_4px_24px_-4px_rgba(0,0,0,0.08)] hover:shadow-[0_24px_48px_-12px_rgba(0,0,0,0.15)] hover:-translate-y-1 transition-all duration-500 group text-left w-full cursor-zoom-in"
                           aria-label={`${project.name} - ${imgIndex + 1}`}
                         >
-                          <CroppedImage
-                            image={img}
-                            alt={img.alt || project.name}
-                            className="absolute inset-0 w-full h-full"
-                            uncroppedClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                            fit="cover"
-                            loading="lazy"
-                          />
+                          <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+                            <CroppedImage
+                              image={img}
+                              alt={img.alt || project.name}
+                              className="absolute inset-0 w-full h-full"
+                              uncroppedClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                              fit="cover"
+                              loading="lazy"
+                            />
+                          </div>
                         </button>
                       ))}
-                    </div>
-                  ) : (
-                    <div className={`px-6 md:px-10 pb-8 text-gray-400 text-sm ${textAlign}`}>
-                      {t('sections.noProjectImages')}
                     </div>
                   )}
                 </article>

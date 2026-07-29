@@ -20,6 +20,7 @@ export const mapApiImageToItem = (img: Record<string, unknown>): ImageItem => ({
   videoUrl: (img.videoUrl as string) || '',
   videoPublicId: img.videoPublicId as string | undefined,
   workAreaId: (img.workAreaId as string) || '',
+  projectId: (img.projectId as string) || '',
   serviceKey: (img.serviceKey as ImageItem['serviceKey']) || undefined,
 });
 
@@ -29,6 +30,31 @@ export const getImagesByPageAndSection = (
   section: 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content' | 'work-area'
 ): ImageItem[] => {
   return images.filter((img) => img.page === page && img.section === section);
+};
+
+export const getProjectImages = (
+  images: ImageItem[],
+  page: 'landscaping' | 'fencing' | 'infrastructure',
+  projectId: string
+): ImageItem[] => {
+  return images
+    .filter(
+      (img) =>
+        img.page === page && img.section === 'projects' && img.projectId === projectId
+    )
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+};
+
+export const getLegacyProjectImages = (
+  images: ImageItem[],
+  page: 'landscaping' | 'fencing' | 'infrastructure'
+): ImageItem[] => {
+  return images
+    .filter(
+      (img) =>
+        img.page === page && img.section === 'projects' && !img.projectId
+    )
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 };
 
 export const getWorkAreaImages = (

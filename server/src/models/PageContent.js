@@ -48,6 +48,18 @@ const workAreaSectionSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const projectSectionSchema = new mongoose.Schema(
+  {
+    id: { type: String, required: true, trim: true },
+    name: { type: String, trim: true },
+    nameEn: { type: String, trim: true },
+    description: { type: String, trim: true },
+    descriptionEn: { type: String, trim: true },
+    order: { type: Number, default: 0 },
+  },
+  { _id: false }
+);
+
 const pageContentSchema = new mongoose.Schema(
   {
     page: {
@@ -62,6 +74,7 @@ const pageContentSchema = new mongoose.Schema(
     introDescriptionEn: { type: String, trim: true },
     serviceTypes: [serviceTypeSchema],
     workAreaSections: [workAreaSectionSchema],
+    projects: [projectSectionSchema],
     ctaTitle: { type: String, trim: true },
     ctaTitleEn: { type: String, trim: true },
     ctaDescription: { type: String, trim: true },

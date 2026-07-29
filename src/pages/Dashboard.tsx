@@ -9,6 +9,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { LogOut, Plus, Edit, Trash2, Image as ImageIcon, Home, Sprout, Fence, Building2, Globe, X, Crop, Info, Phone, FileUp, CheckCircle, QrCode, Loader2 } from 'lucide-react';
 import SiteSettingsEditor from '../components/dashboard/SiteSettingsEditor';
 import WorkAreaContentEditor from '../components/dashboard/WorkAreaContentEditor';
+import ProjectContentEditor from '../components/dashboard/ProjectContentEditor';
 import { setSiteSettings } from '../store/slices/siteSettingsSlice';
 import { API_BASE_URL } from '../config/api';
 import { mapApiImageToItem } from '../utils/imageUtils';
@@ -923,6 +924,7 @@ export default function Dashboard() {
 
   const contentPages: PageType[] = ['landscaping', 'fencing', 'infrastructure'];
   const showContentEditor = selectedSection === 'content' && contentPages.includes(selectedPage);
+  const showProjectEditor = selectedSection === 'projects' && contentPages.includes(selectedPage);
 
   const pageNames = {
     home: 'الصفحة الرئيسية',
@@ -1179,8 +1181,28 @@ export default function Dashboard() {
                 else dispatch(deleteImage(image.id));
               }}
             />
+          ) : showProjectEditor ? (
+            <ProjectContentEditor
+              page={selectedPage as 'landscaping' | 'fencing' | 'infrastructure'}
+              projects={currentContent?.projects ?? []}
+              onChange={(projects) => {
+                if (currentContent) {
+                  dispatch(setPageContent({ ...currentContent, projects }));
+                }
+              }}
+              onSave={async (projects) => {
+                await handleSavePageContent({ projects });
+              }}
+              token={token}
+              images={images}
+              apiBase={API_BASE_URL}
+              onImageChange={(image, action) => {
+                if (action === 'add') dispatch(addImage(image));
+                else if (action === 'update') dispatch(updateImage(image));
+                else dispatch(deleteImage(image.id));
+              }}
+            />
           ) : (
-            /* Images List */
             <div className="bg-white rounded-none shadow-lg p-6">
               <h2 className="text-lg font-bold text-gray-900 mb-2">
                 الصور ({filteredImages.length})

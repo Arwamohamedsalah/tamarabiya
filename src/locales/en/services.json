@@ -8,6 +8,7 @@
     "projects": "Past Projects",
     "gallery": "Photo Gallery",
     "noProjects": "No projects to display",
+    "noProjectImages": "No images for this project yet",
     "noGallery": "No images in the gallery"
   },
   "projectFallback": "Project {{number}}",

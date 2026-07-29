@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { Play } from 'lucide-react';
 import { setPageContent } from '../store/slices/pageContentSlice';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
-import VideoModal from '../components/VideoModal';
 import GalleryLightbox from '../components/GalleryLightbox';
-import { getImagesByPageAndSection, getWorkAreaImages } from '../utils/imageUtils';
+import {
+  getImagesByPageAndSection,
+  getWorkAreaImages,
+  getProjectImages,
+  getLegacyProjectImages,
+} from '../utils/imageUtils';
 import CroppedImage from './CroppedImage';
-import { resolvePageContent, getProjectName } from '../utils/localizedContent';
+import { resolvePageContent, getProjectName, resolveProjectDisplay } from '../utils/localizedContent';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
@@ -18,10 +21,19 @@ import fencingWorkAreas from '../content/fencingWorkAreas.json';
 import infrastructureWorkAreas from '../content/infrastructureWorkAreas.json';
 import type { WorkAreaSection } from '../types/workAreaSection';
 import type { PageContentData } from '../store/slices/pageContentSlice';
+import type { ImageItem } from '../store/slices/imagesSlice';
 
 import { API_BASE_URL } from '../config/api';
 
 type ServicePageKey = 'landscaping' | 'fencing' | 'infrastructure';
+
+interface DisplayProject {
+  id: string;
+  name: string;
+  subtitle: string;
+  description: string;
+  images: ImageItem[];
+}
 
 const DEFAULT_WORK_AREAS: Record<ServicePageKey, WorkAreaSection[]> = {
   landscaping: landscapingWorkAreas as WorkAreaSection[],
@@ -44,8 +56,8 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
   const content = useAppSelector((state) => state.pageContent.byPage[pageKey]);
 
   const [imageKey, setImageKey] = useState(0);
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null);
+  const [activeProjectLightbox, setActiveProjectLightbox] = useState<{ projectId: string; index: number } | null>(null);
 
   const pageDefaults = useMemo(() => {
     const defaults = t(`${pageKey}.defaultTypes`, { returnObjects: true }) as Array<{
@@ -97,32 +109,57 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const heroImages = getImagesByPageAndSection(images, pageKey, 'hero');
   const galleryImages = getImagesByPageAndSection(images, pageKey, 'gallery');
-  const projectImages = getImagesByPageAndSection(images, pageKey, 'projects');
-
   const defaultProjectsRaw = useMemo(() => {
     const items = t(`${pageKey}.defaultProjects`, { returnObjects: true, defaultValue: [] });
     return Array.isArray(items) ? items : [];
   }, [pageKey, t]);
 
-  const imageProjects = projectImages.map((img, idx) => ({
-    name: getProjectName(img.alt, idx, t),
-    location: t('location'),
-    image: img.url,
-    id: img.id,
-    videoUrl: img.videoUrl,
-  }));
+  const displayProjects = useMemo((): DisplayProject[] => {
+    const structured = content?.projects?.length
+      ? [...content.projects].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+      : [];
 
-  const textProjects = defaultProjectsRaw.map(
-    (item: { nameAr: string; name: string; clientAr?: string; client?: string }, idx: number) => ({
-      name: language === 'ar' ? item.nameAr : item.name,
-      location: language === 'ar' ? item.clientAr || t('location') : item.client || t('location'),
-      image: null as string | null,
-      id: `default-project-${idx}`,
-      videoUrl: undefined as string | undefined,
-    })
-  );
+    if (structured.length) {
+      return structured
+        .map((project) => {
+          const display = resolveProjectDisplay(project, language);
+          return {
+            id: project.id,
+            name: display.name,
+            subtitle: display.subtitle,
+            description: display.description,
+            images: getProjectImages(images, pageKey, project.id),
+          };
+        })
+        .filter((project) => project.name || project.images.length > 0);
+    }
 
-  const projects = imageProjects.length > 0 ? imageProjects : textProjects;
+    const legacyImages = getLegacyProjectImages(images, pageKey);
+    if (legacyImages.length) {
+      return legacyImages.map((img, idx) => ({
+        id: img.id,
+        name: getProjectName(img.alt, idx, t),
+        subtitle: t('location'),
+        description: '',
+        images: [img],
+      }));
+    }
+
+    return defaultProjectsRaw.map(
+      (item: { nameAr: string; name: string; clientAr?: string; client?: string }, idx: number) => ({
+        id: `default-project-${idx}`,
+        name: language === 'ar' ? item.nameAr : item.name,
+        subtitle: language === 'ar' ? item.clientAr || t('location') : item.client || t('location'),
+        description: '',
+        images: [],
+      })
+    );
+  }, [content?.projects, images, pageKey, language, defaultProjectsRaw, t]);
+
+  const projectLightboxImages = useMemo(() => {
+    if (!activeProjectLightbox) return [];
+    return displayProjects.find((project) => project.id === activeProjectLightbox.projectId)?.images ?? [];
+  }, [activeProjectLightbox, displayProjects]);
 
   const richWorkAreas = useMemo(() => {
     const fromApi = content?.workAreaSections;
@@ -137,7 +174,7 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const gallery = galleryImages.map((img) => img.url);
   const galleryKey = galleryImages.length > 0 ? galleryImages.map(img => img.id).join(',') : 'empty';
-  const projectsKey = projectImages.length > 0 ? projectImages.map(img => img.id).join(',') : 'empty';
+  const projectsKey = displayProjects.map((project) => project.id).join(',') || 'empty';
   const textAlign = isRtl ? 'text-right' : 'text-left';
   const borderSide = isRtl ? 'border-r-4' : 'border-l-4';
 
@@ -220,58 +257,55 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
               {t('sections.projects')}
             </h3>
           </div>
-          {projects.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-6" key={`projects-${imageKey}-${projectsKey}`}>
-              {projects.map((project, index) => (
-                <div key={`${project.id || `project-${index}`}-${imageKey}`} className="bg-white rounded-none shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-500 hover-lift animate-fade-in-up border border-gray-100" style={{ animationDelay: `${index * 0.1}s` }}>
-                  {project.image ? (
-                  <div className="relative overflow-hidden bg-gray-900">
-                    {projectImages[index] ? (
-                      <CroppedImage
-                        image={projectImages[index]}
-                        alt={project.name}
-                        className="w-full"
-                        style={{ height: '280px' }}
-                        uncroppedClassName="w-full object-contain block mx-auto"
-                        uncroppedStyle={{ maxHeight: '300px', background: '#111827' }}
-                        fit="contain"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <img
-                        src={project.image}
-                        alt={project.name}
-                        className="w-full object-contain block mx-auto"
-                        style={{ maxHeight: '300px', background: '#111827' }}
-                        loading="lazy"
-                        key={`${project.id || `project-img-${index}`}-${imageKey}`}
-                      />
+          {displayProjects.length > 0 ? (
+            <div className="space-y-8" key={`projects-${imageKey}-${projectsKey}`}>
+              {displayProjects.map((project, index) => (
+                <article
+                  key={`${project.id}-${imageKey}`}
+                  className="overflow-hidden border border-gray-800 bg-gray-900 shadow-2xl animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.08}s` }}
+                >
+                  <div className="px-6 md:px-10 py-8 md:py-10 text-center">
+                    <h4 className="text-2xl md:text-4xl font-black text-cta mb-2 leading-tight">{project.name}</h4>
+                    {project.subtitle && (
+                      <p className="text-xs md:text-sm font-bold text-cta/80 uppercase tracking-[0.25em] mb-4">
+                        {project.subtitle}
+                      </p>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent"></div>
-
-                    {project.videoUrl && (
-                      <button
-                        onClick={() => setActiveVideo(project.videoUrl!)}
-                        className="absolute inset-0 flex items-center justify-center group/btn"
-                      >
-                        <div className="bg-cta text-white p-4 rounded-none shadow-2xl transform transition-all duration-300 group-hover/btn:scale-110 group-hover/btn:bg-cta-hover">
-                          <Play className="h-8 w-8 fill-current" />
-                        </div>
-                      </button>
+                    {project.description && (
+                      <p className={`text-gray-300 text-sm md:text-base leading-relaxed max-w-4xl mx-auto whitespace-pre-line ${textAlign}`}>
+                        {project.description}
+                      </p>
                     )}
-
-                    <div className={`absolute bottom-0 right-0 left-0 p-5 text-white`}>
-                      <h4 className={`text-lg font-bold mb-1 ${textAlign} group-hover:text-landscape-light transition-colors duration-300`}>{project.name}</h4>
-                      <p className={`text-landscape-light ${textAlign} text-sm font-medium`}>{project.location}</p>
-                    </div>
                   </div>
+
+                  {project.images.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-1 p-1 bg-white">
+                      {project.images.map((img, imgIndex) => (
+                        <button
+                          key={`${img.id}-${imageKey}`}
+                          type="button"
+                          onClick={() => setActiveProjectLightbox({ projectId: project.id, index: imgIndex })}
+                          className="relative aspect-[4/3] overflow-hidden bg-gray-100 cursor-zoom-in group"
+                          aria-label={`${project.name} - ${imgIndex + 1}`}
+                        >
+                          <CroppedImage
+                            image={img}
+                            alt={img.alt || project.name}
+                            className="absolute inset-0 w-full h-full"
+                            uncroppedClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            fit="cover"
+                            loading="lazy"
+                          />
+                        </button>
+                      ))}
+                    </div>
                   ) : (
-                    <div className={`p-8 md:p-10 bg-gradient-to-br from-green-50 to-gray-50 ${borderSide} border-landscape`}>
-                      <h4 className={`text-lg md:text-xl font-bold text-gray-900 mb-2 ${textAlign}`}>{project.name}</h4>
-                      <p className={`text-landscape-dark ${textAlign} text-sm font-semibold`}>{project.location}</p>
+                    <div className={`px-6 md:px-10 pb-8 text-gray-400 text-sm ${textAlign}`}>
+                      {t('sections.noProjectImages')}
                     </div>
                   )}
-                </div>
+                </article>
               ))}
             </div>
           ) : (
@@ -352,10 +386,12 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
         getAlt={(img, idx) => img.alt || t('galleryFallback', { number: idx + 1 })}
       />
 
-      <VideoModal
-        isOpen={!!activeVideo}
-        onClose={() => setActiveVideo(null)}
-        videoUrl={activeVideo || ''}
+      <GalleryLightbox
+        images={projectLightboxImages}
+        initialIndex={activeProjectLightbox?.index ?? 0}
+        isOpen={activeProjectLightbox !== null && projectLightboxImages.length > 0}
+        onClose={() => setActiveProjectLightbox(null)}
+        getAlt={(img, idx) => img.alt || t('galleryFallback', { number: idx + 1 })}
       />
     </div>
   );

@@ -8,6 +8,7 @@
     "projects": "سابقة الأعمال",
     "gallery": "معرض الصور",
     "noProjects": "لا توجد مشاريع لعرضها",
+    "noProjectImages": "لا توجد صور لهذا المشروع بعد",
     "noGallery": "لا توجد صور في المعرض"
   },
   "projectFallback": "مشروع {{number}}",

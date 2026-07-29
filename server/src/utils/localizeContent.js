@@ -81,6 +81,13 @@ function localizePageContent(doc, lang = 'ar') {
       titleEn: section.titleEn || section.title,
       blocks: (section.blocks || []).map(localizeWorkAreaBlock),
     })),
+    projects: (source.projects || []).map((project) => ({
+      ...project,
+      name: project.nameEn || project.name,
+      nameEn: project.nameEn || project.name,
+      description: project.descriptionEn || project.description,
+      descriptionEn: project.descriptionEn || project.description,
+    })),
   };
 }
 

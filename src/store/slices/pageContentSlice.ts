@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { WorkAreaSection } from '../../types/workAreaSection';
+import type { ProjectSection } from '../../types/projectSection';
 
 export interface ServiceType {
   name: string;
@@ -17,6 +18,7 @@ export interface PageContentData {
   introDescriptionEn?: string;
   serviceTypes: ServiceType[];
   workAreaSections?: WorkAreaSection[];
+  projects?: ProjectSection[];
   ctaTitle: string;
   ctaTitleEn?: string;
   ctaDescription: string;

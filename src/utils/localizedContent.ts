@@ -78,3 +78,17 @@ export function getProjectName(
 ): string {
   return alt || t('projectFallback', { number: index + 1 });
 }
+
+export function resolveProjectDisplay(
+  project: { name: string; nameEn: string; description?: string; descriptionEn?: string },
+  language: SupportedLanguage
+) {
+  const isEn = language === 'en';
+  return {
+    name: isEn ? project.nameEn || project.name : project.name || project.nameEn,
+    subtitle: isEn ? project.name : project.nameEn,
+    description: isEn
+      ? project.descriptionEn || project.description || ''
+      : project.description || project.descriptionEn || '',
+  };
+}

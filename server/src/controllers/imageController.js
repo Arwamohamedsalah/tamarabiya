@@ -23,7 +23,7 @@ exports.getImages = asyncHandler(async (req, res) => {
 // POST /api/images
 // Body: { categoryId, file (base64 or URL), title, alt, page, section, crop }
 exports.createImage = asyncHandler(async (req, res) => {
-  let { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId, serviceKey } = req.body;
+  let { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId, projectId, serviceKey } = req.body;
 
   if (!file || !page || !section) {
     return res
@@ -46,7 +46,9 @@ exports.createImage = asyncHandler(async (req, res) => {
   const uploadFolder =
     section === 'work-area' && workAreaId
       ? `tam-gallery/${page}/work-area/${workAreaId}`
-      : `tam-gallery/${page}/${section}`;
+      : section === 'projects' && projectId
+        ? `tam-gallery/${page}/projects/${projectId}`
+        : `tam-gallery/${page}/${section}`;
 
   const uploaded = await uploadImage(file, {
     folder: uploadFolder,
@@ -73,6 +75,7 @@ exports.createImage = asyncHandler(async (req, res) => {
     page,
     section,
     workAreaId: section === 'work-area' && workAreaId ? workAreaId : undefined,
+    projectId: section === 'projects' && projectId ? projectId : undefined,
     serviceKey: resolvedServiceKey,
     crop,
     order,
@@ -88,7 +91,7 @@ exports.createImage = asyncHandler(async (req, res) => {
 // Can update metadata, category, crop, and optionally replace file
 exports.updateImage = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId, serviceKey } = req.body;
+  const { categoryId, file, title, alt, page, section, crop, order, videoUrl, workAreaId, projectId, serviceKey } = req.body;
 
   const image = await Image.findById(id);
   if (!image) {
@@ -111,6 +114,9 @@ exports.updateImage = asyncHandler(async (req, res) => {
   if (typeof workAreaId !== 'undefined') {
     image.workAreaId = workAreaId === '' ? undefined : workAreaId;
   }
+  if (typeof projectId !== 'undefined') {
+    image.projectId = projectId === '' ? undefined : projectId;
+  }
   if (typeof serviceKey !== 'undefined') {
     if (serviceKey === '' || serviceKey == null) {
       image.serviceKey = undefined;
@@ -128,7 +134,9 @@ exports.updateImage = asyncHandler(async (req, res) => {
     const uploadFolder =
       image.section === 'work-area' && image.workAreaId
         ? `tam-gallery/${image.page}/work-area/${image.workAreaId}`
-        : `tam-gallery/${image.page}/${image.section}`;
+        : image.section === 'projects' && image.projectId
+          ? `tam-gallery/${image.page}/projects/${image.projectId}`
+          : `tam-gallery/${image.page}/${image.section}`;
     const uploaded = await uploadImage(file, {
       folder: uploadFolder,
     });

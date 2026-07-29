@@ -14,6 +14,7 @@ export interface ImageItem {
   page: 'home' | 'landscaping' | 'fencing' | 'infrastructure' | 'about' | 'contact';
   section: 'hero' | 'services' | 'gallery' | 'projects' | 'header' | 'content' | 'work-area';
   workAreaId?: string;
+  projectId?: string;
   serviceKey?: 'landscaping' | 'fencing' | 'infrastructure';
   index?: number;
   crop?: ImageCrop; // Optional crop settings
@@ -48,6 +49,7 @@ const imagesSlice = createSlice({
         page: payload.page!,
         section: payload.section!,
         workAreaId: payload.workAreaId || '',
+        projectId: payload.projectId || '',
         serviceKey: payload.serviceKey,
         order: payload.order,
         crop: payload.crop,

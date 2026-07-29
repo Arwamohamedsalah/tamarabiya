@@ -10,6 +10,7 @@ const ALLOWED_UPDATE_FIELDS = [
   'introDescriptionEn',
   'serviceTypes',
   'workAreaSections',
+  'projects',
   'ctaTitle',
   'ctaTitleEn',
   'ctaDescription',
@@ -75,7 +76,7 @@ exports.updatePageContent = asyncHandler(async (req, res) => {
   for (const key of ALLOWED_UPDATE_FIELDS) {
     if (req.body[key] !== undefined) {
       doc[key] = req.body[key];
-      if (key === 'workAreaSections' || key === 'serviceTypes') {
+      if (key === 'workAreaSections' || key === 'serviceTypes' || key === 'projects') {
         doc.markModified(key);
       }
     }

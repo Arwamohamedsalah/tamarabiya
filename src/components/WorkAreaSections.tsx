@@ -184,6 +184,13 @@ function WorkAreaImageButton({
   );
 }
 
+function getImageGridClass(imageCount: number): string {
+  if (imageCount <= 1) return 'grid-cols-1 max-w-sm mx-auto lg:max-w-none lg:mx-0';
+  if (imageCount === 2) return 'grid-cols-2';
+  if (imageCount === 3) return 'grid-cols-2 md:grid-cols-3';
+  return 'grid-cols-2';
+}
+
 export default function WorkAreaSections({
   sections,
   title,
@@ -232,11 +239,10 @@ export default function WorkAreaSections({
         {sections.map((section, sectionIndex) => {
           const slotCount = section.imageCount ?? 2;
           const allImages = getSectionImages(section.id, sectionIndex);
-          const sideImages = allImages.slice(0, 2);
-          const belowImages = allImages.slice(2);
+          const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, 4);
           const sectionTitle = pickText(language, section.title, section.titleEn);
 
-          const textBlocks = (
+          const textColumn = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
               <h4 className={`text-xl md:text-2xl font-black text-gray-900 ${textAlign}`}>
                 {sectionTitle}
@@ -253,58 +259,36 @@ export default function WorkAreaSections({
             </div>
           );
 
-          const belowImagesGrid = belowImages.length > 0 && (
-            <div className="grid grid-cols-2 gap-3 md:gap-4 pt-2">
-              {belowImages.map((img, imgIndex) =>
-                renderImage(img, imgIndex + 2, section.id, sectionTitle)
+          const imagesGrid = (
+            <div className={`grid ${getImageGridClass(displayCount)} gap-3 md:gap-4 self-center w-full`}>
+              {allImages.length > 0 ? (
+                allImages.map((img, imgIndex) => renderImage(img, imgIndex, section.id, sectionTitle))
+              ) : (
+                Array.from({ length: Math.min(slotCount, 4) }).map((_, placeholderIndex) => (
+                  <div
+                    key={placeholderIndex}
+                    className={`aspect-[4/3] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-4`}
+                  >
+                    <p className="text-gray-400 text-xs md:text-sm text-center">{sectionTitle}</p>
+                  </div>
+                ))
               )}
-            </div>
-          );
-
-          const textColumn = (
-            <div className="space-y-4">
-              {textBlocks}
-              {belowImagesGrid}
-            </div>
-          );
-
-          const imagesColumn = (
-            <div className="space-y-4">
-              <div className={`inline-block ${theme.badge} px-5 py-2.5 font-bold text-base md:text-lg`}>
-                {sectionTitle}
-              </div>
-              <div className="space-y-4">
-                {sideImages.length > 0 ? (
-                  sideImages.map((img, imgIndex) =>
-                    renderImage(img, imgIndex, section.id, sectionTitle)
-                  )
-                ) : (
-                  Array.from({ length: Math.min(slotCount, 2) }).map((_, placeholderIndex) => (
-                    <div
-                      key={placeholderIndex}
-                      className={`min-h-[200px] md:min-h-[240px] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-6`}
-                    >
-                      <p className="text-gray-400 text-sm text-center">{sectionTitle}</p>
-                    </div>
-                  ))
-                )}
-              </div>
             </div>
           );
 
           return (
             <article
               key={section.id}
-              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start bg-white p-6 md:p-10 border border-gray-100 shadow-sm"
+              className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center bg-white p-6 md:p-10 border border-gray-100 shadow-sm"
             >
               {isRtl ? (
                 <>
                   {textColumn}
-                  {imagesColumn}
+                  {imagesGrid}
                 </>
               ) : (
                 <>
-                  {imagesColumn}
+                  {imagesGrid}
                   {textColumn}
                 </>
               )}

@@ -35,6 +35,39 @@ export default function About() {
       />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="mb-16 max-w-5xl mx-auto animate-fade-in-up">
+          <div className="bg-white rounded-none shadow-xl p-8 md:p-12 border border-gray-100 hover:shadow-2xl transition-all duration-500">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="w-1 h-12 bg-gradient-to-b from-landscape to-landscape-dark rounded-full"></div>
+              <h2 className={`text-2xl md:text-3xl font-black text-gray-900 ${textAlign}`}>
+                {isArabic ? (
+                  <>
+                    نطمح في <span className="text-yellow-500">تام العربية</span>
+                  </>
+                ) : (
+                  <>
+                    We aspire in <span className="text-yellow-500">TAM ALARABIYA</span>
+                  </>
+                )}
+              </h2>
+            </div>
+            {isArabic ? (
+              <p className={`${textAlign} text-gray-700 leading-relaxed text-lg md:text-xl`}>
+                {t('about:companyIntro.paragraphAr')}
+              </p>
+            ) : (
+              <div className={`space-y-6 ${textAlign}`}>
+                <p className="text-gray-700 leading-relaxed text-lg md:text-xl">
+                  {t('about:companyIntro.paragraphEn1')}
+                </p>
+                <p className="text-gray-700 leading-relaxed text-lg md:text-xl">
+                  {t('about:companyIntro.paragraphEn2')}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-1 gap-8 md:gap-12 mb-16 max-w-4xl mx-auto">
           <div className="bg-white rounded-none shadow-xl p-8 md:p-12 hover:shadow-2xl transition-all duration-500 hover-lift animate-fade-in-up border border-gray-100">
             <div className="flex items-center gap-3 mb-6">

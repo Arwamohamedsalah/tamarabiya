@@ -1,124 +1,121 @@
 [
   {
-    "id": "softscape",
-    "title": "السوفتسكيب",
-    "titleEn": "Softscape",
+    "id": "nursery",
+    "title": "المشتل وزراعة الأشجار",
+    "titleEn": "Landscaping & Nursery",
     "blocks": [
       {
         "type": "paragraph",
-        "text": "في شركة تام العربية للمقاولات — تنفيذ جميع أعمال السoftscape (الزراعة والنباتات والزهور والثيل) باحترافية متناهية، مع توريد وزراعة الأشجار والشجيرات والزهور وتوزيعها جمالياً داخل المشاريع السكنية والتجارية والحكومية.",
-        "textEn": "At TAM Alarabiya Co. — we execute all softscape works (planting, vegetation, flowers, and turf) with high professionalism, supplying and planting trees, shrubs, and flowers with aesthetic distribution across residential, commercial, and government projects."
+        "text": "حيث إن مجالات شركة تام العربية تعتمد على أعمال زراعة الأشجار، لذا قامت الشركة بإنشاء مشاتل للأشجار والشجيرات والنخيل لتنفيذ مشاريعها. وتتميز المشتل بتوفير معظم أنواع الأشجار الكبيرة والصغيرة لتلبية جميع متطلبات المشاريع.",
+        "textEn": "As most of TAM ALARABIYA work depends on planting trees projects, we have a nursery to supply and provide most of the plants and trees for the projects."
+      }
+    ]
+  },
+  {
+    "id": "central-parks",
+    "title": "تنفيذ الحدائق العامة",
+    "titleEn": "Central Parks",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "حيث إن مجالات شركة تام العربية تعتمد على أعمال تنفيذ وصيانة الحدائق بجميع ما يلزمها من أعمال سوفت سكيب وهارد سكيب وأعمال إنارة وتمديدات شبكات الري والإنارة وإنشاءات الظل.",
+        "textEn": "As most of TAM ALARABIYA work depends on landscape including hardscape, softscape, irrigation system and all necessary for the landscape projects."
+      }
+    ]
+  },
+  {
+    "id": "palms",
+    "title": "زراعة النخيل",
+    "titleEn": "Palms Tree",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "توريد وزراعة جميع أنواع النخيل بجميع الأحجام والمقاسات حسب المواصفات الفنية الزراعية للمشاريع.",
+        "textEn": "Supply and cultivation of all types of palm trees in all shapes and sizes according to the agricultural technical specifications of the projects."
       },
       {
-        "type": "highlight",
-        "title": "قسم زراعة الأشجار الكبيرة:",
-        "titleEn": "Large tree planting section:",
-        "body": "توريد وزراعة الأشجار الضخمة والنخيل وأشجار الظل وفق المواصفات الفنية والجمالية للمشروع.",
-        "bodyEn": "Supply and planting of mature trees, palms, and shade trees per the project's technical and aesthetic specifications."
+        "type": "list",
+        "items": [
+          "النخل العربي بجميع أنواعه.",
+          "نخل الزينة الأمريكي (واشنطني).",
+          "نخل جوز الهند.",
+          "نخل الملوكي."
+        ],
+        "itemsEn": [
+          "Arabian palm trees of all kinds.",
+          "American ornamental palm (Washingtonian).",
+          "Coconut palm.",
+          "Royal palm trees."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "green-grass",
+    "title": "المسطحات الخضراء (النجيلة)",
+    "titleEn": "Green Grass (Pasplaum)",
+    "blocks": [
+      {
+        "type": "paragraph",
+        "text": "توريد وزراعة العشب الطبيعي بجميع أنواعه وتنفيذ ما يلزم من تسوية منسوب وتوريد التربة الزراعية المناسبة وتأسيس شبكة الري بتوزيعات مدروسة.",
+        "textEn": "Supply and planting all kinds of natural grass. Implementing the necessary ground leveling adjustment, supplying appropriate agricultural soil, and establishing an irrigation network with studied distributions."
       },
       {
-        "type": "highlight",
-        "title": "قسم زراعة الأشجار الصغيرة والشجيرات:",
-        "titleEn": "Shrubs and ornamental planting section:",
-        "body": "زراعة أشجار الزينة والشجيرات والزهور وتوزيعها جمالياً بما يتناسب مع تصميم الحديقة والمساحات الخضراء.",
-        "bodyEn": "Planting ornamental trees, shrubs, and flowers with aesthetic distribution suited to the garden and green space design."
-      },
-      {
-        "type": "highlight",
-        "title": "قسم مغطيات التربة والثيل:",
-        "titleEn": "Turf and ground cover section:",
-        "body": "تنفيذ المسطحات الخضراء الطبيعية والصناعية (الثيل) ومغطيات التربة بجودة عالية ومعايير صيانة مناسبة.",
-        "bodyEn": "Implementation of natural and artificial green surfaces (turf) and ground covers with high quality and appropriate maintenance standards."
+        "type": "list",
+        "items": [
+          "عشب سي 2000 الأمريكي.",
+          "عشب نجيلة الانتورو.",
+          "عشب نجيلة ياباني.",
+          "عشب نجيلة فرنسي."
+        ],
+        "itemsEn": [
+          "American pasplaum C2000 grass.",
+          "Entoro pasplaum grass.",
+          "Japanese pasplaum grass.",
+          "French pasplaum grass."
+        ]
       }
     ]
   },
   {
     "id": "irrigation",
-    "title": "الري",
-    "titleEn": "Irrigation",
-    "blocks": [
-      {
-        "type": "heading",
-        "text": "قسم الري:",
-        "textEn": "Irrigation section:"
-      },
-      {
-        "type": "list",
-        "intro": "أعمال شبكات الري الحديثة ذات الري الذاتي:",
-        "introEn": "Modern self-irrigation network works:",
-        "items": [
-          "توريد وتركيب واختبار محابس الري الكهربائية وصناديق الفلاتر.",
-          "تركيب وبرمجة الديكودرات الخاصة بالمحابس الكهربائية.",
-          "تركيب الرشاشات وخطوط التنقيط.",
-          "تنفيذ شبكات الري بالتنقيط والرش.",
-          "تركيب المضخات ووحدات التحكم الحديثة لترشيد استهلاك المياه.",
-          "ضمان وصول المياه لجميع النباتات بكفاءة عالية."
-        ],
-        "itemsEn": [
-          "Supply, installation, and testing of electric irrigation valves and filter boxes.",
-          "Installation and programming of decoders for electric valves.",
-          "Installation of sprayers and drip lines.",
-          "Implementation of drip and sprinkler irrigation networks.",
-          "Installation of pumps and modern control units to optimize water consumption.",
-          "Ensuring water reaches all plants with high efficiency."
-        ]
-      }
-    ]
-  },
-  {
-    "id": "hardscape",
-    "title": "الهاردسكيب",
-    "titleEn": "Hardscape",
+    "title": "أعمال شبكة الري",
+    "titleEn": "Irrigation System",
     "blocks": [
       {
         "type": "paragraph",
-        "text": "تنفيذ جميع أعمال الهاردسكيب (الأعمال المدنية والأرضيات الخارجية) للمشاريع السكنية والتجارية والحكومية بجودة عالية ومظهر فخم.",
-        "textEn": "Execution of all hardscape works (civil works and outdoor flooring) for residential, commercial, and government projects with high quality and an elegant appearance."
+        "text": "تتميز تام العربية بوجود العمالة والفريق الفني الماهر لتنفيذ مشاريع الري بشكل عام حسب المواصفات والمخططات الهندسية.",
+        "textEn": "TAM ALARABIYA has the qualified team to perform all type of irrigation system projects according to the engineering specification and drawing design."
       },
       {
-        "type": "highlight",
-        "title": "قسم أعمال الأرضيات:",
-        "titleEn": "Flooring works section:",
-        "body": "أ- الخرسانة المطبوعة: للممرات والساحات الخارجية لإعطاء مظهر فخم.\nب- الأرضيات المطاطية: مخصصة للممرات الرياضية ومناطق الألعاب.",
-        "bodyEn": "a- Stamped concrete: for paths and outdoor plazas with an elegant finish.\nb- Rubber flooring: for sports walkways and play areas."
-      },
-      {
-        "type": "highlight",
-        "title": "قسم الملاعب والمظلات:",
-        "titleEn": "Playgrounds and shades section:",
-        "body": "تنفيذ ملاعب الأطفال والمنشآت الرياضية، وتركيب المظلات والكراسي والطاولات وسلال النفايات وفق متطلبات المشروع.",
-        "bodyEn": "Construction of children's playgrounds and sports facilities, and installation of shades, benches, tables, and waste bins per project requirements."
+        "type": "paragraph",
+        "text": "كما تام العربية في توريد المواد من المصانع المعتمدة وعمل اختبارات ضغط البار بعد الانتهاء من شبكات الري لضمان جودة العمل.",
+        "textEn": "As TAM ALARABIYA supply all the irrigation material from approved factories in the region and make the required test as BAR PRESSURE TEST after the irrigation system finished."
       }
     ]
   },
   {
     "id": "maintenance",
-    "title": "الصيانة",
-    "titleEn": "Maintenance",
+    "title": "صيانة الحدائق",
+    "titleEn": "Garden Maintenance",
     "blocks": [
       {
-        "type": "heading",
-        "text": "قسم الصيانة:",
-        "textEn": "Maintenance section:"
-      },
-      {
         "type": "list",
-        "intro": "صيانة وتشغيل الحدائق:",
-        "introEn": "Garden maintenance and operations:",
         "items": [
-          "صيانة المسطحات الخضراء: قص وترميم وتسميد المسطحات.",
-          "تقليم الأشجار والشجيرات.",
-          "رش المبيدات والعناية بالنباتات.",
-          "إصلاح وإعادة تأهيل شبكات الري.",
-          "صيانة عامة للحدائق والمساحات الخارجية."
+          "صيانة الأشجار وتقليمها ورش مبيدات الأشجار وتنظيفها.",
+          "صيانة التربة ومعالجتها وتسميدها.",
+          "صيانة شبكات الري وأعادة تأهيلها."
         ],
         "itemsEn": [
-          "Green area maintenance: mowing, renovation, and fertilization.",
-          "Tree and shrub pruning.",
-          "Pesticide application and plant care.",
-          "Repair and rehabilitation of irrigation networks.",
-          "General maintenance of gardens and outdoor spaces."
+          "Tree maintenance, pruning, pesticide spraying, and cleaning.",
+          "Soil maintenance, treatment, and fertilization.",
+          "Irrigation network maintenance and rehabilitation."
         ]
+      },
+      {
+        "type": "paragraph",
+        "text": "تقوم تام العربية بتخصيص فرق مكونة من مراقب وسيارة وعمالة مدربة والمعدات الفنية المطلوبة لصيانة الحدائق بشكل عام من تقليم وتنظيف للأشجار، تنظيف وتسميد التربة وأعادة تأهيلها، وصيانة شبكات الري وأعادة تأهيلها وصيانة حدائق المرافق بما يتناسب مع المنظر العام حسب المواصفات الهندسية والفنية.",
+        "textEn": "TAM ALARABIYA allocates teams consisting of a supervisor, vehicle, trained labor, and the required technical equipment for general garden maintenance — tree pruning and cleaning, soil fertilization and rehabilitation, irrigation network maintenance, and facility garden upkeep according to engineering and technical specifications."
       }
     ]
   }

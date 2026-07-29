@@ -1,4 +1,7 @@
+import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import CroppedImage from './CroppedImage';
+import GalleryLightbox from './GalleryLightbox';
 import type { ImageItem } from '../store/slices/imagesSlice';
 import type { WorkAreaBlock, WorkAreaSection } from '../types/workAreaSection';
 import type { SupportedLanguage } from '../i18n';
@@ -146,6 +149,41 @@ function WorkAreaBlockView({
   );
 }
 
+function WorkAreaImageButton({
+  image,
+  imageKey,
+  imgIndex,
+  sectionTitle,
+  onOpen,
+}: {
+  image: ImageItem;
+  imageKey: number;
+  imgIndex: number;
+  sectionTitle: string;
+  onOpen: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="overflow-hidden rounded-none bg-white shadow-[0_2px_12px_-2px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_24px_-6px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-500 group text-left w-full cursor-zoom-in border border-gray-200"
+      aria-label={`${sectionTitle} - ${imgIndex + 1}`}
+    >
+      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
+        <CroppedImage
+          key={`${image.id}-${imageKey}-${imgIndex}`}
+          image={image}
+          alt={image.alt || sectionTitle}
+          className="absolute inset-0 w-full h-full"
+          uncroppedClassName="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          fit="cover"
+          loading="lazy"
+        />
+      </div>
+    </button>
+  );
+}
+
 export default function WorkAreaSections({
   sections,
   title,
@@ -156,9 +194,32 @@ export default function WorkAreaSections({
   accentTheme = 'landscape',
   imageKey = 0,
 }: WorkAreaSectionsProps) {
+  const { t } = useTranslation('services');
   const theme = THEME_STYLES[accentTheme];
   const textAlign = isRtl ? 'text-right' : 'text-left';
   const barSide = isRtl ? 'border-r-4' : 'border-l-4';
+  const [lightbox, setLightbox] = useState<{ workAreaId: string; index: number } | null>(null);
+
+  const lightboxImages = useMemo(() => {
+    if (!lightbox) return [];
+    return getSectionImages(lightbox.workAreaId, 0);
+  }, [lightbox, getSectionImages]);
+
+  const renderImage = (
+    img: ImageItem,
+    imgIndex: number,
+    sectionId: string,
+    sectionTitle: string
+  ) => (
+    <WorkAreaImageButton
+      key={`${img.id}-${imageKey}-${imgIndex}`}
+      image={img}
+      imageKey={imageKey}
+      imgIndex={imgIndex}
+      sectionTitle={sectionTitle}
+      onOpen={() => setLightbox({ workAreaId: sectionId, index: imgIndex })}
+    />
+  );
 
   return (
     <div className="mb-0">
@@ -170,10 +231,12 @@ export default function WorkAreaSections({
       <div className="space-y-14 md:space-y-20">
         {sections.map((section, sectionIndex) => {
           const slotCount = section.imageCount ?? 2;
-          const sectionImages = getSectionImages(section.id, sectionIndex).slice(0, slotCount);
+          const allImages = getSectionImages(section.id, sectionIndex);
+          const sideImages = allImages.slice(0, 2);
+          const belowImages = allImages.slice(2);
           const sectionTitle = pickText(language, section.title, section.titleEn);
 
-          const textColumn = (
+          const textBlocks = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
               <h4 className={`text-xl md:text-2xl font-black text-gray-900 ${textAlign}`}>
                 {sectionTitle}
@@ -190,31 +253,33 @@ export default function WorkAreaSections({
             </div>
           );
 
+          const belowImagesGrid = belowImages.length > 0 && (
+            <div className="grid grid-cols-2 gap-3 md:gap-4 pt-2">
+              {belowImages.map((img, imgIndex) =>
+                renderImage(img, imgIndex + 2, section.id, sectionTitle)
+              )}
+            </div>
+          );
+
+          const textColumn = (
+            <div className="space-y-4">
+              {textBlocks}
+              {belowImagesGrid}
+            </div>
+          );
+
           const imagesColumn = (
             <div className="space-y-4">
               <div className={`inline-block ${theme.badge} px-5 py-2.5 font-bold text-base md:text-lg`}>
                 {sectionTitle}
               </div>
               <div className="space-y-4">
-                {sectionImages.length > 0 ? (
-                  sectionImages.map((img, imgIndex) => (
-                    <div
-                      key={`${img.id}-${imageKey}-${imgIndex}`}
-                      className="overflow-hidden bg-gray-100 border border-gray-200 shadow-sm"
-                    >
-                      <CroppedImage
-                        image={img}
-                        alt={img.alt || sectionTitle}
-                        className="w-full"
-                        style={{ minHeight: '220px' }}
-                        uncroppedClassName="w-full h-auto max-h-[320px] object-cover"
-                        fit="contain"
-                        loading="lazy"
-                      />
-                    </div>
-                  ))
+                {sideImages.length > 0 ? (
+                  sideImages.map((img, imgIndex) =>
+                    renderImage(img, imgIndex, section.id, sectionTitle)
+                  )
                 ) : (
-                  Array.from({ length: slotCount }).map((_, placeholderIndex) => (
+                  Array.from({ length: Math.min(slotCount, 2) }).map((_, placeholderIndex) => (
                     <div
                       key={placeholderIndex}
                       className={`min-h-[200px] md:min-h-[240px] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-6`}
@@ -247,6 +312,14 @@ export default function WorkAreaSections({
           );
         })}
       </div>
+
+      <GalleryLightbox
+        images={lightboxImages}
+        initialIndex={lightbox?.index ?? 0}
+        isOpen={lightbox !== null && lightboxImages.length > 0}
+        onClose={() => setLightbox(null)}
+        getAlt={(img, idx) => img.alt || t('galleryFallback', { number: idx + 1 })}
+      />
     </div>
   );
 }

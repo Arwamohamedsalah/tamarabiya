@@ -155,14 +155,12 @@ function WorkAreaImageButton({
   imgIndex,
   sectionTitle,
   onOpen,
-  large = false,
 }: {
   image: ImageItem;
   imageKey: number;
   imgIndex: number;
   sectionTitle: string;
   onOpen: () => void;
-  large?: boolean;
 }) {
   return (
     <button
@@ -171,11 +169,7 @@ function WorkAreaImageButton({
       className="overflow-hidden rounded-none bg-white shadow-[0_2px_12px_-2px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_24px_-6px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-500 group text-left w-full cursor-zoom-in border border-gray-200"
       aria-label={`${sectionTitle} - ${imgIndex + 1}`}
     >
-      <div
-        className={`relative w-full overflow-hidden bg-gray-100 ${
-          large ? 'aspect-[16/10] min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px]' : 'aspect-[4/3]'
-        }`}
-      >
+      <div className="relative w-full aspect-[4/3] overflow-hidden bg-gray-100">
         <CroppedImage
           key={`${image.id}-${imageKey}-${imgIndex}`}
           image={image}
@@ -192,13 +186,7 @@ function WorkAreaImageButton({
 
 const MAX_WORK_AREA_IMAGES = 8;
 
-const PROMINENT_IMAGE_SECTIONS = new Set(['softscape', 'hardscape']);
-const PROMINENT_IMAGE_MAX = 4;
-
-function getImageGridClass(imageCount: number, sectionId: string): string {
-  if (PROMINENT_IMAGE_SECTIONS.has(sectionId) && imageCount <= PROMINENT_IMAGE_MAX) {
-    return 'grid-cols-1';
-  }
+function getImageGridClass(imageCount: number): string {
   if (imageCount <= 1) return 'grid-cols-1 max-w-sm mx-auto lg:max-w-none lg:mx-0';
   if (imageCount === 2) return 'grid-cols-2';
   if (imageCount === 3) return 'grid-cols-2 md:grid-cols-3';
@@ -232,8 +220,7 @@ export default function WorkAreaSections({
     img: ImageItem,
     imgIndex: number,
     sectionId: string,
-    sectionTitle: string,
-    large = false
+    sectionTitle: string
   ) => (
     <WorkAreaImageButton
       key={`${img.id}-${imageKey}-${imgIndex}`}
@@ -242,7 +229,6 @@ export default function WorkAreaSections({
       imgIndex={imgIndex}
       sectionTitle={sectionTitle}
       onOpen={() => setLightbox({ workAreaId: sectionId, index: imgIndex })}
-      large={large}
     />
   );
 
@@ -260,8 +246,6 @@ export default function WorkAreaSections({
           const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, MAX_WORK_AREA_IMAGES);
           const sectionTitle = pickText(language, section.title, section.titleEn);
           const useStackedLayout = displayCount > 4;
-          const useProminentImages =
-            PROMINENT_IMAGE_SECTIONS.has(section.id) && displayCount <= PROMINENT_IMAGE_MAX;
 
           const textColumn = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
@@ -281,20 +265,16 @@ export default function WorkAreaSections({
           );
 
           const imagesGrid = (
-            <div className={`grid ${getImageGridClass(displayCount, section.id)} gap-4 md:gap-5 self-center w-full`}>
+            <div className={`grid ${getImageGridClass(displayCount)} gap-4 md:gap-5 self-center w-full`}>
               {allImages.length > 0 ? (
                 allImages.map((img, imgIndex) =>
-                  renderImage(img, imgIndex, section.id, sectionTitle, useProminentImages)
+                  renderImage(img, imgIndex, section.id, sectionTitle)
                 )
               ) : (
                 Array.from({ length: Math.min(slotCount, MAX_WORK_AREA_IMAGES) }).map((_, placeholderIndex) => (
                   <div
                     key={placeholderIndex}
-                    className={`${
-                      useProminentImages
-                        ? 'aspect-[16/10] min-h-[240px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[360px]'
-                        : 'aspect-[4/3]'
-                    } bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-4`}
+                    className={`aspect-[4/3] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-4`}
                   >
                     <p className="text-gray-400 text-xs md:text-sm text-center">{sectionTitle}</p>
                   </div>
@@ -309,9 +289,7 @@ export default function WorkAreaSections({
               className={
                 useStackedLayout
                   ? 'flex flex-col gap-8 bg-white p-6 md:p-10 border border-gray-100 shadow-sm'
-                  : useProminentImages
-                    ? 'grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] gap-8 lg:gap-10 items-start bg-white p-6 md:p-10 border border-gray-100 shadow-sm'
-                    : 'grid lg:grid-cols-2 gap-8 lg:gap-12 items-start bg-white p-6 md:p-10 border border-gray-100 shadow-sm'
+                  : 'grid lg:grid-cols-2 gap-8 lg:gap-12 items-start bg-white p-6 md:p-10 border border-gray-100 shadow-sm'
               }
             >
               {useStackedLayout ? (

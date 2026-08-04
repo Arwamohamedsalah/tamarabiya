@@ -20,7 +20,14 @@ cd "$ROOT"
 echo "==> Seed page content (MongoDB)"
 cd server
 npm run seed:page-content
+npm run sync:work-areas
 cd "$ROOT"
+
+echo "==> Verify Image model has work-area section"
+if ! grep -q "work-area" "$ROOT/server/src/models/Image.js"; then
+  echo "ERROR: server/src/models/Image.js missing work-area — git pull may have failed."
+  exit 1
+fi
 
 echo "==> Restart PM2"
 if pm2 describe tam-backend >/dev/null 2>&1; then

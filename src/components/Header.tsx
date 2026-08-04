@@ -43,7 +43,7 @@ export default function Header() {
             className="flex items-center gap-3 hover:opacity-80 transition-opacity focus:outline-none group py-2"
             aria-label={t('aria.homePage')}
           >
-            <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-none overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-110 bg-white p-1">
+            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-none overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-110 bg-white p-1">
               <img
                 src="/tam.png"
                 alt={t('aria.logoAlt')}
@@ -51,11 +51,12 @@ export default function Header() {
               />
             </div>
             <div className={logoAlign}>
-              <h1 className="text-lg md:text-xl lg:text-2xl leading-tight mb-0.5 font-semibold">
+              <h1 className="text-xl md:text-2xl lg:text-[1.65rem] leading-tight mb-0.5 font-semibold">
                 <CompanyName variant="light" headerBrand highlightClassName="brand-tam-hero-gold" />
               </h1>
-              <p className="font-montserrat english-brand-text text-[11px] md:text-xs text-metal-silver uppercase tracking-[0.4em] opacity-80">
-                {t('tagline')}
+              <p className="font-montserrat english-brand-text text-[11px] md:text-xs uppercase tracking-[0.4em]">
+                <span className="brand-tam-hero-gold opacity-95">TAM</span>
+                <span className="text-metal-silver opacity-80"> Alarabiya Co.</span>
               </p>
             </div>
           </Link>

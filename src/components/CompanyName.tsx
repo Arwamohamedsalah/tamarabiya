@@ -57,7 +57,7 @@ export default function CompanyName({
       return (
         <div className={`flex flex-col items-center ${className}`}>
           <h2
-            className={`${textClass} text-3xl md:text-5xl lg:text-6xl text-white drop-shadow-2xl text-center leading-tight inline-flex items-baseline gap-1 flex-wrap justify-center`}
+            className={`${textClass} text-3xl md:text-5xl lg:text-6xl text-white drop-shadow-2xl text-center leading-tight inline-flex items-baseline gap-[0.32em] flex-wrap justify-center`}
             dir="rtl"
           >
             <span>{t(prefixKey)}</span>
@@ -85,7 +85,7 @@ export default function CompanyName({
 
   return (
     <span
-      className={`${textClass} inline-flex items-baseline ${isArabic ? 'gap-[0.06em]' : englishWordGap}`}
+      className={`${textClass} inline-flex items-baseline ${isArabic ? 'gap-[0.32em]' : englishWordGap}`}
       dir={isArabic ? 'rtl' : 'ltr'}
     >
       <span className={baseColor}>{t(prefixKey)}</span>

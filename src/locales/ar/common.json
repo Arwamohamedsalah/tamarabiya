@@ -24,10 +24,6 @@
     "enTam": "Tam",
     "enAlarabiya": " Alarabiya"
   },
-  "headerNameAr": {
-    "prefix": "شركة ",
-    "suffix": " العربية"
-  },
   "companyName": {
     "prefix": "شركة ",
     "highlight": "تام",

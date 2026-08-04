@@ -34,13 +34,8 @@ export default function CompanyName({
   const isArabic = language === 'ar';
 
   const highlightKey = headerBrand && !isArabic ? 'headerName.highlight' : 'companyName.highlight';
-  const suffixKey =
-    headerBrand && isArabic
-      ? 'headerNameAr.suffix'
-      : headerBrand && !isArabic
-        ? 'headerName.suffix'
-        : 'companyName.suffix';
-  const prefixKey = headerBrand && isArabic ? 'headerNameAr.prefix' : 'companyName.prefix';
+  const suffixKey = headerBrand && !isArabic ? 'headerName.suffix' : 'companyName.suffix';
+  const prefixKey = 'companyName.prefix';
 
   const baseColor =
     variant === 'dark'
@@ -55,8 +50,8 @@ export default function CompanyName({
     ? `font-arabic arabic-brand-text ${className}`
     : `font-montserrat english-brand-text tracking-[0.035em] ${className}`;
 
-  const englishWordGap = 'gap-[0.28em]';
-
+  const englishWordGap = headerBrand ? 'gap-[0.22em] sm:gap-[0.28em]' : 'gap-[0.28em]';
+  const arabicWordGap = headerBrand ? 'gap-[0.22em] sm:gap-[0.32em]' : 'gap-[0.32em]';
   const nowrapClass = headerBrand ? 'whitespace-nowrap' : '';
 
   if (variant === 'hero') {
@@ -92,7 +87,7 @@ export default function CompanyName({
 
   return (
     <span
-      className={`${textClass} inline-flex items-baseline ${isArabic ? 'gap-[0.32em]' : englishWordGap} ${nowrapClass}`}
+      className={`${textClass} inline-flex items-baseline ${isArabic ? arabicWordGap : englishWordGap} ${nowrapClass}`}
       dir={isArabic ? 'rtl' : 'ltr'}
     >
       <span className={baseColor}>{t(prefixKey)}</span>

@@ -87,13 +87,13 @@ export default function Home() {
         description={t('seo:home.description')}
       />
 
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden mesh-bg grain">
+      <section className={`relative h-[70vh] flex items-center justify-center overflow-hidden ${heroImages.length > 0 ? 'bg-metal-dark' : 'mesh-bg grain'}`}>
         <div className="absolute inset-0 z-0">
           {heroImages.length > 0 ? (
             heroImages.map((img, idx) => (
               <div
                 key={img.id}
-                className={`absolute inset-0 transition-opacity duration-1000 ${idx === heroIndex ? 'opacity-40' : 'opacity-0'
+                className={`absolute inset-0 transition-opacity duration-1000 ${idx === heroIndex ? 'opacity-100' : 'opacity-0'
                   }`}
               >
                 <CroppedImage
@@ -101,21 +101,22 @@ export default function Home() {
                   alt={img.alt || t('home:hero.backgroundAlt')}
                   className="w-full h-full"
                   uncroppedClassName="w-full h-full object-cover"
-                  fit="contain"
+                  fit="cover"
                 />
               </div>
             ))
           ) : (
-            <div className="absolute inset-0 bg-metal-dark/20 opacity-40" />
+            <div className="absolute inset-0 bg-metal-dark/20" />
           )}
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
         </div>
 
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cta/20 rounded-full blur-[120px] animate-float"></div>
-          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-landscape/10 rounded-full blur-[120px] animate-float-reverse"></div>
-          <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        </div>
+        {heroImages.length === 0 && (
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-cta/20 rounded-full blur-[120px] animate-float"></div>
+            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-landscape/10 rounded-full blur-[120px] animate-float-reverse"></div>
+            <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+          </div>
+        )}
 
         <div className="relative z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 md:pt-28">
           <div className="animate-fade-in-up">

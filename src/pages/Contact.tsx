@@ -48,28 +48,24 @@ export default function Contact() {
             key={`${heroImages[0]?.id || 'default-hero'}-${imageKey}`}
             image={heroImages[0]}
             alt={heroImages[0].alt || t('contact:hero.imageAlt')}
-            className="absolute inset-0 w-full h-full opacity-60 group-hover:scale-105 transition-transform duration-700"
-            uncroppedClassName="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
-            fit="contain"
+            className="absolute inset-0 w-full h-full"
+            uncroppedClassName="absolute inset-0 w-full h-full object-cover"
+            fit="cover"
             loading="eager"
           />
         ) : (
           <img
             src={getDefaultImage('landscaping')}
             alt={t('contact:hero.imageAlt')}
-            className="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
+            className="w-full h-full object-cover"
             loading="eager"
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cta rounded-full blur-3xl"></div>
-        </div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-white animate-fade-in-up">
-            <p className="text-sm font-medium text-green-300 mb-3 tracking-wider">{t('contact:hero.subtitle')}</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4">{t('contact:hero.title')}</h1>
-            <p className="text-xl md:text-2xl text-gray-200 mb-4"><CompanyName variant="light" /></p>
+            <p className="text-sm font-medium text-green-300 mb-3 tracking-wider drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">{t('contact:hero.subtitle')}</p>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)]">{t('contact:hero.title')}</h1>
+            <p className="text-xl md:text-2xl text-gray-100 mb-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]"><CompanyName variant="light" /></p>
             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-cta to-transparent mx-auto rounded-full"></div>
           </div>
         </div>

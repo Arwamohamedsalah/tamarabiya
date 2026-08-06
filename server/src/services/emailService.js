@@ -4,8 +4,8 @@ const {
   isSaleMailConfigured,
 } = require('../config/mail');
 
-const DEFAULT_INFO_FROM = 'info@tamalarabiya.com';
-const DEFAULT_INFO_TO = 'info@tamalarabiya.com';
+const DEFAULT_INFO_FROM = 'info@tamarabiya.com';
+const DEFAULT_INFO_TO = 'info@tamarabiya.com';
 const DEFAULT_SALE_FROM = 'sale@tamarbiya.com';
 const DEFAULT_SALE_TO = 'sale@tamarbiya.com';
 

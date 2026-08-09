@@ -52,11 +52,13 @@ function pickText(language: SupportedLanguage, ar: string, en: string) {
 
 function WorkAreaBlockView({
   block,
+  blockIndex,
   language,
   textAlign,
   accentClass,
 }: {
   block: WorkAreaBlock;
+  blockIndex: number;
   language: SupportedLanguage;
   textAlign: string;
   accentClass: string;
@@ -79,7 +81,7 @@ function WorkAreaBlockView({
 
   if (block.type === 'highlight') {
     return (
-      <div className={textAlign}>
+      <div className={`${textAlign}${blockIndex > 0 ? ' pt-4 mt-4 border-t border-gray-100' : ''}`}>
         <p className={`font-bold text-base md:text-lg mb-2 ${accentClass}`}>
           <span className="me-1">*</span>
           {pickText(language, block.title, block.titleEn)}
@@ -272,6 +274,7 @@ export default function WorkAreaSections({
                 <WorkAreaBlockView
                   key={`${section.id}-block-${blockIndex}`}
                   block={block}
+                  blockIndex={blockIndex}
                   language={language}
                   textAlign={textAlign}
                   accentClass={accentClass}

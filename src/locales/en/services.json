@@ -115,13 +115,13 @@
     "defaultTypes": [
       {
         "name": "Ductile Iron Water Networks",
-        "nameAr": "شبكات المياه — أنابيب الدكتايل",
+        "nameAr": "انابيب الدكتايل",
         "desc": "Excavation, laying, welding, pressure testing, and backfilling per engineering specifications.",
         "descEn": "Excavation, laying, welding, pressure testing, and backfilling per engineering specifications."
       },
       {
         "name": "HDPE Water Networks",
-        "nameAr": "شبكات المياه — أنابيب HDPE",
+        "nameAr": "انابيب HDPE",
         "desc": "HDPE pipes: excavation, laying, fusion welding, testing, and commissioning for water networks.",
         "descEn": "HDPE pipes: excavation, laying, fusion welding, testing, and commissioning for water networks."
       },

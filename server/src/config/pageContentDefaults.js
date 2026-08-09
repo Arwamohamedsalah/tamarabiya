@@ -109,7 +109,7 @@ const PAGE_CONTENT_DEFAULTS = {
     serviceTypes: [
       {
         name: 'Ductile Iron Water Networks',
-        nameAr: 'شبكات المياه — أنابيب الدكتايل',
+        nameAr: 'انابيب الدكتايل',
         desc: 'أعمال حفر وتمديد ولحام واختبار وردم المشاريع حسب المواصفات الهندسية.',
         descEn:
           'Excavation, laying, welding, pressure testing, and backfilling per engineering specifications.',
@@ -117,7 +117,7 @@ const PAGE_CONTENT_DEFAULTS = {
       },
       {
         name: 'HDPE Water Networks',
-        nameAr: 'شبكات المياه — أنابيب HDPE',
+        nameAr: 'انابيب HDPE',
         desc: 'أعمال الحفر والتمديد واللحام بالوصلات واختبارها لشبكات المياه (البولي إيثيلين عالي الكثافة).',
         descEn:
           'High-density polyethylene pipes: excavation, laying, fusion welding, testing, and commissioning for water networks.',

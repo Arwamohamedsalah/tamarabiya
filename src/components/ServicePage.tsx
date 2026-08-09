@@ -22,6 +22,7 @@ import infrastructureWorkAreas from '../content/infrastructureWorkAreas.json';
 import type { WorkAreaSection } from '../types/workAreaSection';
 import type { PageContentData } from '../store/slices/pageContentSlice';
 import type { ImageItem } from '../store/slices/imagesSlice';
+import { normalizeWorkAreaSections } from '../utils/workAreaSections';
 
 import { API_BASE_URL } from '../config/api';
 
@@ -151,8 +152,8 @@ export default function ServicePage({ pageKey, accentColor, ctaGradient, ctaText
 
   const richWorkAreas = useMemo(() => {
     const fromApi = content?.workAreaSections;
-    if (fromApi?.length) return fromApi;
-    return DEFAULT_WORK_AREAS[pageKey] || [];
+    const sections = fromApi?.length ? fromApi : DEFAULT_WORK_AREAS[pageKey] || [];
+    return pageKey === 'infrastructure' ? normalizeWorkAreaSections(sections) : sections;
   }, [pageKey, content?.workAreaSections]);
 
   const useRichWorkAreas = richWorkAreas.length > 0;

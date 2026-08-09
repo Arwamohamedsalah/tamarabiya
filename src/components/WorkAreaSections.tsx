@@ -317,8 +317,7 @@ export default function WorkAreaSections({
                   return (
                     <div
                       key={`${section.id}-pair-${blockIndex}`}
-                      dir={isRtl ? 'rtl' : 'ltr'}
-                      className={`grid lg:grid-cols-[2fr_3fr] gap-6 md:gap-10 items-start ${
+                      className={`flex flex-col gap-4 md:gap-6 ${
                         blockIndex > 0 ? 'pt-8 md:pt-10 border-t border-gray-100' : ''
                       }`}
                     >
@@ -331,27 +330,27 @@ export default function WorkAreaSections({
                           accentClass={accentClass}
                         />
                       </div>
-                      <div className="w-full">
+                      <div
+                        className={`grid ${
+                          blockImages.length <= 1
+                            ? 'grid-cols-1 w-full'
+                            : getImageGridClass(blockImages.length, true)
+                        } gap-4 md:gap-6 w-full`}
+                      >
                         {blockImages.length > 0 ? (
-                          <div
-                            className={`grid gap-4 md:gap-5 w-full ${
-                              blockImages.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'
-                            }`}
-                          >
-                            {blockImages.map((img, imgIndex) =>
-                              renderImage(
-                                img,
-                                lightboxStart + imgIndex,
-                                section.id,
-                                blockLabel,
-                                () =>
-                                  setLightbox({
-                                    sectionId: section.id,
-                                    index: lightboxStart + imgIndex,
-                                  })
-                              )
-                            )}
-                          </div>
+                          blockImages.map((img, imgIndex) =>
+                            renderImage(
+                              img,
+                              lightboxStart + imgIndex,
+                              section.id,
+                              blockLabel,
+                              () =>
+                                setLightbox({
+                                  sectionId: section.id,
+                                  index: lightboxStart + imgIndex,
+                                })
+                            )
+                          )
                         ) : (
                           <div
                             className={`aspect-[4/3] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-4 w-full`}

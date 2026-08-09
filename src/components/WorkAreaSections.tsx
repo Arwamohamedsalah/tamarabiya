@@ -198,6 +198,27 @@ function getAggregatedSectionImages(
   return getSectionImageSources(section).flatMap((id) => getSectionImages(id, sectionIndex));
 }
 
+function usePairedImageLayout(section: WorkAreaSection): boolean {
+  return Boolean(
+    section.imageWorkAreaIds?.length &&
+      section.imageWorkAreaIds.length === section.blocks.length
+  );
+}
+
+function getPairLightboxStartIndex(
+  section: WorkAreaSection,
+  sectionIndex: number,
+  blockIndex: number,
+  getSectionImages: WorkAreaSectionsProps['getSectionImages']
+): number {
+  if (!section.imageWorkAreaIds) return blockIndex;
+  let start = 0;
+  for (let i = 0; i < blockIndex; i++) {
+    start += getSectionImages(section.imageWorkAreaIds[i], sectionIndex).length;
+  }
+  return start;
+}
+
 const MAX_WORK_AREA_IMAGES = 8;
 
 function getImageGridClass(imageCount: number, fullWidth = false): string {
@@ -238,7 +259,8 @@ export default function WorkAreaSections({
     img: ImageItem,
     imgIndex: number,
     sectionId: string,
-    sectionTitle: string
+    sectionTitle: string,
+    onOpen: () => void
   ) => (
     <WorkAreaImageButton
       key={`${img.id}-${imageKey}-${imgIndex}`}
@@ -246,7 +268,7 @@ export default function WorkAreaSections({
       imageKey={imageKey}
       imgIndex={imgIndex}
       sectionTitle={sectionTitle}
-      onOpen={() => setLightbox({ sectionId: sectionId, index: imgIndex })}
+      onOpen={onOpen}
     />
   );
 
@@ -260,10 +282,90 @@ export default function WorkAreaSections({
       <div className="space-y-14 md:space-y-20">
         {sections.map((section, sectionIndex) => {
           const slotCount = section.imageCount ?? 2;
+          const pairedLayout = usePairedImageLayout(section);
           const allImages = getAggregatedSectionImages(section, sectionIndex, getSectionImages);
           const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, MAX_WORK_AREA_IMAGES);
           const sectionTitle = pickText(language, section.title, section.titleEn);
-          const useFullWidthGallery = displayCount >= 2;
+          const useFullWidthGallery = !pairedLayout && displayCount >= 2;
+
+          if (pairedLayout && section.imageWorkAreaIds) {
+            return (
+              <article
+                key={section.id}
+                className="flex flex-col gap-8 md:gap-10 bg-white p-6 md:p-10 border border-gray-100 shadow-sm"
+              >
+                <h4
+                  className={`text-xl md:text-2xl font-black text-gray-900 ${textAlign} ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}
+                >
+                  {sectionTitle}
+                </h4>
+
+                {section.blocks.map((block, blockIndex) => {
+                  const workAreaId = section.imageWorkAreaIds![blockIndex];
+                  const blockImages = getSectionImages(workAreaId, sectionIndex);
+                  const lightboxStart = getPairLightboxStartIndex(
+                    section,
+                    sectionIndex,
+                    blockIndex,
+                    getSectionImages
+                  );
+                  const blockLabel =
+                    block.type === 'highlight'
+                      ? pickText(language, block.title, block.titleEn)
+                      : sectionTitle;
+
+                  return (
+                    <div
+                      key={`${section.id}-pair-${blockIndex}`}
+                      dir={isRtl ? 'rtl' : 'ltr'}
+                      className={`grid lg:grid-cols-[2fr_3fr] gap-6 md:gap-10 items-start ${
+                        blockIndex > 0 ? 'pt-8 md:pt-10 border-t border-gray-100' : ''
+                      }`}
+                    >
+                      <div className={`${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
+                        <WorkAreaBlockView
+                          block={block}
+                          blockIndex={0}
+                          language={language}
+                          textAlign={textAlign}
+                          accentClass={accentClass}
+                        />
+                      </div>
+                      <div className="w-full">
+                        {blockImages.length > 0 ? (
+                          <div
+                            className={`grid gap-4 md:gap-5 w-full ${
+                              blockImages.length > 1 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'
+                            }`}
+                          >
+                            {blockImages.map((img, imgIndex) =>
+                              renderImage(
+                                img,
+                                lightboxStart + imgIndex,
+                                section.id,
+                                blockLabel,
+                                () =>
+                                  setLightbox({
+                                    sectionId: section.id,
+                                    index: lightboxStart + imgIndex,
+                                  })
+                              )
+                            )}
+                          </div>
+                        ) : (
+                          <div
+                            className={`aspect-[4/3] bg-gradient-to-br ${theme.placeholder} border border-dashed ${theme.dashed} flex items-center justify-center p-4 w-full`}
+                          >
+                            <p className="text-gray-400 text-xs md:text-sm text-center">{blockLabel}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </article>
+            );
+          }
 
           const textColumn = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>
@@ -291,7 +393,9 @@ export default function WorkAreaSections({
             >
               {allImages.length > 0 ? (
                 allImages.map((img, imgIndex) =>
-                  renderImage(img, imgIndex, section.id, sectionTitle)
+                  renderImage(img, imgIndex, section.id, sectionTitle, () =>
+                    setLightbox({ sectionId: section.id, index: imgIndex })
+                  )
                 )
               ) : (
                 Array.from({ length: Math.min(slotCount, MAX_WORK_AREA_IMAGES) }).map((_, placeholderIndex) => (

@@ -43,6 +43,7 @@ const workAreaSectionSchema = new mongoose.Schema(
     title: { type: String, trim: true },
     titleEn: { type: String, trim: true },
     imageCount: { type: Number, default: 2 },
+    imageWorkAreaIds: [{ type: String, trim: true }],
     blocks: [workAreaBlockSchema],
   },
   { _id: false }

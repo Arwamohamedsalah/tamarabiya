@@ -422,6 +422,19 @@ export default function WorkAreaContentEditor({
 
       {sections.map((section, sectionIndex) => {
         const imageSlots = section.imageCount ?? 2;
+        const linkedImageSources =
+          section.imageWorkAreaIds?.length &&
+          section.imageWorkAreaIds.length === section.blocks.length
+            ? section.imageWorkAreaIds.map((workAreaId, index) => {
+                const block = section.blocks[index];
+                const label =
+                  block?.type === 'highlight'
+                    ? block.title || workAreaId
+                    : workAreaId;
+                return { workAreaId, label };
+              })
+            : null;
+
         return (
         <div key={section.id} className="border border-gray-200 rounded-none overflow-hidden">
           <div className="bg-landscape/10 px-4 py-3 font-bold text-gray-900">{section.title}</div>
@@ -445,32 +458,49 @@ export default function WorkAreaContentEditor({
               />
             </div>
 
-            <div className="flex items-center gap-3 justify-end">
-              <label className="text-sm text-gray-600">عدد الصور:</label>
-              <select
-                value={imageSlots}
-                onChange={(e) => updateSection(sectionIndex, { imageCount: Number(e.target.value) })}
-                className="px-2 py-1 border rounded-none text-sm"
-              >
-                {IMAGE_SLOT_OPTIONS.map((n) => (
-                  <option key={n} value={n}>{n}</option>
-                ))}
-              </select>
-            </div>
+            {!linkedImageSources && (
+              <div className="flex items-center gap-3 justify-end">
+                <label className="text-sm text-gray-600">عدد الصور:</label>
+                <select
+                  value={imageSlots}
+                  onChange={(e) => updateSection(sectionIndex, { imageCount: Number(e.target.value) })}
+                  className="px-2 py-1 border rounded-none text-sm"
+                >
+                  {IMAGE_SLOT_OPTIONS.map((n) => (
+                    <option key={n} value={n}>{n}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
-            <div className={`grid gap-3 grid-cols-2 ${dashboardImageGridClass(imageSlots)}`}>
-              {Array.from({ length: imageSlots }).map((_, slot) => (
-                <WorkAreaImageSlot
-                  key={`${section.id}-img-${slot}`}
-                  page={page}
-                  workAreaId={section.id}
-                  slot={slot}
-                  images={images}
-                  token={token}
-                  apiBase={apiBase}
-                  onImageChange={onImageChange}
-                />
-              ))}
+            <div className={`grid gap-3 grid-cols-2 ${dashboardImageGridClass(linkedImageSources?.length ?? imageSlots)}`}>
+              {linkedImageSources
+                ? linkedImageSources.map(({ workAreaId, label }) => (
+                    <div key={workAreaId} className="space-y-2">
+                      <p className="text-xs font-bold text-gray-700 text-right">{label}</p>
+                      <WorkAreaImageSlot
+                        page={page}
+                        workAreaId={workAreaId}
+                        slot={0}
+                        images={images}
+                        token={token}
+                        apiBase={apiBase}
+                        onImageChange={onImageChange}
+                      />
+                    </div>
+                  ))
+                : Array.from({ length: imageSlots }).map((_, slot) => (
+                    <WorkAreaImageSlot
+                      key={`${section.id}-img-${slot}`}
+                      page={page}
+                      workAreaId={section.id}
+                      slot={slot}
+                      images={images}
+                      token={token}
+                      apiBase={apiBase}
+                      onImageChange={onImageChange}
+                    />
+                  ))}
             </div>
 
             <div className="space-y-3">

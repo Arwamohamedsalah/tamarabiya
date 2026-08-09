@@ -26,5 +26,7 @@ export interface WorkAreaSection {
   title: string;
   titleEn: string;
   imageCount?: number;
+  /** When set, images are loaded from these work-area IDs (one slot each, in order). */
+  imageWorkAreaIds?: string[];
   blocks: WorkAreaBlock[];
 }

@@ -184,6 +184,18 @@ function WorkAreaImageButton({
   );
 }
 
+function getSectionImageSources(section: WorkAreaSection): string[] {
+  return section.imageWorkAreaIds?.length ? section.imageWorkAreaIds : [section.id];
+}
+
+function getAggregatedSectionImages(
+  section: WorkAreaSection,
+  sectionIndex: number,
+  getSectionImages: WorkAreaSectionsProps['getSectionImages']
+): ImageItem[] {
+  return getSectionImageSources(section).flatMap((id) => getSectionImages(id, sectionIndex));
+}
+
 const MAX_WORK_AREA_IMAGES = 8;
 
 function getImageGridClass(imageCount: number, fullWidth = false): string {
@@ -211,12 +223,14 @@ export default function WorkAreaSections({
   const theme = THEME_STYLES[accentTheme];
   const textAlign = isRtl ? 'text-right' : 'text-left';
   const barSide = isRtl ? 'border-r-4' : 'border-l-4';
-  const [lightbox, setLightbox] = useState<{ workAreaId: string; index: number } | null>(null);
+  const [lightbox, setLightbox] = useState<{ sectionId: string; index: number } | null>(null);
 
   const lightboxImages = useMemo(() => {
     if (!lightbox) return [];
-    return getSectionImages(lightbox.workAreaId, 0);
-  }, [lightbox, getSectionImages]);
+    const sectionIndex = sections.findIndex((section) => section.id === lightbox.sectionId);
+    if (sectionIndex < 0) return [];
+    return getAggregatedSectionImages(sections[sectionIndex], sectionIndex, getSectionImages);
+  }, [lightbox, sections, getSectionImages]);
 
   const renderImage = (
     img: ImageItem,
@@ -230,7 +244,7 @@ export default function WorkAreaSections({
       imageKey={imageKey}
       imgIndex={imgIndex}
       sectionTitle={sectionTitle}
-      onOpen={() => setLightbox({ workAreaId: sectionId, index: imgIndex })}
+      onOpen={() => setLightbox({ sectionId: sectionId, index: imgIndex })}
     />
   );
 
@@ -244,7 +258,7 @@ export default function WorkAreaSections({
       <div className="space-y-14 md:space-y-20">
         {sections.map((section, sectionIndex) => {
           const slotCount = section.imageCount ?? 2;
-          const allImages = getSectionImages(section.id, sectionIndex);
+          const allImages = getAggregatedSectionImages(section, sectionIndex, getSectionImages);
           const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, MAX_WORK_AREA_IMAGES);
           const sectionTitle = pickText(language, section.title, section.titleEn);
           const useFullWidthGallery = displayCount >= 2;

@@ -190,7 +190,7 @@ function getImageGridClass(imageCount: number, fullWidth = false): string {
   if (imageCount <= 1) {
     return fullWidth ? 'grid-cols-1 max-w-3xl mx-auto w-full' : 'grid-cols-1';
   }
-  if (imageCount === 2) return 'grid-cols-2';
+  if (imageCount === 2) return fullWidth ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-2';
   if (imageCount === 3) return fullWidth ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 md:grid-cols-3';
   if (imageCount === 4) return 'grid-cols-2';
   if (imageCount <= 6) return 'grid-cols-2 md:grid-cols-3';
@@ -247,7 +247,7 @@ export default function WorkAreaSections({
           const allImages = getSectionImages(section.id, sectionIndex);
           const displayCount = allImages.length > 0 ? allImages.length : Math.min(slotCount, MAX_WORK_AREA_IMAGES);
           const sectionTitle = pickText(language, section.title, section.titleEn);
-          const useFullWidthGallery = displayCount >= 3;
+          const useFullWidthGallery = displayCount >= 2;
 
           const textColumn = (
             <div className={`space-y-5 ${barSide} ${theme.border} ${isRtl ? 'pr-5 md:pr-6' : 'pl-5 md:pl-6'}`}>

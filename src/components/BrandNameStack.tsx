@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import TamArabicText from './TamArabicText';
+import ArabiyaText from './ArabiyaText';
+import { TAM_ARABIC_PLAIN, TAM_ARABIC_WORD_GAP } from '../constants/brandTamArabic';
 
 export type BrandNameStackSize = 'xs' | 'sm' | 'md' | 'lg' | 'hero';
 
@@ -67,15 +69,15 @@ export default function BrandNameStack({
         </p>
       )}
 
-      <p className={`arabic-brand-text whitespace-nowrap inline-flex items-baseline gap-[0.12em] ${s.ar}`} dir="rtl">
-        <span className="sr-only">{t('brandName.arHighlight')}</span>
+      <p className={`arabic-brand-text whitespace-nowrap inline-flex items-baseline ${TAM_ARABIC_WORD_GAP} ${s.ar}`} dir="rtl">
+        <span className="sr-only">{TAM_ARABIC_PLAIN}</span>
         <TamArabicText />
-        <span className={base}>{t('brandName.arSuffix')}</span>
+        <ArabiyaText onDark={variant === 'light'} />
       </p>
 
       <p className={`font-montserrat font-normal whitespace-nowrap ${s.sub}`} dir="ltr">
-        <span className="text-[#FFC107]">{t('brandName.enTam')}</span>
-        <span className={base}>{t('brandName.enAlarabiya')}</span>
+        <span className="brand-tam-hero-gold">{t('brandName.enTam')}</span>
+        <span className={variant === 'dark' ? 'brand-arabiya-text' : base}>{t('brandName.enAlarabiya')}</span>
       </p>
     </div>
   );

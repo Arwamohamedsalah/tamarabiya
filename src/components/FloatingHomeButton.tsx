@@ -83,7 +83,7 @@ const FloatingHomeButton: React.FC = () => {
         onClick={handleDownload}
         disabled={isDownloading}
         aria-label={t('floating.downloadProfile')}
-        className={`${floatingButtonClass} bg-yellow-400/95 border border-yellow-300/50 hover:bg-yellow-500 disabled:opacity-75`}
+        className={`${floatingButtonClass} bg-cta/95 border border-cta-light/50 hover:bg-cta-hover disabled:opacity-75`}
         style={{ borderRadius: 0 }}
       >
         <div className="flex items-center gap-0 group-hover:gap-3 transition-all duration-500 px-4 py-4">

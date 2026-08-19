@@ -8,6 +8,7 @@ import CroppedImage from '../components/CroppedImage';
 import { useEffect, useMemo, useState } from 'react';
 import ServiceCardWithSlider from '../components/ServiceCardWithSlider';
 import TamArabicText from '../components/TamArabicText';
+import { TAM_ARABIC_WORD_GAP } from '../constants/brandTamArabic';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 
 export default function Home() {
@@ -137,8 +138,8 @@ export default function Home() {
 
               {language === 'ar' && (
                 <>
-                  <div className="w-10 h-1 bg-yellow-400 opacity-60 my-1 mx-auto" />
-                  <h2 className="font-arabic arabic-brand-text text-lg md:text-xl lg:text-2xl leading-[1] mb-1 inline-flex items-baseline justify-center gap-1 flex-wrap" dir="rtl">
+                  <div className="w-10 h-1 bg-cta opacity-60 my-1 mx-auto" />
+                  <h2 className={`font-arabic arabic-brand-text text-lg md:text-xl lg:text-2xl leading-[1] mb-1 inline-flex items-baseline justify-center ${TAM_ARABIC_WORD_GAP} flex-wrap`} dir="rtl">
                     <span className="text-white">{t('home:hero.brandPrefix')}</span>
                     <TamArabicText />
                     <span className="text-white/95">{t('home:hero.brandSuffix')}</span>
@@ -152,7 +153,7 @@ export default function Home() {
                 {t('home:hero.taglineEn')}
               </p>
               {language === 'ar' && (
-                <p className="font-arabic arabic-brand-text text-sm md:text-lg text-yellow-400 font-bold opacity-90 tracking-wider">
+                <p className="font-arabic arabic-brand-text text-sm md:text-lg text-cta font-bold opacity-90 tracking-wider">
                   {t('home:hero.taglineAr')}
                 </p>
               )}
@@ -162,7 +163,7 @@ export default function Home() {
               <button
                 onClick={handleDownload}
                 disabled={isDownloading}
-                className="inline-flex items-center justify-center bg-yellow-400 text-white px-12 py-5 rounded-none font-bold text-sm md:text-base transition-all duration-300 hover:bg-yellow-500 hover:shadow-xl w-full sm:w-auto min-w-[240px] md:min-w-[280px] uppercase tracking-[0.2em] disabled:opacity-75 relative group overflow-hidden shadow-lg"
+                className="inline-flex items-center justify-center bg-cta text-white px-12 py-5 rounded-none font-bold text-sm md:text-base transition-all duration-300 hover:bg-cta-hover hover:shadow-xl w-full sm:w-auto min-w-[240px] md:min-w-[280px] uppercase tracking-[0.2em] disabled:opacity-75 relative group overflow-hidden shadow-lg"
               >
                 <div className={`transition-all duration-500 flex items-center gap-2 ${isDownloading ? 'opacity-0 scale-90 translate-y-10' : 'opacity-100 scale-100 translate-y-0'}`}>
                   <Download className="h-5 w-5" />
@@ -177,7 +178,7 @@ export default function Home() {
 
               <Link
                 to="/about"
-                className="inline-flex items-center justify-center border-2 border-yellow-400 bg-transparent text-yellow-400 px-12 py-5 rounded-none font-bold text-sm md:text-base transition-all duration-300 hover:bg-yellow-400 hover:text-white w-full sm:w-auto min-w-[240px] md:min-w-[280px] uppercase tracking-[0.2em]"
+                className="inline-flex items-center justify-center border-2 border-cta bg-transparent text-cta px-12 py-5 rounded-none font-bold text-sm md:text-base transition-all duration-300 hover:bg-cta hover:text-white w-full sm:w-auto min-w-[240px] md:min-w-[280px] uppercase tracking-[0.2em]"
               >
                 {t('home:hero.whoWeAre')}
               </Link>
@@ -191,11 +192,11 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16 animate-fade-in-up">
-            <span className="text-yellow-500 font-bold tracking-[0.2em] uppercase text-xs mb-3 block">{t('home:services.expertise')}</span>
+            <span className="text-cta font-bold tracking-[0.2em] uppercase text-xs mb-3 block">{t('home:services.expertise')}</span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-metal mb-6">
               {t('home:services.title')}
             </h2>
-            <div className="w-16 h-1 bg-yellow-400 mx-auto rounded-none"></div>
+            <div className="w-16 h-1 bg-cta mx-auto rounded-none"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

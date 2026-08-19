@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CompanyName from './CompanyName';
 import CroppedImage from './CroppedImage';
+import { useLocaleDirection } from '../hooks/useLocaleDirection';
 import type { ImageItem } from '../store/slices/imagesSlice';
 
 interface PageHeaderProps {
@@ -19,6 +20,8 @@ const PageHeader: React.FC<PageHeaderProps> = ({
     images = []
 }) => {
     const [heroIndex, setHeroIndex] = useState(0);
+    const { language } = useLocaleDirection();
+    const titleFont = language === 'ar' ? 'font-arabic arabic-brand-text' : 'font-montserrat english-brand-text';
 
     useEffect(() => {
         if (images.length > 1) {
@@ -71,14 +74,14 @@ const PageHeader: React.FC<PageHeaderProps> = ({
 
             <div className="relative z-10 text-center animate-fade-in-up px-4 max-w-6xl w-full pt-20 md:pt-28">
                 {titleEn ? (
-                    <p className="text-xs md:text-sm lg:text-base font-bold text-white mb-6 tracking-[0.6em] uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
+                    <p className={`text-xs md:text-sm lg:text-base font-bold text-white mb-6 tracking-[0.6em] uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-montserrat english-brand-text`}>
                         {titleEn}
                     </p>
                 ) : null}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)] leading-[1.1]">
+                <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-8 drop-shadow-[0_2px_16px_rgba(0,0,0,0.9)] leading-[1.1] ${titleFont}`}>
                     {title}
                 </h1>
-                <div className="w-16 h-1 bg-gradient-to-r from-transparent via-current to-transparent mx-auto opacity-40 rounded-full mb-12" style={{ color: accentColor === 'metal' ? '#94a3b8' : accentColor === 'landscape' ? '#22c55e' : accentColor === 'infra' ? '#f97316' : '#bf813d' }}></div>
+                <div className="w-16 h-1 bg-gradient-to-r from-transparent via-current to-transparent mx-auto opacity-40 rounded-none mb-12" style={{ color: accentColor === 'metal' ? '#94a3b8' : accentColor === 'landscape' ? '#22c55e' : accentColor === 'infra' ? '#f97316' : '#bf813d' }}></div>
 
                 {showCompanyName && (
                     <div className="mt-12 flex flex-col items-center drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">

@@ -76,7 +76,7 @@ export default function Header() {
             <LanguageSwitcher />
             <Link
               to="/contact"
-              className="bg-yellow-400 text-white px-8 py-3 rounded-none font-black uppercase tracking-[0.2em] hover:bg-yellow-500 transition-all duration-300 hover:shadow-lg focus:outline-none"
+              className="bg-cta text-white px-8 py-3 rounded-none font-black uppercase tracking-[0.2em] hover:bg-cta-hover transition-all duration-300 hover:shadow-lg focus:outline-none"
             >
               {t('nav.contact')}
             </Link>
@@ -133,7 +133,7 @@ export default function Header() {
             ))}
             <Link
               to="/contact"
-              className={`bg-yellow-400 text-white font-black py-4 px-4 rounded-none uppercase tracking-widest hover:bg-yellow-500 transition-all duration-300 mt-2 focus:outline-none text-center shadow-lg transform ${mobileMenuOpen
+              className={`bg-cta text-white font-black py-4 px-4 rounded-none uppercase tracking-widest hover:bg-cta-hover transition-all duration-300 mt-2 focus:outline-none text-center shadow-lg transform ${mobileMenuOpen
                 ? 'translate-x-0 opacity-100'
                 : mobileSlide + ' opacity-0'
                 }`}

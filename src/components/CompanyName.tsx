@@ -1,6 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 import TamArabicText from './TamArabicText';
+import ArabiyaText from './ArabiyaText';
+import EnglishAlarabiyaText from './EnglishAlarabiyaText';
+import { TAM_ARABIC_PLAIN, TAM_ARABIC_WORD_GAP } from '../constants/brandTamArabic';
 
 interface CompanyNameProps {
   variant?: 'light' | 'dark' | 'muted' | 'hero';
@@ -13,12 +16,38 @@ interface CompanyNameProps {
 const HERO_TAM_GOLD = 'brand-tam-hero-gold';
 
 function ArabicHighlight() {
-  const { t } = useTranslation('common');
-
   return (
     <span className="inline-flex items-baseline">
-      <span className="sr-only">{t('companyName.highlight')}</span>
+      <span className="sr-only">{TAM_ARABIC_PLAIN}</span>
       <TamArabicText />
+    </span>
+  );
+}
+
+function ArabicNameParts({
+  onDark,
+  textClass,
+  arabicWordGap,
+  nowrapClass,
+}: {
+  onDark: boolean;
+  textClass: string;
+  arabicWordGap: string;
+  nowrapClass: string;
+}) {
+  const { t } = useTranslation('common');
+  const prefixClass = onDark ? 'text-white' : 'text-gray-900';
+  const tailClass = onDark ? 'text-white' : 'text-gray-900';
+
+  return (
+    <span
+      className={`${textClass} inline-flex items-baseline ${arabicWordGap} ${nowrapClass}`}
+      dir="rtl"
+    >
+      <span className={prefixClass}>{t('companyName.prefix')}</span>
+      <ArabicHighlight />
+      <ArabiyaText onDark={onDark} />
+      <span className={tailClass}>{t('companyName.suffixTail')}</span>
     </span>
   );
 }
@@ -37,6 +66,8 @@ export default function CompanyName({
   const suffixKey = headerBrand && !isArabic ? 'headerName.suffix' : 'companyName.suffix';
   const prefixKey = 'companyName.prefix';
 
+  const onDark = variant === 'light' || variant === 'hero';
+
   const baseColor =
     variant === 'dark'
       ? 'text-gray-900'
@@ -50,22 +81,20 @@ export default function CompanyName({
     ? `font-arabic arabic-brand-text ${className}`
     : `font-montserrat english-brand-text tracking-[0.035em] ${className}`;
 
-  const englishWordGap = headerBrand ? 'gap-[0.22em] sm:gap-[0.28em]' : 'gap-[0.28em]';
-  const arabicWordGap = headerBrand ? 'gap-[0.22em] sm:gap-[0.32em]' : 'gap-[0.32em]';
+  const englishWordGap = headerBrand ? TAM_ARABIC_WORD_GAP : 'gap-[0.12em]';
+  const arabicWordGap = headerBrand ? TAM_ARABIC_WORD_GAP : 'gap-[0.12em]';
   const nowrapClass = headerBrand ? 'whitespace-nowrap' : '';
 
   if (variant === 'hero') {
     if (isArabic) {
       return (
         <div className={`flex flex-col items-center ${className}`}>
-          <h2
-            className={`${textClass} text-3xl md:text-5xl lg:text-6xl text-white drop-shadow-2xl text-center leading-tight inline-flex items-baseline gap-[0.32em] flex-wrap justify-center`}
-            dir="rtl"
-          >
-            <span>{t(prefixKey)}</span>
-            <ArabicHighlight />
-            <span>{t(suffixKey)}</span>
-          </h2>
+          <ArabicNameParts
+            onDark={onDark}
+            nowrapClass="flex-wrap justify-center"
+            textClass={`${textClass} text-3xl md:text-5xl lg:text-6xl drop-shadow-2xl text-center leading-tight`}
+            arabicWordGap={TAM_ARABIC_WORD_GAP}
+          />
         </div>
       );
     }
@@ -79,26 +108,58 @@ export default function CompanyName({
           <span className={highlightClassName === 'text-cta' ? HERO_TAM_GOLD : highlightClassName}>
             {t(highlightKey)}
           </span>
-          <span>{t(suffixKey)}</span>
+          <span className={onDark ? 'text-white' : 'brand-arabiya-text'}>
+            {headerBrand ? (
+              <EnglishAlarabiyaText onDark={onDark} />
+            ) : (
+              t(suffixKey)
+            )}
+          </span>
         </span>
       </div>
     );
   }
 
-  return (
-    <span
-      className={`${textClass} inline-flex items-baseline ${isArabic ? arabicWordGap : englishWordGap} ${nowrapClass}`}
-      dir={isArabic ? 'rtl' : 'ltr'}
-    >
-      <span className={baseColor}>{t(prefixKey)}</span>
-      {isArabic ? (
-        <ArabicHighlight />
-      ) : (
+  if (isArabic) {
+    return (
+      <ArabicNameParts
+        onDark={onDark}
+        nowrapClass={nowrapClass}
+        textClass={textClass}
+        arabicWordGap={arabicWordGap}
+      />
+    );
+  }
+
+  const englishPrefixClass =
+    variant === 'muted' ? 'text-gray-400' : onDark ? 'text-white' : 'text-gray-900';
+
+  if (headerBrand) {
+    return (
+      <span
+        className={`${textClass} inline-flex items-baseline ${englishWordGap} ${nowrapClass}`}
+        dir="ltr"
+      >
         <span className={highlightClassName === 'text-cta' || highlightClassName === 'text-yellow-400' || highlightClassName === 'brand-tam-hero-gold' ? HERO_TAM_GOLD : highlightClassName}>
           {t(highlightKey)}
         </span>
-      )}
-      <span className={baseColor}>{t(suffixKey)}</span>
+        <EnglishAlarabiyaText onDark={onDark} />
+      </span>
+    );
+  }
+
+  const englishSuffixClass = onDark ? 'text-white' : 'brand-arabiya-text';
+
+  return (
+    <span
+      className={`${textClass} inline-flex items-baseline ${englishWordGap} ${nowrapClass}`}
+      dir="ltr"
+    >
+      <span className={englishPrefixClass}>{t(prefixKey)}</span>
+      <span className={highlightClassName === 'text-cta' || highlightClassName === 'text-yellow-400' || highlightClassName === 'brand-tam-hero-gold' ? HERO_TAM_GOLD : highlightClassName}>
+        {t(highlightKey)}
+      </span>
+      <span className={englishSuffixClass}>{t(suffixKey)}</span>
     </span>
   );
 }

@@ -31,6 +31,8 @@
   "companyName": {
     "prefix": "",
     "highlight": "TAM",
+    "arabiya": "Alarabiya",
+    "suffixTail": "",
     "suffix": "Al Arabia",
     "heroEn": "TAM Al Arabia",
     "heroAr": "TAM Al Arabia Contracting Co."

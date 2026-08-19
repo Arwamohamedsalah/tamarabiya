@@ -5,7 +5,7 @@
 @layer components {
   .brand-tam-hero-gold {
     color: var(--brand-tam-gold);
-    filter: drop-shadow(0 0 16px rgba(243, 191, 28, 0.35));
+    filter: drop-shadow(0 0 16px rgba(243, 156, 18, 0.35));
   }
 
   .brand-wordmark-tam-gradient {
@@ -36,6 +36,10 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+  }
+
+  .brand-arabiya-text {
+    color: #111827;
   }
 }
 
@@ -78,7 +82,7 @@
 
   /* 8-point grid system spacing */
   :root {
-    --brand-tam-gold: #f3bf1c;
+    --brand-tam-gold: #f39c12;
     --spacing-1: 0.5rem;
     /* 8px */
     --spacing-2: 1rem;

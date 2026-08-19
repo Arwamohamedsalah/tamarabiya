@@ -19,17 +19,19 @@
   },
   "tagline": "TAM Alarabiya Co.",
   "brandName": {
-    "arHighlight": "تام",
+    "arHighlight": "تــــــــام",
     "arSuffix": " العربيـــــة",
     "enTam": "Tam",
     "enAlarabiya": " Alarabiya"
   },
   "companyName": {
-    "prefix": "شركة ",
-    "highlight": "تام",
+    "prefix": "شركة",
+    "highlight": "تــــــــام",
+    "arabiya": "العربيـــــة",
+    "suffixTail": "للمقاولات",
     "suffix": " العربيـــــة للمقاولات",
     "heroEn": "TAM Al Arabia",
-    "heroAr": "شركة تام العربية للمقاولات"
+    "heroAr": "شركة تــــــــام العربية للمقاولات"
   },
   "footer": {
     "description": "شريككم الاستراتيجي في بناء المستقبل، نجمع بين الخبرة العميقة والحلول المبتكرة في كافة مجالات المقاولات الحديثة.",
@@ -41,7 +43,7 @@
     "salesEmail": "المبيعات",
     "location": "الموقع الجغرافي",
     "locationValue": "الرياض، المملكة العربية السعودية",
-    "copyright": "© {{year}} – {{hijriYear}}H شركة تام العربية للمقاولات. جميع الحقوق محفوظة.",
+    "copyright": "© {{year}} – {{hijriYear}}H شركة تــــــــام العربية للمقاولات. جميع الحقوق محفوظة.",
     "privacy": "سياسة الخصوصية",
     "terms": "الشروط والأحكام",
     "links": {

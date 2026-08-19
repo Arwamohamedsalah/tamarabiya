@@ -18,6 +18,8 @@ import defaultFencingWorkAreas from '../content/fencingWorkAreas.json';
 import defaultInfrastructureWorkAreas from '../content/infrastructureWorkAreas.json';
 import type { WorkAreaSection } from '../types/workAreaSection';
 import type { ImageItem } from '../store/slices/imagesSlice';
+import TamArabicText from '../components/TamArabicText';
+import { TAM_ARABIC_WORD_GAP } from '../constants/brandTamArabic';
 
 const WORK_AREA_DEFAULTS: Record<'landscaping' | 'fencing' | 'infrastructure', WorkAreaSection[]> = {
   landscaping: defaultLandscapingWorkAreas as WorkAreaSection[],
@@ -998,7 +1000,11 @@ export default function Dashboard() {
               <Building2 className="h-6 w-6" />
             </div>
             <div className={`transition-all duration-300 ${sidebarOpen ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4 w-0 overflow-hidden'}`}>
-              <h1 className="text-lg font-bold whitespace-nowrap">شركة تام العربية</h1>
+              <h1 className={`text-lg font-bold whitespace-nowrap inline-flex items-baseline ${TAM_ARABIC_WORD_GAP}`}>
+                <span>شركة</span>
+                <TamArabicText />
+                <span>العربية</span>
+              </h1>
               <p className="text-xs text-metal-silver whitespace-nowrap">TAM Alarabiya Co.</p>
             </div>
           </button>

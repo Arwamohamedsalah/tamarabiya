@@ -106,7 +106,7 @@ export default function ServiceCardWithSlider({
         <div className="relative w-full h-1/2 overflow-hidden">
           {renderImg(currentPair[0], defaultImage, title)}
         </div>
-        <div className="h-[3px] bg-yellow-400/60 flex-shrink-0 z-10" />
+        <div className="h-[3px] bg-cta/60 flex-shrink-0 z-10" />
         <div className="relative w-full h-1/2 overflow-hidden">
           {renderImg(currentPair[1], defaultImage, title)}
         </div>
@@ -118,19 +118,19 @@ export default function ServiceCardWithSlider({
           {imagePairs.map((_, i) => (
             <span
               key={i}
-              className={`h-1 transition-all duration-500 rounded-none ${i === slideIndex ? 'bg-yellow-400 w-6' : 'bg-white/30 w-1.5'}`}
+              className={`h-1 transition-all duration-500 rounded-none ${i === slideIndex ? 'bg-cta w-6' : 'bg-white/30 w-1.5'}`}
             />
           ))}
         </div>
       )}
 
       <div className={`relative z-10 h-full p-8 flex flex-col justify-end ${contentAlign}`}>
-        <div className={`w-12 h-1 bg-yellow-400 mb-6 transition-all duration-500 group-hover:w-20`}></div>
+        <div className={`w-12 h-1 bg-cta mb-6 transition-all duration-500 group-hover:w-20`}></div>
 
-        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">
+        <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-cta transition-colors">
           {title}
         </h3>
-        <h4 className="text-xs font-bold text-yellow-400/80 mb-4 tracking-[0.3em] uppercase">
+        <h4 className="text-xs font-bold text-cta/80 mb-4 tracking-[0.3em] uppercase">
           {titleEn}
         </h4>
 
@@ -138,13 +138,13 @@ export default function ServiceCardWithSlider({
           {description}
         </p>
 
-        <div className={`flex items-center gap-2 text-yellow-400 font-bold text-xs uppercase tracking-widest ${isRtl ? 'justify-start' : 'justify-end'}`}>
+        <div className={`flex items-center gap-2 text-cta font-bold text-xs uppercase tracking-widest ${isRtl ? 'justify-start' : 'justify-end'}`}>
           <span>{t('services.explore')}</span>
           <ArrowRight className={`h-4 w-4 transition-transform ${arrowHover} ${isRtl ? '' : 'rotate-180'}`} />
         </div>
       </div>
 
-      <div className={`absolute bottom-0 ${isRtl ? 'left-0' : 'right-0'} h-1 bg-yellow-400 w-0 group-hover:w-full transition-all duration-700`}></div>
+      <div className={`absolute bottom-0 ${isRtl ? 'left-0' : 'right-0'} h-1 bg-cta w-0 group-hover:w-full transition-all duration-700`}></div>
     </Link>
   );
 }

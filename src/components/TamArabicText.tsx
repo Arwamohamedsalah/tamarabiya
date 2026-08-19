@@ -1,14 +1,15 @@
+import { TAM_ARABIC_STYLED } from '../constants/brandTamArabic';
 import '../styles/tam-ar-text.css';
 
 interface TamArabicTextProps {
   className?: string;
 }
 
-/** "تام" — Tajawal + brand gold */
+/** "تــــــــام" — Tajawal + brand copper gold + kashida */
 export default function TamArabicText({ className = '' }: TamArabicTextProps) {
   return (
     <span className={`tam-ar-text brand-tam-hero-gold ${className}`.trim()} aria-hidden="true">
-      تام
+      {TAM_ARABIC_STYLED}
     </span>
   );
 }

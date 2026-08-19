@@ -20,7 +20,7 @@ export default function LanguageSwitcher({ className = '', onSwitch }: LanguageS
     <button
       type="button"
       onClick={handleSwitch}
-      className={`text-metal-silver hover:text-white font-black text-xs uppercase tracking-[0.25em] border border-white/20 px-3 py-2 transition-all duration-300 hover:border-yellow-400/60 hover:text-yellow-400 focus:outline-none min-w-[44px] text-center ${className}`}
+      className={`text-metal-silver hover:text-white font-black text-xs uppercase tracking-[0.25em] border border-white/20 px-3 py-2 transition-all duration-300 hover:border-cta/60 hover:text-cta focus:outline-none min-w-[44px] text-center ${className}`}
       aria-label={nextLang === 'en' ? t('aria.switchToEnglish') : t('aria.switchToArabic')}
       lang={nextLang}
     >

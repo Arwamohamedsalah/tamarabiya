@@ -1,14 +1,23 @@
 import { useTranslation } from 'react-i18next';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
+import TamArabicText from '../components/TamArabicText';
+import ArabiyaText from '../components/ArabiyaText';
+import EnglishAlarabiyaText from '../components/EnglishAlarabiyaText';
+import { TAM_ARABIC_WORD_GAP } from '../constants/brandTamArabic';
 import { useLocaleDirection } from '../hooks/useLocaleDirection';
 
 export default function About() {
-  const { t, i18n } = useTranslation(['about', 'seo']);
-  const { isRtl } = useLocaleDirection();
-  const isArabic = i18n.language === 'ar';
+  const { t } = useTranslation(['about', 'seo']);
+  const { isRtl, language } = useLocaleDirection();
+  const isArabic = language === 'ar';
   const textAlign = isRtl ? 'text-right' : 'text-left';
   const borderSide = isRtl ? 'border-r-4' : 'border-l-4';
+  const textFont = isArabic ? 'font-arabic arabic-brand-text' : 'font-montserrat';
+  const bodyText = `text-gray-700 leading-relaxed text-base md:text-lg ${textFont}`;
+  const sectionTitle = `text-xl md:text-2xl font-black text-gray-900 ${textFont}`;
+  const pageTitle = `text-2xl md:text-3xl font-black text-gray-900 ${textFont}`;
+  const cardTitle = `text-lg md:text-xl font-bold text-gray-900 ${textFont}`;
 
   const specializationItems = t('about:specializations.items', { returnObjects: true }) as string[];
 
@@ -38,29 +47,37 @@ export default function About() {
         <div className="mb-16 max-w-5xl mx-auto animate-fade-in-up">
           <div className="bg-white rounded-none shadow-xl p-8 md:p-12 border border-gray-100 hover:shadow-2xl transition-all duration-500">
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-1 h-12 bg-gradient-to-b from-landscape to-landscape-dark rounded-full"></div>
-              <h2 className={`text-2xl md:text-3xl font-black text-gray-900 ${textAlign}`}>
+              <div className="w-1 h-10 bg-gradient-to-b from-landscape to-landscape-dark rounded-full"></div>
+              <h2 className={`${sectionTitle} ${textAlign}`}>
                 {isArabic ? (
                   <>
-                    نطمح في <span className="text-yellow-500">تام العربية</span>
+                    نطمح في{' '}
+                    <span className={`inline-flex items-baseline ${TAM_ARABIC_WORD_GAP}`}>
+                      <TamArabicText />
+                      <ArabiyaText />
+                    </span>
                   </>
                 ) : (
                   <>
-                    We aspire in <span className="text-yellow-500">TAM ALARABIYA</span>
+                    We aspire in{' '}
+                    <span className={`inline-flex items-baseline ${TAM_ARABIC_WORD_GAP}`}>
+                      <span className="brand-tam-hero-gold">TAM</span>
+                      <EnglishAlarabiyaText uppercase />
+                    </span>
                   </>
                 )}
               </h2>
             </div>
             {isArabic ? (
-              <p className={`${textAlign} text-gray-700 leading-relaxed text-lg md:text-xl`}>
+              <p className={`${textAlign} ${bodyText}`}>
                 {t('about:companyIntro.paragraphAr')}
               </p>
             ) : (
               <div className={`space-y-6 ${textAlign}`}>
-                <p className="text-gray-700 leading-relaxed text-lg md:text-xl">
+                <p className={bodyText}>
                   {t('about:companyIntro.paragraphEn1')}
                 </p>
-                <p className="text-gray-700 leading-relaxed text-lg md:text-xl">
+                <p className={bodyText}>
                   {t('about:companyIntro.paragraphEn2')}
                 </p>
               </div>
@@ -71,28 +88,38 @@ export default function About() {
         <div className="grid md:grid-cols-1 gap-8 md:gap-12 mb-16 max-w-4xl mx-auto">
           <div className="bg-white rounded-none shadow-xl p-8 md:p-12 hover:shadow-2xl transition-all duration-500 hover-lift animate-fade-in-up border border-gray-100">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-1 h-12 bg-gradient-to-b from-infra via-landscape to-metal rounded-full"></div>
-              <h2 className={`text-3xl md:text-4xl font-black text-gray-900 ${textAlign}`}>
-                {t('about:specializations.titlePrefix')}
-                <span className="text-yellow-400">{t('about:specializations.titleHighlight')}</span>
-                {t('about:specializations.titleSuffix')}
+              <div className="w-1 h-10 bg-gradient-to-b from-infra via-landscape to-metal rounded-full"></div>
+              <h2 className={`${sectionTitle} ${textAlign} inline-flex items-baseline flex-wrap ${TAM_ARABIC_WORD_GAP}`}>
+                {isArabic ? (
+                  <>
+                    {t('about:specializations.titlePrefix')}
+                    <TamArabicText />
+                    {t('about:specializations.titleSuffix')}
+                  </>
+                ) : (
+                  <>
+                    <span className="brand-tam-hero-gold">{t('about:specializations.titleHighlight')}</span>
+                    <EnglishAlarabiyaText />
+                    <span>{t('about:specializations.titleSuffix')}</span>
+                  </>
+                )}
               </h2>
             </div>
-            <ul className={`space-y-6 ${textAlign} text-gray-700 leading-relaxed text-lg`}>
+            <ul className={`space-y-6 ${textAlign} ${bodyText}`}>
               {specializationItems.map((item, index) => (
                 <li key={index} className="flex items-start gap-4 group">
                   <div className="bg-gradient-to-br from-landscape/20 to-metal/20 p-2 rounded-lg group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-landscape-dark font-bold text-xl">•</span>
+                    <span className="text-landscape-dark font-bold text-lg">•</span>
                   </div>
                   <span className="group-hover:text-infra transition-colors duration-300">{item}</span>
                 </li>
               ))}
             </ul>
             <div className="mt-8 pt-6 border-t border-gray-200">
-              <p className={`${textAlign} text-gray-700 leading-relaxed text-lg`}>
+              <p className={`${textAlign} ${bodyText}`}>
                 {t('about:specializations.paragraph1')}
               </p>
-              <p className={`mt-4 ${textAlign} text-gray-700 leading-relaxed text-lg`}>
+              <p className={`mt-4 ${textAlign} ${bodyText}`}>
                 {t('about:specializations.paragraph2')}
               </p>
             </div>
@@ -103,10 +130,10 @@ export default function About() {
       <section className="bg-gradient-to-b from-gray-50 to-gray-100 py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className={`${pageTitle} mb-4`}>
               {t('about:visionMission.title')}
             </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-cta to-transparent mx-auto rounded-full"></div>
+            <div className="w-16 h-1 bg-gradient-to-r from-transparent via-cta to-transparent mx-auto rounded-none"></div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -118,9 +145,9 @@ export default function About() {
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-2 h-2 bg-cta rounded-full"></div>
-                  <h3 className={`text-2xl md:text-3xl font-bold text-gray-900 ${textAlign}`}>{item.title}</h3>
+                  <h3 className={`${cardTitle} ${textAlign}`}>{item.title}</h3>
                 </div>
-                <p className={`${textAlign} text-gray-700 leading-relaxed text-lg`}>{item.text}</p>
+                <p className={`${textAlign} ${bodyText}`}>{item.text}</p>
               </div>
             ))}
           </div>
@@ -134,21 +161,21 @@ export default function About() {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-4 ${textFont}`}>
               {t('about:companyVision.title')}
             </h2>
-            <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto rounded-full"></div>
+            <div className="w-16 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto rounded-none"></div>
           </div>
           <div className="grid md:grid-cols-1 gap-8 md:gap-12 max-w-3xl mx-auto">
             <div className="bg-white/10 backdrop-blur-md p-8 md:p-10 rounded-none border border-white/20 hover:bg-white/15 transition-all duration-500 hover-lift shadow-xl animate-fade-in-up">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-2 h-2 bg-white rounded-full"></div>
-                <h3 className={`text-xl font-semibold ${textAlign}`}>{t('about:companyVision.heading')}</h3>
+                <h3 className={`${cardTitle} text-white ${textAlign}`}>{t('about:companyVision.heading')}</h3>
               </div>
-              <p className={`text-lg md:text-xl leading-relaxed ${textAlign}`}>
+              <p className={`${bodyText} text-white/90 ${textAlign}`}>
                 {t('about:companyVision.paragraph1')}
               </p>
-              <p className={`text-lg md:text-xl leading-relaxed ${textAlign} mt-6`}>
+              <p className={`${bodyText} text-white/90 ${textAlign} mt-6`}>
                 {t('about:companyVision.paragraph2')}
               </p>
             </div>

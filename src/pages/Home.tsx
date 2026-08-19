@@ -119,7 +119,7 @@ export default function Home() {
           </div>
         )}
 
-        <div className="relative z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 md:pt-28">
+        <div className="relative z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-[5.5rem] md:pt-28">
           <div className="animate-fade-in-up">
             <div className="mb-2 lg:mb-4 flex flex-col items-center gap-1 md:gap-2 text-center">
               <div className="flex flex-col items-center" dir="ltr">

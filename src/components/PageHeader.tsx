@@ -72,7 +72,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({
                 </div>
             )}
 
-            <div className="relative z-10 text-center animate-fade-in-up px-4 max-w-6xl w-full pt-20 md:pt-28">
+            <div className="relative z-10 text-center animate-fade-in-up px-4 max-w-6xl w-full pt-[5.5rem] md:pt-28">
                 {titleEn ? (
                     <p className={`text-xs md:text-sm lg:text-base font-bold text-white mb-6 tracking-[0.6em] uppercase drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-montserrat english-brand-text`}>
                         {titleEn}

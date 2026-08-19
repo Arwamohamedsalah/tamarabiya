@@ -9,6 +9,8 @@ interface CompanyNameProps {
   variant?: 'light' | 'dark' | 'muted' | 'hero';
   /** Header-only English wordmark: Tam + Alarabiya */
   headerBrand?: boolean;
+  /** Allow name to wrap onto multiple lines (e.g. footer) */
+  wrap?: boolean;
   className?: string;
   highlightClassName?: string;
 }
@@ -28,12 +30,12 @@ function ArabicNameParts({
   onDark,
   textClass,
   arabicWordGap,
-  nowrapClass,
+  layoutClass,
 }: {
   onDark: boolean;
   textClass: string;
   arabicWordGap: string;
-  nowrapClass: string;
+  layoutClass: string;
 }) {
   const { t } = useTranslation('common');
   const prefixClass = onDark ? 'text-white' : 'text-gray-900';
@@ -41,7 +43,7 @@ function ArabicNameParts({
 
   return (
     <span
-      className={`${textClass} inline-flex items-baseline ${arabicWordGap} ${nowrapClass}`}
+      className={`${textClass} ${layoutClass} items-baseline ${arabicWordGap}`}
       dir="rtl"
     >
       <span className={prefixClass}>{t('companyName.prefix')}</span>
@@ -55,6 +57,7 @@ function ArabicNameParts({
 export default function CompanyName({
   variant = 'light',
   headerBrand = false,
+  wrap = false,
   className = '',
   highlightClassName = 'text-cta',
 }: CompanyNameProps) {
@@ -84,6 +87,7 @@ export default function CompanyName({
   const englishWordGap = headerBrand ? TAM_ARABIC_WORD_GAP : 'gap-[0.12em]';
   const arabicWordGap = headerBrand ? TAM_ARABIC_WORD_GAP : 'gap-[0.12em]';
   const nowrapClass = headerBrand ? 'whitespace-nowrap' : '';
+  const layoutClass = wrap ? 'flex flex-wrap w-full max-w-full' : `inline-flex ${nowrapClass}`;
 
   if (variant === 'hero') {
     if (isArabic) {
@@ -91,7 +95,7 @@ export default function CompanyName({
         <div className={`flex flex-col items-center ${className}`}>
           <ArabicNameParts
             onDark={onDark}
-            nowrapClass="flex-wrap justify-center"
+            layoutClass="flex flex-wrap justify-center w-full max-w-full"
             textClass={`${textClass} text-3xl md:text-5xl lg:text-6xl drop-shadow-2xl text-center leading-tight`}
             arabicWordGap={TAM_ARABIC_WORD_GAP}
           />
@@ -124,7 +128,7 @@ export default function CompanyName({
     return (
       <ArabicNameParts
         onDark={onDark}
-        nowrapClass={nowrapClass}
+        layoutClass={layoutClass}
         textClass={textClass}
         arabicWordGap={arabicWordGap}
       />
@@ -152,7 +156,7 @@ export default function CompanyName({
 
   return (
     <span
-      className={`${textClass} inline-flex items-baseline ${englishWordGap} ${nowrapClass}`}
+      className={`${textClass} ${layoutClass} items-baseline ${englishWordGap}`}
       dir="ltr"
     >
       <span className={englishPrefixClass}>{t(prefixKey)}</span>

@@ -37,13 +37,13 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-metal/95 backdrop-blur-md border-b border-white/5 shadow-2xl" role="banner">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-[5.5rem]">
           <Link
             to="/"
-            className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity focus:outline-none group py-2 min-w-0 flex-1 max-w-[calc(100%-4.75rem)] lg:max-w-none lg:flex-initial"
+            className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity focus:outline-none group min-w-0 flex-1 max-w-[calc(100%-4.75rem)] lg:max-w-none lg:flex-initial"
             aria-label={t('aria.homePage')}
           >
-            <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-none overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-110 bg-white p-1 shrink-0">
+            <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-none overflow-hidden shadow-lg transition-all duration-300 group-hover:scale-110 bg-white p-1.5 shrink-0">
               <img
                 src="/tam.png"
                 alt={t('aria.logoAlt')}

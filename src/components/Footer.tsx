@@ -11,8 +11,8 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
   const hijriYear = currentYear - 621;
 
-  const textAlign = isRtl ? 'text-center lg:text-right' : 'text-center lg:text-left';
-  const flexAlign = isRtl ? 'justify-center lg:justify-start' : 'justify-center lg:justify-start';
+  const textAlign = isRtl ? 'text-center xl:text-right' : 'text-center xl:text-left';
+  const flexAlign = isRtl ? 'justify-center xl:justify-start' : 'justify-center xl:justify-start';
   const arrowClass = isRtl
     ? 'h-4 w-4 opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0 hidden lg:block'
     : 'h-4 w-4 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0 hidden lg:block rotate-180';
@@ -22,9 +22,12 @@ export default function Footer() {
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cta to-transparent opacity-50"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16 mb-12">
-          <div className={`col-span-2 lg:col-span-1 space-y-8 ${textAlign} mb-12 lg:mb-0`}>
-            <Link to="/" className={`flex items-center gap-3 sm:gap-4 group ${flexAlign} flex-nowrap shrink-0`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-y-12 gap-x-8 md:gap-x-12 xl:gap-x-10 mb-12">
+          <div className={`md:col-span-2 xl:col-span-1 space-y-8 ${textAlign} min-w-0 max-w-full overflow-hidden xl:pe-6 ${isRtl ? 'xl:border-l xl:border-white/5 xl:pl-6' : 'xl:border-r xl:border-white/5 xl:pr-6'}`}>
+            <Link
+              to="/"
+              className={`flex flex-row items-start gap-4 sm:gap-5 group w-full min-w-0 max-w-full overflow-hidden ${flexAlign}`}
+            >
               <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-none overflow-hidden shadow-lg bg-white p-1 shrink-0 transition-transform duration-300 group-hover:scale-110">
                 <img
                   src="/tam.png"
@@ -32,11 +35,11 @@ export default function Footer() {
                   className="block w-full h-full object-contain"
                 />
               </div>
-              <div className={isRtl ? 'text-right' : 'text-left'}>
-                <p className="text-lg md:text-xl leading-tight">
-                  <CompanyName variant="light" highlightClassName="brand-tam-hero-gold" />
+              <div className={`flex-1 min-w-0 max-w-full overflow-hidden ${isRtl ? 'text-right' : 'text-left'}`}>
+                <p className="text-base md:text-lg xl:text-xl leading-snug break-words">
+                  <CompanyName variant="light" highlightClassName="brand-tam-hero-gold" wrap />
                 </p>
-                <p className="font-montserrat english-brand-text text-[10px] md:text-xs text-metal-silver uppercase tracking-[0.3em] opacity-40 mt-0.5">
+                <p className="font-montserrat english-brand-text text-[10px] md:text-xs text-metal-silver uppercase tracking-[0.25em] sm:tracking-[0.3em] opacity-40 mt-1">
                   {t('tagline')}
                 </p>
               </div>
@@ -59,8 +62,8 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className={textAlign}>
-            <h3 className={`text-lg lg:text-xl font-black mb-8 text-white flex items-center gap-3 ${flexAlign}`}>
+          <div className={`min-w-0 ${textAlign}`}>
+            <h3 className={`text-lg xl:text-xl font-black mb-8 text-white inline-flex items-center gap-3 max-w-full ${flexAlign}`}>
               <div className="w-1.5 h-7 bg-cta rounded-none"></div>
               {t('footer.quickLinks')}
             </h3>
@@ -81,8 +84,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className={textAlign}>
-            <h3 className={`text-lg lg:text-xl font-black mb-8 text-white flex items-center gap-3 ${flexAlign}`}>
+          <div className={`min-w-0 ${textAlign}`}>
+            <h3 className={`text-lg xl:text-xl font-black mb-8 text-white inline-flex items-center gap-3 max-w-full ${flexAlign}`}>
               <div className="w-1.5 h-7 bg-landscape rounded-none"></div>
               {t('footer.services')}
             </h3>
@@ -102,7 +105,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className={`col-span-2 lg:col-span-1 ${textAlign} pt-8 lg:pt-0 border-t border-white/5 lg:border-none`}>
+          <div className={`md:col-span-2 xl:col-span-1 min-w-0 ${textAlign} pt-8 xl:pt-0 border-t border-white/5 xl:border-none`}>
             <h3 className={`text-lg lg:text-xl font-black mb-8 text-white flex items-center gap-3 ${flexAlign}`}>
               <div className="w-1.5 h-7 bg-infra rounded-none"></div>
               {t('footer.contactInfo')}

@@ -5,7 +5,7 @@
 @layer components {
   .brand-tam-hero-gold {
     color: var(--brand-tam-gold);
-    filter: drop-shadow(0 0 16px rgba(243, 156, 18, 0.35));
+    filter: drop-shadow(0 0 16px rgba(243, 191, 28, 0.35));
   }
 
   .brand-wordmark-tam-gradient {
@@ -82,7 +82,7 @@
 
   /* 8-point grid system spacing */
   :root {
-    --brand-tam-gold: #f39c12;
+    --brand-tam-gold: #f3bf1c;
     --spacing-1: 0.5rem;
     /* 8px */
     --spacing-2: 1rem;
@@ -258,11 +258,11 @@
 
     0%,
     100% {
-      box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
+      box-shadow: 0 0 20px rgba(243, 191, 28, 0.3);
     }
 
     50% {
-      box-shadow: 0 0 40px rgba(243, 156, 18, 0.5);
+      box-shadow: 0 0 40px rgba(243, 191, 28, 0.5);
     }
   }
 
@@ -467,12 +467,12 @@
   }
 
   .hover-glow:hover {
-    box-shadow: 0 0 30px rgba(243, 156, 18, 0.4);
+    box-shadow: 0 0 30px rgba(243, 191, 28, 0.4);
   }
 
   /* Gradient text - ثلاثي المجالات */
   .gradient-text {
-    background: linear-gradient(90deg, #4B4B4B, #27AE60, #2C3E50, #F39C12);
+    background: linear-gradient(90deg, #4B4B4B, #27AE60, #2C3E50, #f3bf1c);
     background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -495,7 +495,7 @@
   }
 
   .gradient-text-infra {
-    background: linear-gradient(90deg, #4B4B4B, #F39C12);
+    background: linear-gradient(90deg, #4B4B4B, #f3bf1c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -521,7 +521,7 @@
   .mesh-bg {
     background-color: #0a192f;
     background-image:
-      radial-gradient(at 0% 0%, rgba(243, 156, 18, 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 0%, rgba(243, 191, 28, 0.15) 0px, transparent 50%),
       radial-gradient(at 50% 0%, rgba(39, 174, 96, 0.1) 0px, transparent 50%),
       radial-gradient(at 100% 0%, rgba(44, 62, 80, 0.2) 0px, transparent 50%);
   }

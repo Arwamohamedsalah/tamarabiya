@@ -5,7 +5,7 @@ interface TamArabicTextProps {
   className?: string;
 }
 
-/** "تــــــــام" — Tajawal + brand copper gold + kashida */
+/** "تــــــــام" — Tajawal + brand gold + kashida */
 export default function TamArabicText({ className = '' }: TamArabicTextProps) {
   return (
     <span className={`tam-ar-text brand-tam-hero-gold ${className}`.trim()} aria-hidden="true">

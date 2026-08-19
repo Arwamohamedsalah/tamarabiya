@@ -31,11 +31,11 @@ export default {
           dark: '#1a252f',
           silver: '#BDC3C7',
         },
-        /* CTA وتفاعل - برتقالي */
+        /* CTA وتفاعل - أصفر ذهبي */
         'cta': {
-          DEFAULT: '#F39C12',
-          hover: '#e67e22',
-          light: '#f5b041',
+          DEFAULT: '#FACC15',
+          hover: '#EAB308',
+          light: '#FDE047',
         },
         /* نص رئيسي */
         'text-primary': '#333333',

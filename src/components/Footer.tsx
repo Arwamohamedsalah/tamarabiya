@@ -24,9 +24,13 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-16 mb-12">
           <div className={`col-span-2 lg:col-span-1 space-y-8 ${textAlign} mb-12 lg:mb-0`}>
-            <Link to="/" className={`flex items-center gap-4 group ${flexAlign}`}>
-              <div className="w-16 h-16 bg-white rounded-none p-2 shadow-2xl transition-transform duration-500 group-hover:rotate-6">
-                <img src="/tam.png" alt={t('aria.logoAlt')} className="w-full h-full object-contain" />
+            <Link to="/" className={`flex items-center gap-3 sm:gap-4 group ${flexAlign} flex-nowrap shrink-0`}>
+              <div className="relative w-14 h-14 md:w-16 md:h-16 rounded-none overflow-hidden shadow-lg bg-white p-1 shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <img
+                  src="/tam.png"
+                  alt={t('aria.logoAlt')}
+                  className="block w-full h-full object-contain"
+                />
               </div>
               <div className={isRtl ? 'text-right' : 'text-left'}>
                 <p className="text-lg md:text-xl leading-tight">
